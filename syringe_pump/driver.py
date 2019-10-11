@@ -277,9 +277,23 @@ class Driver(object):
     def _set_speed(self,speed):
         """
         set speed as an atomic command. can be executed if plunger is moving. If plunger is moving accepts speeds below 68.8.
-
         Example: ''
-        "/1V25.0,1F\r" set speed to 25.0 uL/s
+        "/1V25.0,1F"\r" set speed to 25.0 uL/s
+
+        Parameters
+        ----------
+        speed: float
+            input speed as float
+
+        Returns
+        -------
+        reply: string
+            unparse complete response string
+
+        Examples
+        --------
+        >>> driver._set_speed(speed = 25)
+
         """
         spd = round(speed,3)
         reply = self.query(command = '/1V'+str(spd)+',1R\r')
@@ -302,9 +316,22 @@ class Driver(object):
     def set_speed(self,speed):
         """
         set speed as an atomic command. can be executed if plunger is moving. If plunger is moving accepts speeds below 68.8.
+        Example: '/1V25.0,1F"\"r' set speed to 25.0 uL per s
 
-        Example: ''
-        "/1V25.0,1F\r" set speed to 25.0 uL/s
+        Parameters
+        ----------
+        speed: float
+            input speed as float
+
+        Returns
+        -------
+        reply: string
+            unparse complete response string
+
+        Examples
+        --------
+        >>> driver.set_speed(speed = 25)
+
         """
         self.abort()
         spd = round(speed,3)
@@ -395,27 +422,37 @@ class Driver(object):
         reply = self.query(command  = '/1TR\r', port = self.port)
         return reply
 
-    def home(self, echo = False):
+    def home(self):
         """
-
-        FIXIT THIS OPERATION SHOULD BE IN THE DRIVER
-
-        homes syringe pumps.
+        homes the syringe pump
         The homing parameters are hardcoded:
-                speed   orientation     Backlash        start position
-        pump1: 25       Y               self.backlash   0
-        pump2: 25       Z               self.backlash   0
-        pump3: 25       Y               self.backlash   0
-        pump4: 25       Z               self.backlash   0
+        +--------+-------+---------------+----------------+------------+
+        | pump   | speed |  orientation  |   Backlash     | start pos  |
+        +========+=======+===============+================+============+
+        | pump1: |  25   |    Y          |  self.backlash |  0         |
+        +--------+-------+---------------+----------------+------------+
+        | pump2: |  25   |    Z          |  self.backlash |  0         |
+        +--------+-------+---------------+----------------+------------+
+        | pump3: | 25    |   Y           |  self.backlash | 0          |
+        +--------+-------+---------------+----------------+------------+
+        | pump4: | 25    |   Z           |  self.backlash | 0          |
+        +--------+-------+---------------+----------------+------------+
+        Parameters
+        ----------
 
-        command = ''
-        command += '/1' # start
-        command += 'V'+str(speed)+',1' # at speed 'speed' in uL(,1)
-        command += 'A'+str(position)+',1' # to position 'position' in uL (,1)
-        command += 'R' #execute loaded command symbol
-        command += '\r' #cariage return signalling the end of transmission
+        Returns
+        -------
 
+        Examples
+        --------
+        >>> driver.home()
         """
+        # command = ''
+        # command += '/1' # start
+        # command += 'V'+str(speed)+',1' # at speed 'speed' in uL(,1)
+        # command += 'A'+str(position)+',1' # to position 'position' in uL (,1)
+        # command += 'R' #execute loaded command symbol
+        # command += "\r" #cariage return signalling the end of transmission
         if self.pump_id == 1:
             commdn = ''
             command += '/1' # start
