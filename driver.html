@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Driver &mdash; Cavro Centris Syringe Pump 0.0.1.post5+gfc3b7fb documentation</title>
+  <title>Driver &mdash; Cavro Centris Syringe Pump 0.0.1.post6+gd03d43e documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.1.post5+gfc3b7fb
+                0.0.1.post6+gd03d43e
               </div>
             
           
@@ -188,6 +188,24 @@ need only be executed once.
 accepts 4 different volumes: 50, 100, 250, 500 uL
 # volumes of            -&gt;      result in codes
 50, 100, 250, 500 uL    -&gt;      U93, U94, U90, U95</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>volume: integer</strong></dt><dd><p>input speed as float</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>reply: string</dt><dd><p>unparse complete response string</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">assign_volume</span><span class="p">(</span><span class="n">volume</span> <span class="o">=</span> <span class="mi">250</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -237,6 +255,31 @@ accepts 4 different volumes: 50, 100, 250, 500 uL
 <dt id="syringe_pump.driver.Driver.discover">
 <code class="sig-name descname">discover</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.discover"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.discover" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find the serial ports for each pump controller</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.driver.Driver.get_speed">
+<code class="sig-name descname">get_speed</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.get_speed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.get_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>set speed as an atomic command. can be executed if plunger is moving. If plunger is moving accepts speeds below 68.8.
+Example: ‘/1V25.0,1F””r’ set speed to 25.0 uL per s</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>speed: float</strong></dt><dd><p>input speed as float</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>reply: string</dt><dd><p>unparse complete response string</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">speed</span> <span class="o">=</span> <span class="mi">25</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -316,6 +359,31 @@ Two arguments need to be passed: position and speed.</p>
 <dl class="method">
 <dt id="syringe_pump.driver.Driver.set_speed">
 <code class="sig-name descname">set_speed</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">speed</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.set_speed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.set_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>set speed as an atomic command. can be executed if plunger is moving. If plunger is moving accepts speeds below 68.8.
+Example: ‘/1V25.0,1F””r’ set speed to 25.0 uL per s</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>speed: float</strong></dt><dd><p>input speed as float</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>reply: string</dt><dd><p>unparse complete response string</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">speed</span> <span class="o">=</span> <span class="mi">25</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.driver.Driver.speed">
+<em class="property">property </em><code class="sig-name descname">speed</code><a class="headerlink" href="#syringe_pump.driver.Driver.speed" title="Permalink to this definition">¶</a></dt>
 <dd><p>set speed as an atomic command. can be executed if plunger is moving. If plunger is moving accepts speeds below 68.8.
 Example: ‘/1V25.0,1F””r’ set speed to 25.0 uL per s</p>
 <dl class="field-list simple">
