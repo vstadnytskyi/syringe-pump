@@ -6,6 +6,11 @@ cache:
     - $HOME/.cache/pip
     - $HOME/.ccache  # https://github.com/travis-ci/travis-ci/issues/5853
 
+env:
+  global:
+  # Doctr deploy key for vstadnytskyi/syringe-pump
+  - secure: "eW8+x9RLb2fWPVLKLoKExMjeEM6eghBfetCjov/C7PidOpli9bmRqVftKt859K5h5JPPiDkJeVQgqsc5fDZgZkxZ6FwAXlWQRUjlZ8abnwdVil0f7xVOveiWAAQkzEdG+sVNykQSPXlZfNQNiXzOVz7lh5vt7Cg5mdXno8FcnuYsLXBo5iM/HQE2DIJHsixuw4+0HOoplBMUXfl/N+cjvppm6EcOviI4amrXm26ZHUkiDcgyLsxi12vRy5ocNMl/xyoz3MVmxpoOvad8JPDpRFWBZcgZ3KtnbsqhJeegitis4Zfc/ABgD50VSxs0ZYLeLA28/U4UmZXpkWxOxnOHgyudWsmPh4MHKLsKM4Hg66exT1SNL5zJRbWafVTrbJnlxAaPoZgdKbraetiaoMOifRhI3iddqRnkr+zBI3fSo3s0W9liqqIxdWNM5bhDZEShHtKE9qSKCd/aoy26t3uWdc7RZ35im7A7oIIKG6dI/ARyPvb8H08cQawzVXE5EpUg3A9kBae/7zUxucXQxnNCh4IGIJIcMnGEkrlY9bWA0ucfsPhP7WZdG8AxIQDl20sN2vXiuijzX/oCakiKdgRyxXMddx2ANk3fPP6YrCHSp8JNHftD8xTH3y/IdoNtOGDqvIfRLEJyr8xyXCO8jl6mmwgZr+mgYKZoTIRBSLMKzdQ="
+
 install:
   # Install this package and the packages listed in requirements.txt.
   - pip install .
@@ -17,4 +22,7 @@ script:
   - coverage report -m  # Generate test coverage report.
   - codecov  # Upload the report to codecov.
   - flake8  # Enforce code style ('relaxed' line length limit is set in .flake8 config file).
+  - set -e  # If any of the following steps fail, just stop at that point.
   - make -C docs html  # Build the documentation.
+  - pip install doctr
+  - doctr deploy --built-docs docs/build/html .  # Publish the documentation.
