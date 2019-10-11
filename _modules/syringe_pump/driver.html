@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>syringe_pump.driver &mdash; Cavro Centris Syringe Pump 0.0.1.post3+gbb42d10 documentation</title>
+  <title>syringe_pump.driver &mdash; Cavro Centris Syringe Pump 0.0.1.post4+g7ecae9e documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.0.1.post3+gbb42d10
+                0.0.1.post4+g7ecae9e
               </div>
             
           
@@ -243,7 +243,20 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">available_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;return the list of comport devices&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        return the list of serial devices</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list: list</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; driver.available_ports() #TODO add response</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">platform</span> <span class="k">import</span> <span class="n">system</span>
         <span class="kn">from</span> <span class="nn">serial.tools.list_ports</span> <span class="k">import</span> <span class="n">comports</span>
         <span class="k">if</span> <span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Darwin&#39;</span><span class="p">:</span>
@@ -265,6 +278,7 @@
         <span class="kn">import</span> <span class="nn">sys</span>
         <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
             <span class="n">command</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;Latin-1&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;encoding&#39;</span><span class="p">,</span><span class="n">command</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">port</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span>
         <span class="k">if</span> <span class="n">port</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -308,10 +322,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">last_command</span> <span class="o">=</span> <span class="n">command</span>
                 <span class="n">port</span><span class="o">.</span><span class="n">flushInput</span><span class="p">()</span>
                 <span class="n">port</span><span class="o">.</span><span class="n">flushOutput</span><span class="p">()</span>
-                <span class="k">if</span> <span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;Latin-1&#39;</span><span class="p">),</span> <span class="n">port</span> <span class="o">=</span> <span class="n">port</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="n">command</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">port</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="n">command</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">port</span><span class="p">)</span>
                 <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span><span class="p">)</span>
             <span class="n">dt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serial_communication_dt</span> <span class="o">-</span> <span class="p">(</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t1</span><span class="p">)</span>
             <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;query: left of dt = </span><span class="si">{:.3f}</span><span class="s1">. will sleep this amount&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dt</span><span class="p">))</span>
