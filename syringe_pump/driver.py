@@ -88,7 +88,20 @@ class Driver(object):
 
     @property
     def available_ports(self):
-        """return the list of comport devices"""
+        """
+        return the list of serial devices
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        list: list
+
+        Examples
+        --------
+        >>> driver.available_ports() #TODO add response
+        """
         from platform import system
         from serial.tools.list_ports import comports
         if system() == 'Darwin':
@@ -110,6 +123,7 @@ class Driver(object):
         import sys
         if sys.version_info[0] == 3:
             command = command.encode('Latin-1')
+            print('encoding',command)
         if port is None:
             port = self.port
         if port is not None:
@@ -153,10 +167,7 @@ class Driver(object):
                 self.last_command = command
                 port.flushInput()
                 port.flushOutput()
-                if version_info[0] == 3:
-                    self.write(command = command.encode('Latin-1'), port = port)
-                else:
-                    self.write(command = command, port = port)
+                self.write(command = command, port = port)
                 reply = self.read(port = port)
             dt = self.serial_communication_dt - (time()-t1)
             debug('query: left of dt = {:.3f}. will sleep this amount'.format(dt))
