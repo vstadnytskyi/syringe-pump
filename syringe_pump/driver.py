@@ -342,6 +342,24 @@ class Driver(object):
     _speed = property(_get_speed,_set_speed)
 
     def get_speed(self):
+        """
+        set speed as an atomic command. can be executed if plunger is moving. If plunger is moving accepts speeds below 68.8.
+        Example: '/1V25.0,1F"\"r' set speed to 25.0 uL per s
+
+        Parameters
+        ----------
+        speed: float
+            input speed as float
+
+        Returns
+        -------
+        reply: string
+            unparse complete response string
+
+        Examples
+        --------
+        >>> driver.set_speed(speed = 25)
+        """
         reply = self._get_speed()
         return reply
     def set_speed(self,speed):
@@ -366,7 +384,7 @@ class Driver(object):
         """
         self.abort()
         spd = round(speed,3)
-        reply = self.query(command = '/1V'+str(spd)+',1R\r')
+        reply = self._set_speed(speed = spd)
         return reply
     speed = property(get_speed,set_speed)
 
@@ -380,6 +398,20 @@ class Driver(object):
         accepts 4 different volumes: 50, 100, 250, 500 uL
         # volumes of            ->      result in codes
         50, 100, 250, 500 uL    ->      U93, U94, U90, U95
+        
+        Parameters
+        ----------
+        volume: integer
+            input speed as float
+
+        Returns
+        -------
+        reply: string
+            unparse complete response string
+
+        Examples
+        --------
+        >>> driver.assign_volume(volume = 250)
         """
         volumes = {}
         volumes[50] = 'U93'
