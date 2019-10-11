@@ -51,19 +51,19 @@ class Driver(object):
         for port_name in self.available_ports:
             try:
                 debug("Trying self.port %s..." % port_name)
-                port = Serial(port_name)
+                port = Serial(port_name, timeout = 2)
             except:
                 available_ports.pop(available_ports.index(port_name))
         debug("available ports {}...".format(available_ports))
         for port_name in available_ports:
-            debug("Trying self.port %s..." % port_name)
-            port = Serial(port_name)
+            debug("Trying port %s..." % port_name)
+            port = Serial(port_name, timeout = 2)
             port.baudrate = 9600
             port.timeout = 2
             port.flushInput()
             port.flushOutput()
-            port.write("/1?80\r")
-            full_reply = port.readline()
+            self.write(command = "/1?80\r", port = port)
+            full_reply = self.read(port = port)
             if len(full_reply) != 0:
                 debug("port %r: full_reply %r" % (port_name,full_reply))
                 reply = full_reply[3:][:-3]
@@ -100,7 +100,11 @@ class Driver(object):
 
         Examples
         --------
-        >>> driver.available_ports() #TODO add response
+        >>> driver.available_ports()
+        ['/dev/cu.usbserial',
+         '/dev/cu.usbserial1',
+         '/dev/cu.usbserial2',
+         '/dev/cu.usbserial3']
         """
         from platform import system
         from serial.tools.list_ports import comports
@@ -244,8 +248,8 @@ class Driver(object):
 
         Examples
         --------
-        >>> ser_port._get_position()
-            '\xff/0`0.000\x03\r\n'
+        >>> driver._get_position()
+            {'value': '0.000', 'error_code': '`', 'busy': False, 'error': 'No Error'}
         """
         reply = self.query(command = '/1?18\r')
         debug('get_position(): reply = {!r}'.format(reply))
@@ -269,7 +273,8 @@ class Driver(object):
 
         Examples
         --------
-        >>> ser_port._set_position()
+        >>> ser_port._set_position(10)
+        {'value': '', 'error_code': '@', 'busy': True, 'error': 'No Error'}
         """
         pos = round(position,3)
         reply = self.query(command = '/1A'+str(pos)+',1R\r', port = self.port)
@@ -280,6 +285,20 @@ class Driver(object):
     def _get_speed(self):
         """
         get speed as an atomic command
+
+        Parameters
+        ----------
+        position: float
+            input position as float
+        Returns
+        -------
+        reply: string
+            unparse complete response string
+
+        Examples
+        --------
+        >>> ser_port._get_speed()
+         {'value': '25.000', 'error_code': '`', 'busy': False, 'error': 'No Error'}
         """
         reply = self.query(command = '/1?37\r', port = self.port)
         number = reply['value']
@@ -304,6 +323,7 @@ class Driver(object):
         Examples
         --------
         >>> driver._set_speed(speed = 25)
+        {'value': '', 'error_code': '@', 'busy': True, 'error': 'No Error'}
 
         """
         spd = round(speed,3)
@@ -481,7 +501,7 @@ class Driver(object):
             reply = self.query("".join(["/1Y7,0,0IV25,1K",str(self.backlash),"A0,1R\r"]), port = self.port)
         elif self.pump_id == 4:
             reply = self.query("".join(["/1Z7,0,0IV25,1K",str(self.backlash),"A0,1R\r"]), port = self.port)
-        debug('homing of motor %r: reply = %r' %(pump_id,reply))
+        debug('homing of motor %r: reply = %r' %(self.pump_id,reply))
         self.cmd_position = 0.0
         self.speed = 25.0
         return reply
@@ -592,7 +612,7 @@ if __name__ == "__main__":
     from tempfile import gettempdir
 
     import logging;
-    logging.basicConfig(filename=gettempdir()+'/syringe_pump_driver.log',
+    logging.basicConfig(#filename=gettempdir()+'/syringe_pump_driver.log',
                                         level=logging.DEBUG, format="%(asctime)s %(levelname)s: %(message)s")
 
     self = driver # for debugging
