@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Driver &mdash; Cavro Centris Syringe Pump 0.0.1.post9+g861411c documentation</title>
+  <title>Driver &mdash; Cavro Centris Syringe Pump 0.0.1.post5+gfc3b7fb documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.1.post9+g861411c
+                0.0.1.post5+gfc3b7fb
               </div>
             
           
@@ -161,8 +161,6 @@
 <h1>Driver<a class="headerlink" href="#driver" title="Permalink to this headline">¶</a></h1>
 <p>Start by importing Cavro Centris Syringe Pump.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">syringe_pump.driver</span> <span class="kn">import</span> <span class="n">Driver</span>
-<span class="n">driver</span> <span class="o">=</span> <span class="n">Driver</span><span class="p">()</span>
-<span class="n">driver</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">pump_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">speed</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span> <span class="n">backlash</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;&#39;, volume = 250)</span>
 </pre></div>
 </div>
 <dl class="class">
@@ -190,24 +188,6 @@ need only be executed once.
 accepts 4 different volumes: 50, 100, 250, 500 uL
 # volumes of            -&gt;      result in codes
 50, 100, 250, 500 uL    -&gt;      U93, U94, U90, U95</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>volume: integer</strong></dt><dd><p>input speed as float</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>reply: string</dt><dd><p>unparse complete response string</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">assign_volume</span><span class="p">(</span><span class="n">volume</span> <span class="o">=</span> <span class="mi">250</span><span class="p">)</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="method">
@@ -256,30 +236,7 @@ accepts 4 different volumes: 50, 100, 250, 500 uL
 <dl class="method">
 <dt id="syringe_pump.driver.Driver.discover">
 <code class="sig-name descname">discover</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.discover"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.discover" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds the serial ports for the specified pump controller id number. uses self.available_ports class property to get all potential serial ports. Then submits the identification command. If the query return corrrect string and the id matches self.pump_id, the tested port will be assigned to self.port of the syringe pump driver class.</p>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">discoer</span><span class="p">()</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.get_speed">
-<code class="sig-name descname">get_speed</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.get_speed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.get_speed" title="Permalink to this definition">¶</a></dt>
-<dd><p>get speed as an atomic command.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><dl class="simple">
-<dt>reply: float</dt><dd><p>current speed as float num,ber</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">get_speed</span><span class="p">()</span>
-<span class="go">25</span>
-</pre></div>
-</div>
+<dd><p>Find the serial ports for each pump controller</p>
 </dd></dl>
 
 <dl class="method">
@@ -307,39 +264,6 @@ Parameters
 </dd></dl>
 
 <dl class="method">
-<dt id="syringe_pump.driver.Driver.init">
-<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">pump_id</em>, <em class="sig-param">speed=25</em>, <em class="sig-param">backlash=100</em>, <em class="sig-param">orientation=None</em>, <em class="sig-param">volume=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.init" title="Permalink to this definition">¶</a></dt>
-<dd><p>orderly initialization of the syringe pump: discovery of the pump, setting up and homing.</p>
-<ul class="simple">
-<li><p>assigns pump_id class atribute to input pump_id</p></li>
-<li><p>sets volume to input volumes</p></li>
-<li><p>sets backlash</p></li>
-<li><p>sets speed</p></li>
-<li><p>sets orientation and homes the syringe pump.</p></li>
-</ul>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>pump_id: integer</strong></dt><dd><p>pump_id</p>
-</dd>
-<dt><strong>speed: float</strong></dt><dd><p>initial speed of the syringe pump, default is 25</p>
-</dd>
-<dt><strong>backlash: float</strong></dt><dd><p>the backlash of the syringe pump. The default value is 100</p>
-</dd>
-<dt><strong>orientation: string</strong></dt><dd><p>the orientation of the syringe pump valve: Y or Z</p>
-</dd>
-<dt><strong>volume: float</strong></dt><dd><p>the volume of the installed syringe</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">pump_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">speed</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span> <span class="n">backlash</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span><span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">volume</span> <span class="o">=</span> <span class="mi">250</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
 <dt id="syringe_pump.driver.Driver.initialize">
 <code class="sig-name descname">initialize</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">orientation=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.initialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.initialize" title="Permalink to this definition">¶</a></dt>
 <dd><p>initialization command: Y for left pumps and Z for right pumps
@@ -348,25 +272,6 @@ Rotate valve CW to port 1; move the plunger to zero at speed 7 (default: 2.33 s 
 Y: input on right, output on left
 Rotate valve CCW to Input port 1; move the plunger to zero at speed 7 (default: 2.33 s per 30-mm stroke); rotate valve CCW to Output port 2.</p>
 <p>The initialize command cannot be sent if motor is busy.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>orientation: string</strong></dt><dd><p>input orientation as string with two possible settings Y and Z</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>reply: string</dt><dd><p>unparse complete response string</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span><span class="p">)</span>
-<span class="go">{&#39;value&#39;: &#39;&#39;, &#39;error_code&#39;: &#39;@&#39;, &#39;busy&#39;: True, &#39;error&#39;: &#39;No Error&#39;}</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="method">
@@ -389,54 +294,13 @@ Two arguments need to be passed: position and speed.</p>
 <dl class="method">
 <dt id="syringe_pump.driver.Driver.query">
 <code class="sig-name descname">query</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">command</em>, <em class="sig-param">port=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.query" title="Permalink to this definition">¶</a></dt>
-<dd><p>write-read command with build in threading lock to insure no commands can be send within 100 ms, which is the syringe pump hardware limitation. first performs write into port and later read out serial buffer of the port object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>command: string</strong></dt><dd><p>string command to be written into serial port input buffer</p>
-</dd>
-<dt><strong>port: object</strong></dt><dd><p>serial port object</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>reply: string</dt><dd><p>returns string from serial output buffer</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;/1?29R</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="go">&quot;ÿ/0`0\x03\r\n&quot;</span>
-</pre></div>
-</div>
+<dd><p>write-read command with build in threading lock to insure no commands can be send within 100 ms</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="syringe_pump.driver.Driver.read">
 <code class="sig-name descname">read</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">port=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.read" title="Permalink to this definition">¶</a></dt>
-<dd><p>serial read command. the port attribute is optional. if port left None, the self.port object will be used. this fucnction is both Python 2 and 3 compatible.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>port: object</strong></dt><dd><p>serial port object</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>reply: string</dt><dd><p>returns string from serial buffer</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="go">&quot;ÿ/0`0\x03\r\n&quot;</span>
-</pre></div>
-</div>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="syringe_pump.driver.Driver.reset">
@@ -451,9 +315,9 @@ Two arguments need to be passed: position and speed.</p>
 
 <dl class="method">
 <dt id="syringe_pump.driver.Driver.set_speed">
-<code class="sig-name descname">set_speed</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">speed</em>, <em class="sig-param">on_the_fly=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.set_speed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.set_speed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_speed</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">speed</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.set_speed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.set_speed" title="Permalink to this definition">¶</a></dt>
 <dd><p>set speed as an atomic command. can be executed if plunger is moving. If plunger is moving accepts speeds below 68.8.
-Example: ‘/1V25.0,1Fr’ set speed to 25.0 uL per s</p>
+Example: ‘/1V25.0,1F””r’ set speed to 25.0 uL per s</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -475,27 +339,8 @@ Example: ‘/1V25.0,1Fr’ set speed to 25.0 uL per s</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="syringe_pump.driver.Driver.speed">
-<em class="property">property </em><code class="sig-name descname">speed</code><a class="headerlink" href="#syringe_pump.driver.Driver.speed" title="Permalink to this definition">¶</a></dt>
-<dd><p>get speed as an atomic command.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><dl class="simple">
-<dt>reply: float</dt><dd><p>current speed as float num,ber</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">get_speed</span><span class="p">()</span>
-<span class="go">25</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
 <dt id="syringe_pump.driver.Driver.waiting">
-<em class="property">property </em><code class="sig-name descname">waiting</code><a class="headerlink" href="#syringe_pump.driver.Driver.waiting" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">waiting</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.waiting"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.waiting" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns number of byyes in both in and out buffers as tuple</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -514,21 +359,8 @@ Example: ‘/1V25.0,1Fr’ set speed to 25.0 uL per s</p>
 <dl class="method">
 <dt id="syringe_pump.driver.Driver.write">
 <code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">command</em>, <em class="sig-param">port=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>serial write command. the port attribute is optional. if port left None, the self.port object will be used. this fucnction is both Python 2 and 3 compatible.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>command: strin</strong></dt><dd><p>string command to be written into serial input buffer</p>
-</dd>
-<dt><strong>port: object</strong></dt><dd><p>serial port object</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
-</pre></div>
-</div>
+<dd><p>serial write command
+input: command, port</p>
 </dd></dl>
 
 </dd></dl>
