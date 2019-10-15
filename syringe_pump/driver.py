@@ -649,7 +649,7 @@ class Driver(object):
         reply = self.query(command = '/1K'+str(int(value)) + 'R\r', port = self.port)
         debug('set_backlash(): reply = %r' %reply)
         self._backlash = value
-    backlash = proerty(get_backlash, set_backlash)
+    backlash = property(get_backlash, set_backlash)
 
     def convert_error_code(self,char = ''):
         """
