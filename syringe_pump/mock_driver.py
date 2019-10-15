@@ -24,7 +24,16 @@ from numpy import nan, inf
 class Driver(object):
     pass
 driver = Driver()
+command_dict = {}
+#initialization commands
+d["/1"+'Y7,0,0'+"R\r"] = {'reply':'ÿ/0@\x03\r\n','delay':0}
+d["/1"+'Z7,0,0'+"R\r"] = {'reply':'ÿ/0@\x03\r\n','delay':0}
+d["/1?29R\r"] = {'reply':'ÿ/0`0\x03\r\n','delay':0,'description':'busy'}
+d['/1?18\r' ]['reply'] = '\xff/0`0.000\x03\r\n' #
+d['/1?18\r' ]['delay'] = 0
+d['/1?18\r' ]['description'] = 'position'
 
+command_dict = d
 if __name__ == "__main__":
     from tempfile import gettempdir
 

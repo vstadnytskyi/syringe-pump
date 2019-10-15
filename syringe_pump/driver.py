@@ -12,7 +12,7 @@ n-ASCII characters define the command sequence
 “CR” or carriage return terminates the command sequence
 
 """
-__version__ = '0.1'
+
 import sys
 #if sys.version_info[0] < 3:
 #    raise Exception("Must be using Python 3")
@@ -29,20 +29,31 @@ from numpy import nan, inf
 class Driver(object):
 
     def __init__(self):
-        self.orientation = ''
-        self.serial_communication_dt = 0.1 #minimum distance between two serial commands.
+        self._orientation = ''
+        self.serial_communication_dt = 0.1 #minimum distance between two.
         self.pump_id = None
         self.port = None
-        #self.speed = 25
-        #self.cmd_position = 0
-        #self.position = nan
+        self._backlash = nan
+        self._position = nan
+
 
 #  ############################################################################
 #  RS-232 Communication Commands
 #  ############################################################################
 
     def discover(self):
-        """Find the serial ports for each pump controller"""
+        """Finds the serial ports for the specified pump controller id number. uses self.available_ports class property to get all potential serial ports. Then submits the identification command. If the query return corrrect string and the id matches self.pump_id, the tested port will be assigned to self.port of the syringe pump driver class.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+
+        Examples
+        --------
+        >>> driver.discoer()
+        """
         from serial import Serial
         from threading import RLock as Lock
         from sys import version_info
@@ -83,6 +94,7 @@ class Driver(object):
                 break
             else:
                 port.close()
+                port = None
                 debug("closing the serial connection")
 
 
@@ -121,8 +133,21 @@ class Driver(object):
 
     def write(self,command, port = None):
         """
-        serial write command
-        input: command, port
+        serial write command. the port attribute is optional. if port left None, the self.port object will be used. this fucnction is both Python 2 and 3 compatible.
+
+        Parameters
+        ----------
+        command: strin
+            string command to be written into serial input buffer
+        port: object
+            serial port object
+
+        Returns
+        -------
+
+        Examples
+        --------
+        >>> driver.write()
         """
         import sys
         if sys.version_info[0] == 3:
@@ -139,7 +164,22 @@ class Driver(object):
 
     def read(self, port = None):
         """
+        serial read command. the port attribute is optional. if port left None, the self.port object will be used. this fucnction is both Python 2 and 3 compatible.
 
+        Parameters
+        ----------
+        port: object
+            serial port object
+
+        Returns
+        -------
+        reply: string
+            returns string from serial buffer
+
+        Examples
+        --------
+        >>> driver.read()
+        "ÿ/0`0\x03\r\n"
         """
         from sys import version_info
         if port is None:
@@ -149,7 +189,7 @@ class Driver(object):
             self.last_reply = reply
         else:
             reply = ''
-
+        debug("read: {}".format(reply))
         if version_info[0] == 3:
             return reply.decode("Latin-1")
         else:
@@ -157,7 +197,23 @@ class Driver(object):
 
     def query(self,command, port = None):
         """
-        write-read command with build in threading lock to insure no commands can be send within 100 ms
+        write-read command with build in threading lock to insure no commands can be send within 100 ms, which is the syringe pump hardware limitation. first performs write into port and later read out serial buffer of the port object
+        Parameters
+        ----------
+        command: string
+            string command to be written into serial port input buffer
+        port: object
+            serial port object
+
+        Returns
+        -------
+        reply: string
+            returns string from serial output buffer
+
+        Examples
+        --------
+        >>> driver.query(command = '/1?29R\r')
+        "ÿ/0`0\x03\r\n"
         """
         from time import time
         from sys import version_info
@@ -190,7 +246,7 @@ class Driver(object):
         else:
             result = {'value':None,'error_code': None, 'busy':None,'error':'no device found'}
         return result
-
+    @property
     def waiting(self):
         """
         returns number of byyes in both in and out buffers as tuple
@@ -304,6 +360,7 @@ class Driver(object):
         number = reply['value']
         debug('get_speed(): reply = {}, and number = {}'.format(reply,number))
         return reply
+
     def _set_speed(self,speed):
         """
         set speed as an atomic command. can be executed if plunger is moving. If plunger is moving accepts speeds below 68.8.
@@ -329,12 +386,22 @@ class Driver(object):
         spd = round(speed,3)
         reply = self.query(command = '/1V'+str(spd)+',1R\r')
         return reply
+
     def _set_speed_on_the_fly(self,speed):
         """
-        set speed as an atomic command on the fly. If plunger is moving accepts speeds below 68.8. Speeds above are rejected but no error is issued.
+        set speed as an atomic command on the fly. If plunger is moving accepts speeds below 68.8. Speeds above are rejected but no error is issued. Example: "/1V25.0,1F"\"r" set speed to 25.0 uL/s
 
-        Example: ''
-        "/1V25.0,1F\r" set speed to 25.0 uL/s
+        Parameters
+        ----------
+
+        Returns
+        -------
+        reply: float
+            current speed as float num,ber
+
+        Examples
+        --------
+        >>> driver._set_speed_on_the_fly(speed = 25)
         """
         spd = round(speed,3)
         reply = self.query(command = '/1V'+str(spd)+',1F\r')
@@ -343,26 +410,24 @@ class Driver(object):
 
     def get_speed(self):
         """
-        set speed as an atomic command. can be executed if plunger is moving. If plunger is moving accepts speeds below 68.8.
-        Example: '/1V25.0,1F"\"r' set speed to 25.0 uL per s
+        get speed as an atomic command.
 
         Parameters
         ----------
-        speed: float
-            input speed as float
 
         Returns
         -------
-        reply: string
-            unparse complete response string
+        reply: float
+            current speed as float num,ber
 
         Examples
         --------
-        >>> driver.set_speed(speed = 25)
+        >>> driver.get_speed()
+        25
         """
-        reply = self._get_speed()
+        reply = self._speed
         return reply
-    def set_speed(self,speed):
+    def set_speed(self,speed, on_the_fly = True):
         """
         set speed as an atomic command. can be executed if plunger is moving. If plunger is moving accepts speeds below 68.8.
         Example: '/1V25.0,1F"\"r' set speed to 25.0 uL per s
@@ -382,9 +447,12 @@ class Driver(object):
         >>> driver.set_speed(speed = 25)
 
         """
-        self.abort()
         spd = round(speed,3)
-        reply = self._set_speed(speed = spd)
+        if on_the_fly:
+            reply = self._set_speed_on_the_fly(speed = spd)
+        else:
+            self.abort()
+            reply = self._set_speed(speed = spd)
         return reply
     speed = property(get_speed,set_speed)
 
@@ -398,7 +466,7 @@ class Driver(object):
         accepts 4 different volumes: 50, 100, 250, 500 uL
         # volumes of            ->      result in codes
         50, 100, 250, 500 uL    ->      U93, U94, U90, U95
-        
+
         Parameters
         ----------
         volume: integer
@@ -434,10 +502,24 @@ class Driver(object):
         Rotate valve CCW to Input port 1; move the plunger to zero at speed 7 (default: 2.33 s per 30-mm stroke); rotate valve CCW to Output port 2.
 
         The initialize command cannot be sent if motor is busy.
+
+        Parameters
+        ----------
+        orientation: string
+            input orientation as string with two possible settings Y and Z
+
+        Returns
+        -------
+        reply: string
+            unparse complete response string
+
+        Examples
+        --------
+        >>> driver.initialize(orientation = 'Y')
+        {'value': '', 'error_code': '@', 'busy': True, 'error': 'No Error'}
+
         """
         command = ''
-        if orientation == '':
-            orientation = self.orientation
         if orientation == 'Y':
             command = 'Y7,0,0'
         elif orientation == 'Z':
@@ -448,6 +530,7 @@ class Driver(object):
             reply = self.query(command ="/1"+command+"R\r")
         else:
             reply = {'busy': False, 'error': 'Invalid Command, unknown orientation "{}"'.format(orientation), 'error_code': '!', 'value': ''}
+        self._orientation = orientation
         return reply
 
 
@@ -559,13 +642,14 @@ class Driver(object):
     valve = property(get_valve,set_valve)
 
     def get_backlash(self):
-        return self.backlash
+        return self._backlash
     def set_backlash(self,value):
         """
         """
         reply = self.query(command = '/1K'+str(int(value)) + 'R\r', port = self.port)
         debug('set_backlash(): reply = %r' %reply)
-        self.backlash = value
+        self._backlash = value
+    backlash = proerty(get_backlash, set_backlash)
 
     def convert_error_code(self,char = ''):
         """
