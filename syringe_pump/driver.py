@@ -179,7 +179,7 @@ class Driver(object):
         Examples
         --------
         >>> driver.read()
-        "ÿ/0`0\x03\r\n"
+        "ÿ/0`0\\x03\\r\\n"
         """
         from sys import version_info
         if port is None:
@@ -197,11 +197,13 @@ class Driver(object):
 
     def query(self,command, port = None):
         """
-        write-read command with build in threading lock to insure no commands can be send within 100 ms, which is the syringe pump hardware limitation. first performs write into port and later read out serial buffer of the port object
+        write-read command with build in threading lock to insure no commands can be send within 100 ms, which is the syringe pump hardware limitation. first performs write into port and later read out serial buffer of the port object.
+
         Parameters
         ----------
         command: string
             string command to be written into serial port input buffer
+
         port: object
             serial port object
 
@@ -212,8 +214,8 @@ class Driver(object):
 
         Examples
         --------
-        >>> driver.query(command = '/1?29R\r')
-        "ÿ/0`0\x03\r\n"
+        >>> driver.query(command = '/1?29R\\r')
+        "ÿ/0`0\\x03\\r\\n"
         """
         from time import time
         from sys import version_info
@@ -316,7 +318,7 @@ class Driver(object):
         queries set position as an atomic command: "'/1A'+str(pos)+',1R\r'"
         FIXIT - can be this executed if plunger is moving?
         Example:
-        "/1A100.000,1R\r" move absolute to 100.0 uL
+        "/1A100.000,1R\\r" move absolute to 100.0 uL
 
         Parameters
         ----------
@@ -365,7 +367,7 @@ class Driver(object):
         """
         set speed as an atomic command. can be executed if plunger is moving. If plunger is moving accepts speeds below 68.8.
         Example: ''
-        "/1V25.0,1F"\r" set speed to 25.0 uL/s
+        "/1V25.0,1F\\r" set speed to 25.0 uL/s
 
         Parameters
         ----------
@@ -430,7 +432,7 @@ class Driver(object):
     def set_speed(self,speed, on_the_fly = True):
         """
         set speed as an atomic command. can be executed if plunger is moving. If plunger is moving accepts speeds below 68.8.
-        Example: '/1V25.0,1F"\"r' set speed to 25.0 uL per s
+        Example: '/1V25.0,1F\\r' set speed to 25.0 uL per s
 
         Parameters
         ----------
@@ -548,7 +550,37 @@ class Driver(object):
         raise NotImplementedError
 
 
-    def init(self,pump_id, speed = None, backlash = None, orientation = None, volume = None):
+    def init(self,pump_id, speed = 25, backlash = 100, orientation = None, volume = None):
+        """
+        orderly initialization of the syringe pump: discovery of the pump, setting up and homing.
+
+        - assigns pump_id class atribute to input pump_id
+        - sets volume to input volumes
+        - sets backlash
+        - sets speed
+        - sets orientation and homes the syringe pump.
+
+        Parameters
+        ----------
+        pump_id: integer
+            pump_id
+        speed: float
+            initial speed of the syringe pump, default is 25
+        backlash: float
+            the backlash of the syringe pump. The default value is 100
+        orientation: string
+            the orientation of the syringe pump valve: Y or Z
+        volume: float
+            the volume of the installed syringe
+
+        Returns
+        -------
+
+        Examples
+        --------
+        >>> driver.init(pump_id = 1, speed = 25, backlash = 100,orientation = 'Y', volume = 250)
+
+        """
         self.pump_id = pump_id
         self.discover()
         #Initializes pump and sets it to correct orientation
