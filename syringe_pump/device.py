@@ -14,15 +14,13 @@ from syringe_pump.driver import Driver
 
 import traceback
 from pdb import pm
-import psutil, os
-import platform #https://stackoverflow.com/questions/110362/how-can-i-find-the-current-os-in-python
+
 
 
 from numpy import nan, mean, std, nanstd, asfarray, asarray, hstack, array, concatenate, delete, round, vstack, hstack, zeros, transpose, split, unique, nonzero, take, savetxt, min, max
 
 from time import time, sleep, clock
 import sys
-import os.path
 import struct
 from pdb import pm
 from time import gmtime, strftime, time
