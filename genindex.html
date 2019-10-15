@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; Cavro Centris Syringe Pump 0.0.1.post4+g7ecae9e documentation</title>
+  <title>Index &mdash; Cavro Centris Syringe Pump 0.0.1.post14+ga6b319c documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.0.1.post4+g7ecae9e
+                0.0.1.post14+ga6b319c
               </div>
             
           
@@ -89,6 +89,8 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver.html">Driver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="device.html">Device Level (DL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
 </ul>
@@ -161,9 +163,13 @@
  | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#M"><strong>M</strong></a>
+ | <a href="#P"><strong>P</strong></a>
  | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
@@ -173,15 +179,19 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.abort">abort() (syringe_pump.driver.Driver method)</a>
+      <li><a href="device.html#syringe_pump.device.Device.abort">abort() (syringe_pump.device.Device method)</a>
+
+      <ul>
+        <li><a href="driver.html#syringe_pump.driver.Driver.abort">(syringe_pump.driver.Driver method)</a>
 </li>
-      <li><a href="usage.html#syringe_pump.driver.Driver.assign_pids">assign_pids() (syringe_pump.driver.Driver method)</a>
-</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.assign_volume">assign_volume() (syringe_pump.driver.Driver method)</a>
+      <li><a href="driver.html#syringe_pump.driver.Driver.assign_pids">assign_pids() (syringe_pump.driver.Driver method)</a>
 </li>
-      <li><a href="usage.html#syringe_pump.driver.Driver.available_ports">available_ports() (syringe_pump.driver.Driver property)</a>
+      <li><a href="driver.html#syringe_pump.driver.Driver.assign_volume">assign_volume() (syringe_pump.driver.Driver method)</a>
+</li>
+      <li><a href="driver.html#syringe_pump.driver.Driver.available_ports">available_ports() (syringe_pump.driver.Driver property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -189,7 +199,7 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.busy">busy() (syringe_pump.driver.Driver method)</a>
+      <li><a href="driver.html#syringe_pump.driver.Driver.busy">busy() (syringe_pump.driver.Driver method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -197,11 +207,17 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.close">close() (syringe_pump.driver.Driver method)</a>
+      <li><a href="device.html#syringe_pump.device.Device.close">close() (syringe_pump.device.Device method)</a>
+
+      <ul>
+        <li><a href="driver.html#syringe_pump.driver.Driver.close">(syringe_pump.driver.Driver method)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.convert_error_code">convert_error_code() (syringe_pump.driver.Driver method)</a>
+      <li><a href="device.html#syringe_pump.device.Device.command_monitor">command_monitor() (syringe_pump.device.Device method)</a>
+</li>
+      <li><a href="driver.html#syringe_pump.driver.Driver.convert_error_code">convert_error_code() (syringe_pump.driver.Driver method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -209,11 +225,59 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.discover">discover() (syringe_pump.driver.Driver method)</a>
+      <li><a href="device.html#syringe_pump.device.Device">Device (class in syringe_pump.device)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver">Driver (class in syringe_pump.driver)</a>
+      <li><a href="driver.html#syringe_pump.driver.Driver.discover">discover() (syringe_pump.driver.Driver method)</a>
+</li>
+      <li><a href="driver.html#syringe_pump.driver.Driver">Driver (class in syringe_pump.driver)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="device.html#syringe_pump.device.Device.empty">empty() (syringe_pump.device.Device method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="device.html#syringe_pump.device.Device.fill">fill() (syringe_pump.device.Device method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="device.html#syringe_pump.device.Device.first_time_setup">first_time_setup() (syringe_pump.device.Device method)</a>
+</li>
+      <li><a href="device.html#syringe_pump.device.Device.flow">flow() (syringe_pump.device.Device method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="device.html#syringe_pump.device.Device.get_alarm">get_alarm() (syringe_pump.device.Device method)</a>
+</li>
+      <li><a href="device.html#syringe_pump.device.Device.get_cmd_position">get_cmd_position() (syringe_pump.device.Device method)</a>
+</li>
+      <li><a href="device.html#syringe_pump.device.Device.get_position">get_position() (syringe_pump.device.Device method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="device.html#syringe_pump.device.Device.get_speed">get_speed() (syringe_pump.device.Device method)</a>
+
+      <ul>
+        <li><a href="driver.html#syringe_pump.driver.Driver.get_speed">(syringe_pump.driver.Driver method)</a>
+</li>
+      </ul></li>
+      <li><a href="device.html#syringe_pump.device.Device.get_valve">get_valve() (syringe_pump.device.Device method)</a>
+</li>
+      <li><a href="device.html#syringe_pump.device.Device.get_warning">get_warning() (syringe_pump.device.Device method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -221,7 +285,11 @@
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.home">home() (syringe_pump.driver.Driver method)</a>
+      <li><a href="device.html#syringe_pump.device.Device.help">help() (syringe_pump.device.Device method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="driver.html#syringe_pump.driver.Driver.home">home() (syringe_pump.driver.Driver method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -229,7 +297,21 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.initialize">initialize() (syringe_pump.driver.Driver method)</a>
+      <li><a href="device.html#syringe_pump.device.Device.init">init() (syringe_pump.device.Device method)</a>
+
+      <ul>
+        <li><a href="driver.html#syringe_pump.driver.Driver.init">(syringe_pump.driver.Driver method)</a>
+</li>
+      </ul></li>
+      <li><a href="driver.html#syringe_pump.driver.Driver.initialize">initialize() (syringe_pump.driver.Driver method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="device.html#syringe_pump.device.Device.ioread">ioread() (syringe_pump.device.Device method)</a>
+</li>
+      <li><a href="device.html#syringe_pump.device.Device.iowrite">iowrite() (syringe_pump.device.Device method)</a>
+</li>
+      <li><a href="device.html#syringe_pump.device.Device.isdonemoving">isdonemoving() (syringe_pump.device.Device method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -237,11 +319,27 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.move_abs">move_abs() (syringe_pump.driver.Driver method)</a>
+      <li><a href="device.html#syringe_pump.device.Device.monitor">monitor() (syringe_pump.device.Device method)</a>
+</li>
+      <li><a href="driver.html#syringe_pump.driver.Driver.move_abs">move_abs() (syringe_pump.driver.Driver method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.move_rel">move_rel() (syringe_pump.driver.Driver method)</a>
+      <li><a href="driver.html#syringe_pump.driver.Driver.move_rel">move_rel() (syringe_pump.driver.Driver method)</a>
+</li>
+      <li><a href="device.html#syringe_pump.device.Device.moving">moving() (syringe_pump.device.Device property)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="device.html#syringe_pump.device.Device.prime">prime() (syringe_pump.device.Device method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="device.html#syringe_pump.device.Device.process_driver_reply">process_driver_reply() (syringe_pump.device.Device method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -249,7 +347,7 @@
 <h2 id="Q">Q</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.query">query() (syringe_pump.driver.Driver method)</a>
+      <li><a href="driver.html#syringe_pump.driver.Driver.query">query() (syringe_pump.driver.Driver method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -257,11 +355,13 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.read">read() (syringe_pump.driver.Driver method)</a>
+      <li><a href="driver.html#syringe_pump.driver.Driver.read">read() (syringe_pump.driver.Driver method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.reset">reset() (syringe_pump.driver.Driver method)</a>
+      <li><a href="driver.html#syringe_pump.driver.Driver.reset">reset() (syringe_pump.driver.Driver method)</a>
+</li>
+      <li><a href="device.html#syringe_pump.device.Device.run_once">run_once() (syringe_pump.device.Device method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -269,11 +369,29 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.set_backlash">set_backlash() (syringe_pump.driver.Driver method)</a>
+      <li><a href="driver.html#syringe_pump.driver.Driver.set_backlash">set_backlash() (syringe_pump.driver.Driver method)</a>
+</li>
+      <li><a href="device.html#syringe_pump.device.Device.set_cmd_position">set_cmd_position() (syringe_pump.device.Device method)</a>
+</li>
+      <li><a href="device.html#syringe_pump.device.Device.set_speed">set_speed() (syringe_pump.device.Device method)</a>
+
+      <ul>
+        <li><a href="driver.html#syringe_pump.driver.Driver.set_speed">(syringe_pump.driver.Driver method)</a>
+</li>
+      </ul></li>
+      <li><a href="device.html#syringe_pump.device.Device.set_speed_on_the_fly">set_speed_on_the_fly() (syringe_pump.device.Device method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.set_speed">set_speed() (syringe_pump.driver.Driver method)</a>
+      <li><a href="device.html#syringe_pump.device.Device.set_valve">set_valve() (syringe_pump.device.Device method)</a>
+</li>
+      <li><a href="device.html#syringe_pump.device.Device.snapshot">snapshot() (syringe_pump.device.Device method)</a>
+</li>
+      <li><a href="driver.html#syringe_pump.driver.Driver.speed">speed() (syringe_pump.driver.Driver property)</a>
+</li>
+      <li><a href="device.html#syringe_pump.device.Device.start">start() (syringe_pump.device.Device method)</a>
+</li>
+      <li><a href="device.html#syringe_pump.device.Device.stop">stop() (syringe_pump.device.Device method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -281,11 +399,13 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.waiting">waiting() (syringe_pump.driver.Driver method)</a>
+      <li><a href="device.html#syringe_pump.device.Device.wait">wait() (syringe_pump.device.Device method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#syringe_pump.driver.Driver.write">write() (syringe_pump.driver.Driver method)</a>
+      <li><a href="driver.html#syringe_pump.driver.Driver.waiting">waiting() (syringe_pump.driver.Driver property)</a>
+</li>
+      <li><a href="driver.html#syringe_pump.driver.Driver.write">write() (syringe_pump.driver.Driver method)</a>
 </li>
   </ul></td>
 </tr></table>

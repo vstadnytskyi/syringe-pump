@@ -1,0 +1,653 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Device Level (DL) &mdash; Cavro Centris Syringe Pump 0.0.1.post14+ga6b319c documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+        <script type="text/javascript" src="_static/copybutton.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Release History" href="release-history.html" />
+    <link rel="prev" title="Driver" href="driver.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Cavro Centris Syringe Pump
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1.post14+ga6b319c
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver.html">Driver</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Device Level (DL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Cavro Centris Syringe Pump</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Device Level (DL)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/device.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="device-level-dl">
+<h1>Device Level (DL)<a class="headerlink" href="#device-level-dl" title="Permalink to this headline">¶</a></h1>
+<p>Start by importing Cavro Centris Syringe Pump device level code.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">syringe_pump.device</span> <span class="kn">import</span> <span class="n">Device</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="syringe_pump.device.Device">
+<em class="property">class </em><code class="sig-prename descclassname">syringe_pump.device.</code><code class="sig-name descname">Device</code><a class="reference internal" href="_modules/syringe_pump/device.html#Device"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device" title="Permalink to this definition">¶</a></dt>
+<dd><p>circular buffers dictionary contains information about all circular buffers and their type (Server, Client or Queue)</p>
+<dl class="method">
+<dt id="syringe_pump.device.Device.abort">
+<code class="sig-name descname">abort</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.abort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.abort" title="Permalink to this definition">¶</a></dt>
+<dd><p>orderly abort of the current operation</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">abort</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>orderly close and shutdown
+Parameters
+———-</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">abort</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.command_monitor">
+<code class="sig-name descname">command_monitor</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">PV_name</em>, <em class="sig-param">value</em>, <em class="sig-param">char_value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.command_monitor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.command_monitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process PV change requests</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.empty">
+<code class="sig-name descname">empty</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>performs safe compound “empty” command which empties the syringe with fluid back into the reservour. The final state of the valve is ‘out’.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.fill">
+<code class="sig-name descname">fill</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>performs safe compound “fill” command which refills the syringe with fluid from the reservour. The final state of the valve is ‘out’.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">fill</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.first_time_setup">
+<code class="sig-name descname">first_time_setup</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.first_time_setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.first_time_setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>default factory setting or first time setup</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.flow">
+<code class="sig-name descname">flow</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">position=0</em>, <em class="sig-param">speed=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.flow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>performs safe compound “flow” command which initits flow towards posotion with the given speed. Makes sure to set the valve orientation to ‘o’ output.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">position</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span> <span class="n">speed</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.get_alarm">
+<code class="sig-name descname">get_alarm</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_alarm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.get_alarm" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns integer if alarm conditions are met</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.get_cmd_position">
+<code class="sig-name descname">get_cmd_position</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_cmd_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.get_cmd_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>get commanded position of the pump</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>value: float</dt><dd><p>last known commanded position</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">get_cmd_position</span><span class="p">()</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.get_position">
+<code class="sig-name descname">get_position</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.get_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>request position of the pump via driver</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>value: float</dt><dd><p>current pump position</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.get_speed">
+<code class="sig-name descname">get_speed</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_speed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.get_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>read speed from the pump</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>speed: float</dt><dd><p>returns pump speed</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">get_speed</span><span class="p">()</span>
+<span class="go">25.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.get_valve">
+<code class="sig-name descname">get_valve</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_valve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.get_valve" title="Permalink to this definition">¶</a></dt>
+<dd><p>reads valve orientation from the pump</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>valve: string</dt><dd><p>valve orientation as a string” ‘i’,’o’,’b’</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">get_valve</span><span class="p">()</span>
+<span class="go">&#39;i&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.get_warning">
+<code class="sig-name descname">get_warning</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_warning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.get_warning" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns integer if alarm conditions are met</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.help">
+<code class="sig-name descname">help</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.help"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.help" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns help information in a string format.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">pump_id=None</em>, <em class="sig-param">speed=None</em>, <em class="sig-param">backlash=None</em>, <em class="sig-param">orientation=None</em>, <em class="sig-param">volume=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>initialize the device level code</p>
+<ul class="simple">
+<li><p>initializes the driver</p></li>
+<li><p>sets default valve position to ‘o’</p></li>
+<li><p>sets initial position to 0.0</p></li>
+<li><p>sets initial speed to input speed value</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>pump_id: integer</strong></dt><dd><p>pump_id</p>
+</dd>
+<dt><strong>speed: float</strong></dt><dd><p>initial speed of the syringe pump, default is 25</p>
+</dd>
+<dt><strong>backlash: float</strong></dt><dd><p>the backlash of the syringe pump. The default value is 100</p>
+</dd>
+<dt><strong>orientation: string</strong></dt><dd><p>the orientation of the syringe pump valve: Y or Z</p>
+</dd>
+<dt><strong>volume: float</strong></dt><dd><p>the volume of the installed syringe</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">pump_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">speed</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span> <span class="n">backlash</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span><span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">volume</span> <span class="o">=</span> <span class="mi">250</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.ioread">
+<code class="sig-name descname">ioread</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">pv_name=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.ioread"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.ioread" title="Permalink to this definition">¶</a></dt>
+<dd><p>put dictionary of key:value pairs to IO.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>pv_dict:  (dictionary)</strong></dt><dd><p>dictionary of PVs and new PV values</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">ioput</span><span class="p">(</span><span class="n">pv_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;running&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">})</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.iowrite">
+<code class="sig-name descname">iowrite</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">pv_name=None</em>, <em class="sig-param">value=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.iowrite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.iowrite" title="Permalink to this definition">¶</a></dt>
+<dd><p>put dictionary of key:value pairs to IO.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>pv_dict:  (dictionary)</strong></dt><dd><p>dictionary of PVs and new PV values</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">ioput</span><span class="p">(</span><span class="n">pv_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;running&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">})</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.isdonemoving">
+<code class="sig-name descname">isdonemoving</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.isdonemoving"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.isdonemoving" title="Permalink to this definition">¶</a></dt>
+<dd><p>return flag if motion is complete. It will compare the cmd_position and actual position</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>flag: boolean</dt><dd><p>boolean if motor is moving or not</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">isdonemoving</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.monitor">
+<code class="sig-name descname">monitor</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">PV_name</em>, <em class="sig-param">value</em>, <em class="sig-param">char_value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.monitor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.monitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process PV change requests</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.moving">
+<em class="property">property </em><code class="sig-name descname">moving</code><a class="headerlink" href="#syringe_pump.device.Device.moving" title="Permalink to this definition">¶</a></dt>
+<dd><p>an alias for busy</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.prime">
+<code class="sig-name descname">prime</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">N=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.prime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.prime" title="Permalink to this definition">¶</a></dt>
+<dd><p>performs safe compound “prime” command which empties and fills the  syringe N times The final state of the valve is ‘out’. The final state of the syringe is full.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>N: ingteger</strong></dt><dd><p>number of times to empty and fill. Default = 5 which is good enough.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.process_driver_reply">
+<code class="sig-name descname">process_driver_reply</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">reply</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.process_driver_reply"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.process_driver_reply" title="Permalink to this definition">¶</a></dt>
+<dd><p>waits for the syringe to finish the previous task. The while loop checks every dt for the status of the syringe pump.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dt: float</strong></dt><dd><p>period in seconds at which the ump status is checked.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reply</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;error_code&#39;</span><span class="p">:</span> <span class="s1">&#39;`&#39;</span><span class="p">,</span> <span class="s1">&#39;busy&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;No Error&#39;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">process_driver_reply</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.run_once">
+<code class="sig-name descname">run_once</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.run_once"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.run_once" title="Permalink to this definition">¶</a></dt>
+<dd><p>run once</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.set_cmd_position">
+<code class="sig-name descname">set_cmd_position</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.set_cmd_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.set_cmd_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>set commanded position of the pump</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>value: float</strong></dt><dd><p>last known commanded position</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">set_cmd_position</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="mf">25.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.set_speed">
+<code class="sig-name descname">set_speed</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.set_speed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.set_speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets speed of the pump. no limits on the input value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>speed: float</strong></dt><dd><p>pump speed</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="mf">25.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.set_speed_on_the_fly">
+<code class="sig-name descname">set_speed_on_the_fly</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.set_speed_on_the_fly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.set_speed_on_the_fly" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets speed on the fly. speed values above 68.8 will be ignored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>speed: float</strong></dt><dd><p>pump speed</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">set_speed_on_the_fly</span><span class="p">(</span><span class="mf">25.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.set_valve">
+<code class="sig-name descname">set_valve</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.set_valve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.set_valve" title="Permalink to this definition">¶</a></dt>
+<dd><p>writes valve orientation into the pump</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>valve: string</strong></dt><dd><p>valve orientation as a string” ‘i’,’o’,’b’</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">get_valve</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.snapshot">
+<code class="sig-name descname">snapshot</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.snapshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns snapshot of current PVs and their values in a dictionary format</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>starts run() in a separate thread</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.stop">
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>stop run() in the separate thread</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.wait">
+<code class="sig-name descname">wait</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">dt=0.34</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.wait"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.wait" title="Permalink to this definition">¶</a></dt>
+<dd><p>waits for the syringe to finish the previous task. The while loop checks every dt for the status of the syringe pump.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dt: float</strong></dt><dd><p>period in seconds at which the ump status is checked.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.34</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="release-history.html" class="btn btn-neutral float-right" title="Release History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="driver.html" class="btn btn-neutral float-left" title="Driver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Valentyn Stadnytskyi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Usage &mdash; Cavro Centris Syringe Pump 0.0.1.post4+g7ecae9e documentation</title>
+  <title>Usage &mdash; Cavro Centris Syringe Pump 0.0.1.post14+ga6b319c documentation</title>
   
 
   
@@ -38,7 +38,7 @@
   <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Release History" href="release-history.html" />
+    <link rel="next" title="Driver" href="driver.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
 </head>
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.1.post4+g7ecae9e
+                0.0.1.post14+ga6b319c
               </div>
             
           
@@ -90,6 +90,8 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driver.html">Driver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="device.html">Device Level (DL)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
 </ul>
@@ -162,207 +164,6 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">syringe_pump</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">syringe_pump.driver</span> <span class="kn">import</span> <span class="n">Driver</span>
-</pre></div>
-</div>
-<dl class="class">
-<dt id="syringe_pump.driver.Driver">
-<em class="property">class </em><code class="sig-prename descclassname">syringe_pump.driver.</code><code class="sig-name descname">Driver</code><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="syringe_pump.driver.Driver.abort">
-<code class="sig-name descname">abort</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.abort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.abort" title="Permalink to this definition">¶</a></dt>
-<dd><p>Terminates plunger moves [A,P,D] , initialization commands [Z], and delay [M]; does not affect valve moves.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.assign_pids">
-<code class="sig-name descname">assign_pids</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">pid=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.assign_pids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.assign_pids" title="Permalink to this definition">¶</a></dt>
-<dd><p>Assigns pump id to each syringe pump according to dictionary; since
-pump ids are written to non-volatile memory, need only execute once.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.assign_volume">
-<code class="sig-name descname">assign_volume</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">volume=250</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.assign_volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.assign_volume" title="Permalink to this definition">¶</a></dt>
-<dd><p>Specifies the syringe volumes for each pump in the dictionary of
-pumps. The command takes effect after power cycling the pumps, and
-need only be executed once.
-accepts 4 different volumes: 50, 100, 250, 500 uL
-# volumes of            -&gt;      result in codes
-50, 100, 250, 500 uL    -&gt;      U93, U94, U90, U95</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.available_ports">
-<em class="property">property </em><code class="sig-name descname">available_ports</code><a class="headerlink" href="#syringe_pump.driver.Driver.available_ports" title="Permalink to this definition">¶</a></dt>
-<dd><p>return the list of serial devices</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><dl class="simple">
-<dt>list: list</dt><dd></dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">available_ports</span><span class="p">()</span> <span class="c1">#TODO add response</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.busy">
-<code class="sig-name descname">busy</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.busy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.busy" title="Permalink to this definition">¶</a></dt>
-<dd><p>queries</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.close">
-<code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.close" title="Permalink to this definition">¶</a></dt>
-<dd><p>closes serial port</p>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ser_port</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.convert_error_code">
-<code class="sig-name descname">convert_error_code</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">char=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.convert_error_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.convert_error_code" title="Permalink to this definition">¶</a></dt>
-<dd><p>the ` is ` character or chr(96)</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.discover">
-<code class="sig-name descname">discover</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.discover"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.discover" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find the serial ports for each pump controller</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.home">
-<code class="sig-name descname">home</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.home"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.home" title="Permalink to this definition">¶</a></dt>
-<dd><p>homes the syringe pump
-The homing parameters are hardcoded:
-+——–+——-+—————+—————-+————+
-| pump   | speed |  orientation  |   Backlash     | start pos  |
-+========+=======+===============+================+============+
-| pump1: |  25   |    Y          |  self.backlash |  0         |
-+——–+——-+—————+—————-+————+
-| pump2: |  25   |    Z          |  self.backlash |  0         |
-+——–+——-+—————+—————-+————+
-| pump3: | 25    |   Y           |  self.backlash | 0          |
-+——–+——-+—————+—————-+————+
-| pump4: | 25    |   Z           |  self.backlash | 0          |
-+——–+——-+—————+—————-+————+
-Parameters
-———-</p>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">home</span><span class="p">()</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.initialize">
-<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">orientation=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.initialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.initialize" title="Permalink to this definition">¶</a></dt>
-<dd><p>initialization command: Y for left pumps and Z for right pumps
-Z: input on left, output on right
-Rotate valve CW to port 1; move the plunger to zero at speed 7 (default: 2.33 s per 30-mm stroke); rotate valve CW to port 2.
-Y: input on right, output on left
-Rotate valve CCW to Input port 1; move the plunger to zero at speed 7 (default: 2.33 s per 30-mm stroke); rotate valve CCW to Output port 2.</p>
-<p>The initialize command cannot be sent if motor is busy.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.move_abs">
-<code class="sig-name descname">move_abs</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">position</em>, <em class="sig-param">speed</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.move_abs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.move_abs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Move plunger of pump[pid] to absolute position.
-Plunger moves can be executed in increments or volume
-by appending to the destination ‘,0’ or ‘,1’.
-There are 181,490 increments in a 30-mm stroke.
-The volume in uL is internally calculated from the syringe volume (specified by a U command).
-Two arguments need to be passed: position and speed.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.move_rel">
-<code class="sig-name descname">move_rel</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">position</em>, <em class="sig-param">speed</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.move_rel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.move_rel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Move plunger of pump[pid] to relative position.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.query">
-<code class="sig-name descname">query</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">command</em>, <em class="sig-param">port=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.query" title="Permalink to this definition">¶</a></dt>
-<dd><p>write-read command with build in threading lock to insure no commands can be send within 100 ms</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.read">
-<code class="sig-name descname">read</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">port=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.read" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.reset">
-<code class="sig-name descname">reset</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs a soft reset on pumps</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.set_backlash">
-<code class="sig-name descname">set_backlash</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.set_backlash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.set_backlash" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.set_speed">
-<code class="sig-name descname">set_speed</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">speed</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.set_speed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.set_speed" title="Permalink to this definition">¶</a></dt>
-<dd><p>set speed as an atomic command. can be executed if plunger is moving. If plunger is moving accepts speeds below 68.8.
-Example: ‘/1V25.0,1F””r’ set speed to 25.0 uL per s</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>speed: float</strong></dt><dd><p>input speed as float</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>reply: string</dt><dd><p>unparse complete response string</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">speed</span> <span class="o">=</span> <span class="mi">25</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.waiting">
-<code class="sig-name descname">waiting</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.waiting"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.waiting" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns number of byyes in both in and out buffers as tuple</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><dl class="simple">
-<dt>tuple</dt><dd></dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ser_port</span><span class="o">.</span><span class="n">waiting</span><span class="p">()</span>
-<span class="go">(0,0)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="syringe_pump.driver.Driver.write">
-<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">command</em>, <em class="sig-param">port=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>serial write command
-input: command, port</p>
-</dd></dl>
-
-</dd></dl>
-
 </div>
 
 
@@ -373,7 +174,7 @@ input: command, port</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="release-history.html" class="btn btn-neutral float-right" title="Release History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="driver.html" class="btn btn-neutral float-right" title="Driver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
