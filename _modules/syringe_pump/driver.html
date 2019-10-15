@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>syringe_pump.driver &mdash; Cavro Centris Syringe Pump 0.0.1.post5+gfc3b7fb documentation</title>
+  <title>syringe_pump.driver &mdash; Cavro Centris Syringe Pump 0.0.1.post4+g7ecae9e documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.0.1.post5+gfc3b7fb
+                0.0.1.post4+g7ecae9e
               </div>
             
           
@@ -88,7 +88,6 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../driver.html">Driver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
 </ul>
@@ -182,7 +181,7 @@
 
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">nan</span><span class="p">,</span> <span class="n">inf</span>
 
-<div class="viewcode-block" id="Driver"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver">[docs]</a><span class="k">class</span> <span class="nc">Driver</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver">[docs]</a><span class="k">class</span> <span class="nc">Driver</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -197,7 +196,7 @@
 <span class="c1">#  RS-232 Communication Commands</span>
 <span class="c1">#  ############################################################################</span>
 
-<div class="viewcode-block" id="Driver.discover"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.discover">[docs]</a>    <span class="k">def</span> <span class="nf">discover</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.discover"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.discover">[docs]</a>    <span class="k">def</span> <span class="nf">discover</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Find the serial ports for each pump controller&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">serial</span> <span class="k">import</span> <span class="n">Serial</span>
         <span class="kn">from</span> <span class="nn">threading</span> <span class="k">import</span> <span class="n">RLock</span> <span class="k">as</span> <span class="n">Lock</span>
@@ -207,19 +206,19 @@
         <span class="k">for</span> <span class="n">port_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_ports</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Trying self.port </span><span class="si">%s</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="n">port_name</span><span class="p">)</span>
-                <span class="n">port</span> <span class="o">=</span> <span class="n">Serial</span><span class="p">(</span><span class="n">port_name</span><span class="p">,</span> <span class="n">timeout</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="n">port</span> <span class="o">=</span> <span class="n">Serial</span><span class="p">(</span><span class="n">port_name</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
                 <span class="n">available_ports</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">available_ports</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">port_name</span><span class="p">))</span>
         <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;available ports </span><span class="si">{}</span><span class="s2">...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">available_ports</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">port_name</span> <span class="ow">in</span> <span class="n">available_ports</span><span class="p">:</span>
-            <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Trying port </span><span class="si">%s</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="n">port_name</span><span class="p">)</span>
-            <span class="n">port</span> <span class="o">=</span> <span class="n">Serial</span><span class="p">(</span><span class="n">port_name</span><span class="p">,</span> <span class="n">timeout</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Trying self.port </span><span class="si">%s</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="n">port_name</span><span class="p">)</span>
+            <span class="n">port</span> <span class="o">=</span> <span class="n">Serial</span><span class="p">(</span><span class="n">port_name</span><span class="p">)</span>
             <span class="n">port</span><span class="o">.</span><span class="n">baudrate</span> <span class="o">=</span> <span class="mi">9600</span>
             <span class="n">port</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="mi">2</span>
             <span class="n">port</span><span class="o">.</span><span class="n">flushInput</span><span class="p">()</span>
             <span class="n">port</span><span class="o">.</span><span class="n">flushOutput</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;/1?80</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">port</span><span class="p">)</span>
-            <span class="n">full_reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span><span class="p">)</span>
+            <span class="n">port</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;/1?80</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">full_reply</span> <span class="o">=</span> <span class="n">port</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">full_reply</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;port </span><span class="si">%r</span><span class="s2">: full_reply </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">port_name</span><span class="p">,</span><span class="n">full_reply</span><span class="p">))</span>
                 <span class="n">reply</span> <span class="o">=</span> <span class="n">full_reply</span><span class="p">[</span><span class="mi">3</span><span class="p">:][:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
@@ -256,11 +255,7 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; driver.available_ports()</span>
-<span class="sd">        [&#39;/dev/cu.usbserial&#39;,</span>
-<span class="sd">         &#39;/dev/cu.usbserial1&#39;,</span>
-<span class="sd">         &#39;/dev/cu.usbserial2&#39;,</span>
-<span class="sd">         &#39;/dev/cu.usbserial3&#39;]</span>
+<span class="sd">        &gt;&gt;&gt; driver.available_ports() #TODO add response</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">platform</span> <span class="k">import</span> <span class="n">system</span>
         <span class="kn">from</span> <span class="nn">serial.tools.list_ports</span> <span class="k">import</span> <span class="n">comports</span>
@@ -275,7 +270,7 @@
         <span class="k">return</span> <span class="p">[</span><span class="n">port</span><span class="o">.</span><span class="n">device</span> <span class="k">for</span> <span class="n">port</span> <span class="ow">in</span> <span class="n">comports</span><span class="p">()</span> <span class="k">if</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="n">port</span><span class="o">.</span><span class="n">device</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="Driver.write"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">command</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.write"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">command</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        serial write command</span>
 <span class="sd">        input: command, port</span>
@@ -293,7 +288,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Port is not specified&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Driver.read"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.read"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -311,7 +306,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">reply</span></div>
 
-<div class="viewcode-block" id="Driver.query"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">command</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.query"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">command</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        write-read command with build in threading lock to insure no commands can be send within 100 ms</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -347,7 +342,7 @@
             <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="kc">None</span><span class="p">,</span><span class="s1">&#39;error_code&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">None</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;no device found&#39;</span><span class="p">}</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="Driver.waiting"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.waiting">[docs]</a>    <span class="k">def</span> <span class="nf">waiting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.waiting"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.waiting">[docs]</a>    <span class="k">def</span> <span class="nf">waiting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns number of byyes in both in and out buffers as tuple</span>
 
@@ -367,7 +362,7 @@
         <span class="k">return</span> <span class="n">reply</span></div>
 
 
-<div class="viewcode-block" id="Driver.close"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.close"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        closes serial port</span>
 
@@ -404,8 +399,8 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; driver._get_position()</span>
-<span class="sd">            {&#39;value&#39;: &#39;0.000&#39;, &#39;error_code&#39;: &#39;`&#39;, &#39;busy&#39;: False, &#39;error&#39;: &#39;No Error&#39;}</span>
+<span class="sd">        &gt;&gt;&gt; ser_port._get_position()</span>
+<span class="sd">            &#39;\xff/0`0.000\x03\r\n&#39;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;/1?18</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;get_position(): reply = </span><span class="si">{!r}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">reply</span><span class="p">))</span>
@@ -429,8 +424,7 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; ser_port._set_position(10)</span>
-<span class="sd">        {&#39;value&#39;: &#39;&#39;, &#39;error_code&#39;: &#39;@&#39;, &#39;busy&#39;: True, &#39;error&#39;: &#39;No Error&#39;}</span>
+<span class="sd">        &gt;&gt;&gt; ser_port._set_position()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pos</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">position</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;/1A&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;,1R</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
@@ -441,20 +435,6 @@
     <span class="k">def</span> <span class="nf">_get_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get speed as an atomic command</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        position: float</span>
-<span class="sd">            input position as float</span>
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        reply: string</span>
-<span class="sd">            unparse complete response string</span>
-
-<span class="sd">        Examples</span>
-<span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; ser_port._get_speed()</span>
-<span class="sd">         {&#39;value&#39;: &#39;25.000&#39;, &#39;error_code&#39;: &#39;`&#39;, &#39;busy&#39;: False, &#39;error&#39;: &#39;No Error&#39;}</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;/1?37</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
         <span class="n">number</span> <span class="o">=</span> <span class="n">reply</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
@@ -479,7 +459,6 @@
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
 <span class="sd">        &gt;&gt;&gt; driver._set_speed(speed = 25)</span>
-<span class="sd">        {&#39;value&#39;: &#39;&#39;, &#39;error_code&#39;: &#39;@&#39;, &#39;busy&#39;: True, &#39;error&#39;: &#39;No Error&#39;}</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">spd</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
@@ -500,7 +479,7 @@
     <span class="k">def</span> <span class="nf">get_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_speed</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">reply</span>
-<div class="viewcode-block" id="Driver.set_speed"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.set_speed">[docs]</a>    <span class="k">def</span> <span class="nf">set_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">speed</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.set_speed"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.set_speed">[docs]</a>    <span class="k">def</span> <span class="nf">set_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">speed</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        set speed as an atomic command. can be executed if plunger is moving. If plunger is moving accepts speeds below 68.8.</span>
 <span class="sd">        Example: &#39;/1V25.0,1F&quot;\&quot;r&#39; set speed to 25.0 uL per s</span>
@@ -529,7 +508,7 @@
 
     <span class="c1">###Set up Commands</span>
 
-<div class="viewcode-block" id="Driver.assign_volume"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.assign_volume">[docs]</a>    <span class="k">def</span> <span class="nf">assign_volume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">volume</span> <span class="o">=</span> <span class="mi">250</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.assign_volume"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.assign_volume">[docs]</a>    <span class="k">def</span> <span class="nf">assign_volume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">volume</span> <span class="o">=</span> <span class="mi">250</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Specifies the syringe volumes for each pump in the dictionary of</span>
 <span class="sd">        pumps. The command takes effect after power cycling the pumps, and</span>
 <span class="sd">        need only be executed once.</span>
@@ -549,7 +528,7 @@
             <span class="n">reply</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s2">&quot;volume of </span><span class="si">{}</span><span class="s2"> uL is not supported. Choose from </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">volume</span><span class="p">,</span><span class="n">volumes</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="s1">&#39;error_code&#39;</span><span class="p">:</span> <span class="s1">&#39;!&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">}</span>
         <span class="k">return</span> <span class="n">reply</span></div>
 
-<div class="viewcode-block" id="Driver.initialize"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.initialize"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        initialization command: Y for left pumps and Z for right pumps</span>
 <span class="sd">        Z: input on left, output on right</span>
@@ -576,7 +555,7 @@
 
 
 
-<div class="viewcode-block" id="Driver.assign_pids"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.assign_pids">[docs]</a>    <span class="k">def</span> <span class="nf">assign_pids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pid</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.assign_pids"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.assign_pids">[docs]</a>    <span class="k">def</span> <span class="nf">assign_pids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pid</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Assigns pump id to each syringe pump according to dictionary; since</span>
 <span class="sd">        pump ids are written to non-volatile memory, need only execute once.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">pid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -602,14 +581,14 @@
         <span class="k">if</span> <span class="n">orientation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">orientation</span> <span class="o">=</span> <span class="n">orientation</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Driver.abort"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.abort">[docs]</a>    <span class="k">def</span> <span class="nf">abort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.abort"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.abort">[docs]</a>    <span class="k">def</span> <span class="nf">abort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Terminates plunger moves [A,P,D] , initialization commands [Z], and delay [M]; does not affect valve moves.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span>  <span class="o">=</span> <span class="s1">&#39;/1TR</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">reply</span></div>
 
-<div class="viewcode-block" id="Driver.home"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.home">[docs]</a>    <span class="k">def</span> <span class="nf">home</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.home"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.home">[docs]</a>    <span class="k">def</span> <span class="nf">home</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        homes the syringe pump</span>
 <span class="sd">        The homing parameters are hardcoded:</span>
@@ -657,12 +636,12 @@
             <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;/1Y7,0,0IV25,1K&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">backlash</span><span class="p">),</span><span class="s2">&quot;A0,1R</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">]),</span> <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
             <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;/1Z7,0,0IV25,1K&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">backlash</span><span class="p">),</span><span class="s2">&quot;A0,1R</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">]),</span> <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
-        <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;homing of motor </span><span class="si">%r</span><span class="s1">: reply = </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span><span class="p">,</span><span class="n">reply</span><span class="p">))</span>
+        <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;homing of motor </span><span class="si">%r</span><span class="s1">: reply = </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">pump_id</span><span class="p">,</span><span class="n">reply</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cmd_position</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="mf">25.0</span>
         <span class="k">return</span> <span class="n">reply</span></div>
 
-<div class="viewcode-block" id="Driver.busy"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.busy">[docs]</a>    <span class="k">def</span> <span class="nf">busy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.busy"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.busy">[docs]</a>    <span class="k">def</span> <span class="nf">busy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        queries</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -684,14 +663,14 @@
 
     <span class="k">def</span> <span class="nf">get_backlash</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">backlash</span>
-<div class="viewcode-block" id="Driver.set_backlash"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.set_backlash">[docs]</a>    <span class="k">def</span> <span class="nf">set_backlash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.set_backlash"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.set_backlash">[docs]</a>    <span class="k">def</span> <span class="nf">set_backlash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;/1K&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;R</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
         <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;set_backlash(): reply = </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">reply</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">backlash</span> <span class="o">=</span> <span class="n">value</span></div>
 
-<div class="viewcode-block" id="Driver.convert_error_code"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.convert_error_code">[docs]</a>    <span class="k">def</span> <span class="nf">convert_error_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">char</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.convert_error_code"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.convert_error_code">[docs]</a>    <span class="k">def</span> <span class="nf">convert_error_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">char</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        the ` is \x60 character or chr(96)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -722,7 +701,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">None</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="kc">None</span><span class="p">}</span></div>
 
-<div class="viewcode-block" id="Driver.reset"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.reset"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Performs a soft reset on pumps&quot;&quot;&quot;</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;/1!R</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
         <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;reset(): reply = </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">reply</span><span class="p">)</span>
@@ -730,7 +709,7 @@
 
     <span class="c1">#Compund commands</span>
 
-<div class="viewcode-block" id="Driver.move_abs"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.move_abs">[docs]</a>    <span class="k">def</span> <span class="nf">move_abs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">position</span><span class="p">,</span> <span class="n">speed</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.move_abs"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.move_abs">[docs]</a>    <span class="k">def</span> <span class="nf">move_abs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">position</span><span class="p">,</span> <span class="n">speed</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Move plunger of pump[pid] to absolute position.</span>
 <span class="sd">        Plunger moves can be executed in increments or volume</span>
 <span class="sd">        by appending to the destination ‘,0’ or ‘,1’.</span>
@@ -749,7 +728,7 @@
         <span class="k">return</span> <span class="n">reply</span></div>
 
 
-<div class="viewcode-block" id="Driver.move_rel"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.move_rel">[docs]</a>    <span class="k">def</span> <span class="nf">move_rel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">position</span><span class="p">,</span><span class="n">speed</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.move_rel"><a class="viewcode-back" href="../../usage.html#syringe_pump.driver.Driver.move_rel">[docs]</a>    <span class="k">def</span> <span class="nf">move_rel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">position</span><span class="p">,</span><span class="n">speed</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Move plunger of pump[pid] to relative position.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">abort</span><span class="p">()</span>
         <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
@@ -768,7 +747,7 @@
     <span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">gettempdir</span>
 
     <span class="kn">import</span> <span class="nn">logging</span><span class="p">;</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="c1">#filename=gettempdir()+&#39;/syringe_pump_driver.log&#39;,</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">gettempdir</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;/syringe_pump_driver.log&#39;</span><span class="p">,</span>
                                         <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> </span><span class="si">%(levelname)s</span><span class="s2">: </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="bp">self</span> <span class="o">=</span> <span class="n">driver</span> <span class="c1"># for debugging</span>
