@@ -9,7 +9,7 @@ Last modified: May 28 2019
 
 __version__ = '0.0.0'
 
-from .driver import Driver
+from syringe_pump.driver import Driver
 
 
 import traceback
@@ -55,6 +55,9 @@ class Device(object):
         self.running = 0
         self.scan_period = 0.001
 
+        self.io_put_queue = None
+        self.io_get_queue = None
+
 #  ############################################################################
 #  Basic IOC operations
 #  ############################################################################
@@ -62,13 +65,38 @@ class Device(object):
         """default factory setting or first time setup"""
         raise NotImplementedError
 
-    def init(self, pump_id = None,speed = None, backlash = None, orientation = None, volume = None):
+    def init(self, pump_id = None, speed = None, backlash = None, orientation = None, volume = None):
         """
-        initialize the server\IOC
+        initialize the device level code
+
+        - initializes the driver
+        - sets default valve position to 'o'
+        - sets initial position to 0.0
+        - sets initial speed to input speed value
+
+        Parameters
+        ----------
+        pump_id: integer
+            pump_id
+        speed: float
+            initial speed of the syringe pump, default is 25
+        backlash: float
+            the backlash of the syringe pump. The default value is 100
+        orientation: string
+            the orientation of the syringe pump valve: Y or Z
+        volume: float
+            the volume of the installed syringe
+
+        Returns
+        -------
+
+        Examples
+        --------
+        >>> device.init(pump_id = 1, speed = 25, backlash = 100,orientation = 'Y', volume = 250)
         """
-        from threading import RLock as Lock
-        self.lock = Lock()
-        from drivers.Cavro_Centris_Syringe_Pump.cavro_centris_syringe_pump_driver import Driver
+        from threading import RLock
+        self.lock = RLock()
+        from syringe_pump.driver import Driver
         self.pump_id = pump_id
         self.driver = Driver()
         self.name = 'NIH_syringe_pump_'+ str(pump_id)
@@ -78,77 +106,148 @@ class Device(object):
             self.speed = speed
             self.cmd_position = 0.0
             self.valve = 'o'
-            self.startup()
-            self.run_once()
+
 
 
     def abort(self):
-        """orderly abort of the current operation"""
-        from CAServer import casput
-        with self.lock:
-            #self.set_status('aborting...')
-            reply = self.driver.abort()
-            self.process_driver_reply(reply)
-            prefix = self.prefix
-            t1 = time()
-            flag = True
-            while self.get_busy():
-                sleep(0.1)
-                if time() - t1 > 10.0:
-                    flag = False
-                    break
-            if flag:
-                casput(prefix+".cmd_ABORT",value = 0)
-                #casput(prefix+".VAL",value = self.position)
-                #self.set_status('')
-                #self.set_status('aborted')
+        """
+        orderly abort of the current operation
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+
+        Examples
+        --------
+        >>> device.abort()
+        """
+        debug('device.abort')
+        reply = self.driver.abort()
+        self.process_driver_reply(reply)
+        t1 = time()
+        flag = True
+        while self.get_busy():
+            sleep(0.1)
+            if time() - t1 > 10.0:
+                flag = False
+                break
+
 
     def close(self):
-        """orderly close\shutdown"""
+        """orderly close and shutdown
+        Parameters
+        ----------
+
+        Returns
+        -------
+
+        Examples
+        --------
+        >>> device.abort()
+        """
         self.stop()
         self.abort()
-        self.cleanup()
+        #self.cleanup()
         self.driver.close()
 
     def help(self):
-        """returns help  information in a string format."""
+        """returns help information in a string format.
+
+    	Parameters
+    	----------
+
+    	Returns
+    	-------
+
+    	Examples
+    	--------
+    	>>> device.run_once()
+
+        """
         raise NotImplementedError
 
     def snapshot(self):
-        """returns snapshot of current PVs and their values in a dictionary format"""
+        """returns snapshot of current PVs and their values in a dictionary format
+
+    	Parameters
+    	----------
+
+    	Returns
+    	-------
+
+    	Examples
+    	--------
+    	>>> device.run_once()
+
+        """
         raise NotImplementedError
 
     def start(self):
-        """starts a separate thread"""
-        from thread import start_new_thread
-        start_new_thread(self.run,())
+        """
+        starts run() in a separate thread
+
+    	Parameters
+    	----------
+
+    	Returns
+    	-------
+
+    	Examples
+    	--------
+    	>>> device.run_once()
+
+        """
+        from ubcs_auxiliary import new_thread
+        new_thread(self.run,())
 
     def stop(self):
-        """stop a separate thread"""
-        from CAServer import casput
+        """
+        stop run() in the separate thread
+
+    	Parameters
+    	----------
+
+    	Returns
+    	-------
+
+    	Examples
+    	--------
+    	>>> device.run_once()
+
+        """
         self.running = False
-        casput(self.prefix+".RUNNING",value = self.running, update = False)
+        self.iowrite(".RUNNING",value = self.running)
 
 
     def run_once(self):
         """
+    	run once
+
+    	Parameters
+    	----------
+
+    	Returns
+    	-------
+
+    	Examples
+    	--------
+    	>>> device.run_once()
+
         """
-        from CAServer import casput
-        #request current position from the syringe pump
         self.position = self.get_position()
         if not self.busy:
             self.scan_period = 10.0
-        casput(self.prefix+".DMOV",value = self.isdonemoving(), update = False)
-        casput(self.prefix+".RBV",value = self.position, update = False)
-        casput(self.prefix+".ALARM",value = self.get_alarm(), update = False)
-        casput(self.prefix+".WARN",value = self.get_warning(), update = False)
+        self.iowrite(pv_name = ".DMOV",value = self.isdonemoving())
+        self.iowrite(pv_name = ".RBV",value = self.position)
+
 
 
     def run(self):
         """"""
-        from CAServer import casput
         self.running = True
-        casput(self.prefix+".RUNNING",value = self.running, update = False)
+        self.iowrite(".RUNNING",value = self.running)
 
         while self.running:
             t = time()
@@ -157,7 +256,7 @@ class Device(object):
                 sleep(0.1)
 
         self.running = False
-        casput(self.prefix+".RUNNING",value = self.running, update = False)
+        self.iowrite(".RUNNING",value = self.running)
 
     def get_busy(self):
         reply = self.driver.busy()
@@ -167,51 +266,54 @@ class Device(object):
         else:
             return None
 
-    def IOC_run(self):
-        """"""
+    def iowrite(self, pv_name = None, value = None):
+        """
+    	put dictionary of key:value pairs to IO.
+
+    	Parameters
+    	----------
+    	pv_dict:  (dictionary)
+    		dictionary of PVs and new PV values
+
+    	Returns
+    	-------
+
+    	Examples
+    	--------
+    	>>> device.ioput(pv_dict = {'running':True})
+
+        """
+        if self.io_put_queue is not None:
+            self.io_put_queue.put({pv_name: value})
+        else:
+            print(f"no IO is linked to the device. Couldn't process {pv_name}")
+
+    def ioread(self, pv_name = ''):
+        """
+    	put dictionary of key:value pairs to IO.
+
+    	Parameters
+    	----------
+    	pv_dict:  (dictionary)
+    		dictionary of PVs and new PV values
+
+    	Returns
+    	-------
+
+    	Examples
+    	--------
+    	>>> device.ioput(pv_dict = {'running':True})
+
+        """
         raise NotImplementedError
 
-
-
-
     def startup(self):
-        from CAServer import casput, casmonitor, PV_names
-        from pickle import dumps as dump_string
-        info('startup for pump {}'.format(self.pump_id))
-        prefix = self.prefix
-
-        #Indicator PVs
-        casput(prefix+".DESC",value = self.description, update = False)
-        casput(prefix+".EGU",value = "uL")
-        casput(prefix+".ALARM",value = '')
-        casput(prefix+".WARN",value = '')
-        casput(prefix+".LLIM_ALARM",value = self.low_level_limit_alarm)
-        casput(prefix+".LLIM_WARN",value = self.low_level_limit_warning)
-        casput(prefix+".RUNNING",value = self.running, update = False)
-        casput(prefix+".RBV",value = self.position)
-        casput(prefix+".LIST_ALL_PVS", value = self.list_all_pvs())
-
-        #Control PVs
-        casput(prefix+".CMD",value = dump_string(''))
-        casmonitor(prefix+".CMD",callback=self.command_monitor)
-
-        casput(prefix+".VAL",value = self.cmd_position)
-        casmonitor(prefix+".VAL",callback=self.monitor)
-
-
-        casput(prefix+".VELO",value = self.speed*1.0)
-        casmonitor(prefix+".VELO", callback=self.monitor)
-
-        casput(prefix+".VALVE",value = self.valve)
-        casmonitor(prefix+".VALVE", callback=self.monitor)
-
-        from auxiliary.circular_buffer_LL import CBServer as Server
+        from circular_buffer_numpy.circular_buffer import CircularBuffer
         self.buffers = {}
-        self.buffers['position'] = Server(size = (2,1*3600*2) , var_type = 'float64')
+        self.buffers['position'] = CircularBuffer(shape = (1*3600*2,2), dtype = 'float64')
 
     def monitor(self,PV_name,value,char_value):
         """Process PV change requests"""
-        from CAServer import casput
         info("monitor: %s = %r" % (PV_name,value))
         if PV_name == self.prefix + ".VAL":
             self.set_cmd_position(value)
@@ -222,7 +324,6 @@ class Device(object):
 
     def command_monitor(self,PV_name,value,char_value):
         """Process PV change requests"""
-        from CAServer import casput
         from pickle import loads
         info("command_monitor: %s = %r" % (PV_name,value))
         cmd_dict = {'abort':[],
@@ -250,22 +351,6 @@ class Device(object):
                 error(traceback.format_exc())
 
 
-        #if PV_name == self.prefix+".cmd_HOME":
-        #   self.home()
-
-
-
-    def cleanup(self):
-        from CAServer import casdel
-        for pv in self.list_all_pvs():
-            casdel(pv)
-
-    def list_all_pvs(self):
-        from CAServer import PVs
-        result = list(PVs.keys())
-        return result
-
-
 ####################################################################################################
 ### device specific functions
 ####################################################################################################
@@ -274,76 +359,169 @@ class Device(object):
             self.set_status('homing...')
             if value == 1:
                 self.driver.home()
-            casput(prefix+".cmd_HOME",value = 0)
-            casput(prefix+".VELOCITY",value = self.cmd_position)
-            casput(prefix+".VAL",value = self.speed)
+            self.iowrite(".cmd_HOME",value = 0)
+            self.iowrite(".VELOCITY",value = self.cmd_position)
+            self.iowrite(".VAL",value = self.speed)
             self.set_status('homing complete')
 
     def get_position(self):
         """
-        request position of the pump
+        request position of the pump via driver
+
+    	Parameters
+    	----------
+
+    	Returns
+    	-------
+        value: float
+            current pump position
+
+    	Examples
+    	--------
+    	>>> device.get_position()
+        0.0
         """
-        from numpy import nan
+        from numpy import nan, zeros
         reply = self.driver._get_position()
         value = self.process_driver_reply(reply)
         if value is None:
             value = nan
         self.position = round(float(value),3)
+        arr = zeros((1,2))
+        arr[0,0] = time()
+        arr[0,1] = self.position
+        self.buffers['position'].append(arr)
         return self.position
 
     def set_position(self, value):
-        with lock:
-            self.set_cmd_position(value)
+        self.set_cmd_position(value)
 
     def get_cmd_position(self):
         """
-        get position of the pump
+        get commanded position of the pump
+
+    	Parameters
+    	----------
+
+    	Returns
+    	-------
+        value: float
+            last known commanded position
+
+    	Examples
+    	--------
+    	>>> device.get_cmd_position()
+        0.0
         """
         return self.cmd_position
     def set_cmd_position(self,value):
-        from CAServer import casput
+        """
+        set commanded position of the pump
+
+    	Parameters
+    	----------
+        value: float
+            last known commanded position
+
+    	Returns
+    	-------
+
+    	Examples
+    	--------
+    	>>> device.set_cmd_position(value = 25.0)
+        """
         reply = self.driver._set_position(value)
         self.cmd_position = value
         self.scan_period = 0.001
-        casput(self.prefix+".VAL", self.cmd_position, update = False)
+        self.iowrite(".VAL", self.cmd_position)
 
     def get_speed(self):
         """
-        get position of the pump
+        read speed from the pump
+
+    	Parameters
+    	----------
+
+    	Returns
+    	-------
+        speed: float
+            returns pump speed
+
+    	Examples
+    	--------
+    	>>> device.get_speed()
+        25.0
         """
         reply  = self.driver.get_speed()
         self.speed = self.process_driver_reply(reply)
-        casput(self.prefix+".VELO", self.speed , update = False)
+        self.iowrite(".VELO", self.speed)
         return self.speed
 
     def set_speed_on_the_fly(self,value):
-        from CAServer import casput
+        """
+        sets speed on the fly. speed values above 68.8 will be ignored.
+
+    	Parameters
+    	----------
+        speed: float
+             pump speed
+
+    	Returns
+    	-------
+
+    	Examples
+    	--------
+    	>>> device.set_speed_on_the_fly(25.0)
+        """
         reply = self.driver._set_speed_on_the_fly(value)
         temp = self.process_driver_reply(reply)
-        print('set_speed_on_the_fly: {}, {}'.format(reply,temp))
+        debug('set_speed_on_the_fly: {}, {}'.format(reply,temp))
         self.speed = value
-        casput(self.prefix+".VELO", self.speed , update = False)
+        self.iowrite(".VELO", self.speed)
 
 
     def set_speed(self,value):
         """
-        set speed of the pump
+        sets speed of the pump. no limits on the input value
+
+    	Parameters
+    	----------
+        speed: float
+             pump speed
+
+    	Returns
+    	-------
+
+    	Examples
+    	--------
+    	>>> device.set_speed(25.0)
         """
-        from CAServer import casput
         reply = self.driver.set_speed(value)
         temp = self.process_driver_reply(reply)
         self.speed = value
-        casput(self.prefix+".VELO", self.speed , update = False)
+        self.iowrite(".VELO", self.speed)
 
     def set_status(self, value = ''):
-        from CAServer import casput
         value = str(value)
-        casput(self.prefix + '.STATUS', value, update = False)
+        self.iowrite('.STATUS', value)
         self.status = value
 
     def isdonemoving(self):
         """
         return flag if motion is complete. It will compare the cmd_position and actual position
+
+    	Parameters
+    	----------
+
+    	Returns
+    	-------
+        flag: boolean
+            boolean if motor is moving or not
+
+    	Examples
+    	--------
+    	>>> device.isdonemoving()
+        True
         """
         flag = abs(self.cmd_position - self.position) < self.dpos
         return flag
@@ -366,17 +544,46 @@ class Device(object):
         return response
 
     def get_valve(self):
+        """
+        reads valve orientation from the pump
+
+    	Parameters
+    	----------
+
+    	Returns
+    	-------
+        valve: string
+            valve orientation as a string" 'i','o','b'
+
+    	Examples
+    	--------
+    	>>> device.get_valve()
+        'i'
+        """
         reply = self.driver.valve
         value = self.process_driver_reply(reply)
         self.valve = value
         return value
 
     def set_valve(self,value):
-        from CAServer import casput
+        """
+        writes valve orientation into the pump
+
+    	Parameters
+    	----------
+        valve: string
+            valve orientation as a string" 'i','o','b'
+
+    	Returns
+    	-------
+
+    	Examples
+    	--------
+    	>>> device.get_valve('i')
+        """
         self.driver.set_valve(value)
         self.valve = value
-        casput(self.prefix+".VALVE", value)
-        sleep(0.2)
+        self.iowrite(".VALVE", value)
 
 
     def process_driver_reply(self,reply):
@@ -393,20 +600,23 @@ class Device(object):
 
         Examples
         --------
-        >>> d
+        >>> reply = {'value': '', 'error_code': '`', 'busy': False, 'error': 'No Error'}
+        >>> device.process_driver_reply(reply)
         """
         if reply is not None:
             self.busy = reply['busy']
             self.error_code = reply['error_code']
             self.error = reply['error']
             value = reply['value']
-        #update CA Server with new values
-            casput(self.prefix+".MOVN",value = self.moving, update = False)
-            casput(self.prefix+".ERROR",value = self.error, update = False)
-            casput(self.prefix+".ERROR_CODE",value = self.error_code, update = False)
+            if True:
+                self.iowrite(".MOVN",value = self.moving)
+                self.iowrite(".ERROR",value = self.error)
+                self.iowrite(".ERROR_CODE",value = self.error_code)
+            else:
+                self.iowrite(".ERROR",value = 'Communication Error')
+                self.iowrite(".ERROR_CODE",value = '!')
         else:
-            casput(self.prefix+".ERROR",value = 'Communication Error', update = False)
-            casput(self.prefix+".ERROR_CODE",value = '!', update = False)
+
             logging.warning('warning in process_driver_reply: reply = {}'.format(reply))
             value = None
         return value
@@ -534,19 +744,31 @@ class Device(object):
         self.set_valve('o')
 
     def flow(self,position = 0, speed = 0.1):
+        """
+        performs safe compound "flow" command which initits flow towards posotion with the given speed. Makes sure to set the valve orientation to 'o' output.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+
+        Examples
+        --------
+        >>> device.flow(position = 25, speed = 0.1)
+        """
         self.abort()
         if self.valve is not 'o':
             self.set_valve('o')
         if speed <= self.flow_speed_high_limit:
-            self.move_abs(position = position, speed = speed)
+            reply = self.move_abs(position = position, speed = speed)
+            self.process_driver_reply(reply)
+
+device = Device()
 
 if __name__ == "__main__": #for testing
     from tempfile import gettempdir
     import logging
     logging.basicConfig(filename=gettempdir()+'/syringe_pump_DL.log',
                         level=logging.DEBUG, format="%(asctime)s %(levelname)s: %(message)s")
-
-
-    tower.init()
-    tower.start()
-    #tower.run()
+    self = device
