@@ -33,6 +33,15 @@ d['/1?18\r' ]['reply'] = '\xff/0`0.000\x03\r\n' #
 d['/1?18\r' ]['delay'] = 0
 d['/1?18\r' ]['description'] = 'position'
 
+d['/1?20R\r']['reply'] = '\xff/0`o\x03\r\n'
+d['/1?20R\r']['delay'] = 0 #
+d['/1?20R\r']['description'] = 'get valve'
+
+d['/1?20R\r']['reply'] = '\xff/0`o\x03\r\n'
+d['/1?20R\r']['delay'] = 0 #
+d['/1?20R\r']['description'] = 'set valve'
+
+'/1IR\r'
 command_dict = d
 if __name__ == "__main__":
     from tempfile import gettempdir

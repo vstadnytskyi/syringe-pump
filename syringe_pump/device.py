@@ -264,46 +264,7 @@ class Device(object):
         else:
             return None
 
-    def iowrite(self, pv_name = None, value = None):
-        """
-    	put dictionary of key:value pairs to IO.
 
-    	Parameters
-    	----------
-    	pv_dict:  (dictionary)
-    		dictionary of PVs and new PV values
-
-    	Returns
-    	-------
-
-    	Examples
-    	--------
-    	>>> device.ioput(pv_dict = {'running':True})
-
-        """
-        if self.io_put_queue is not None:
-            self.io_put_queue.put({pv_name: value})
-        else:
-            print(f"no IO is linked to the device. Couldn't process {pv_name}")
-
-    def ioread(self, pv_name = ''):
-        """
-    	put dictionary of key:value pairs to IO.
-
-    	Parameters
-    	----------
-    	pv_dict:  (dictionary)
-    		dictionary of PVs and new PV values
-
-    	Returns
-    	-------
-
-    	Examples
-    	--------
-    	>>> device.ioput(pv_dict = {'running':True})
-
-        """
-        raise NotImplementedError
 
     def startup(self):
         from circular_buffer_numpy.circular_buffer import CircularBuffer
@@ -347,6 +308,72 @@ class Device(object):
                     self.flow(position = position, speed = speed)
             except:
                 error(traceback.format_exc())
+
+    # input-output(io) controller wrappers
+
+    def iowrite(self, pv_name = None, value = None):
+        """
+        put dictionary of key:value pairs to IO.
+
+        Parameters
+        ----------
+        pv_name:  (string)
+            string name of the PV
+        value:  (string,list,integer,float,array)
+            the new value to be submitted to io for processing.
+
+        Returns
+        -------
+
+        Examples
+        --------
+        >>> device.ioput(pv_name = '.running',value = True)
+
+        """
+        if self.io_put_queue is not None:
+            self.io_put_queue.put({pv_name: value})
+        else:
+            print(f"no IO is linked to the device. Couldn't process {pv_name}")
+
+    def ioread(self, pv_name = None, value = None):
+        """
+        put dictionary of key:value pairs to IO.
+
+        Parameters
+        ----------
+        pv_dict:  (dictionary)
+            dictionary of PVs and new PV values
+
+        Returns
+        -------
+
+        Examples
+        --------
+        >>> device.ioput(pv_name = '.running',value = False)
+
+        """
+        raise NotImplementedError
+
+    def ioexecute(self, pv_name = None, value = None):
+        """
+        executes command arrived from IO
+
+        Parameters
+        ----------
+        pv_name:  (string)
+            string name of the PV
+        value:  (string,list,integer,float,array)
+            the new value to be submitted to io for processing.
+
+        Returns
+        -------
+
+        Examples
+        --------
+        >>> device.ioexecute(pv_name = '.running',value = False)
+
+        """
+        raise NotImplementedError
 
 
 ####################################################################################################
