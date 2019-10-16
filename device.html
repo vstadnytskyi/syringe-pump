@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Device Level (DL) &mdash; Cavro Centris Syringe Pump 0.0.1.post15+g0f35ab5 documentation</title>
+  <title>Device Level (DL) &mdash; Cavro Centris Syringe Pump 0.0.1.post16+ge281e60 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.1.post15+g0f35ab5
+                0.0.1.post16+ge281e60
               </div>
             
           
@@ -182,11 +182,9 @@
 <dl class="method">
 <dt id="syringe_pump.device.Device.close">
 <code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.close" title="Permalink to this definition">¶</a></dt>
-<dd><p>orderly close and shutdown
-Parameters
-———-</p>
+<dd><p>orderly close of the serial port and shutdown</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">abort</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -365,7 +363,7 @@ Parameters
 
 <dl class="method">
 <dt id="syringe_pump.device.Device.ioexecute">
-<code class="sig-name descname">ioexecute</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">pv_name=None</em>, <em class="sig-param">value=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.ioexecute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.ioexecute" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ioexecute</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">pv_name=None</em>, <em class="sig-param">value=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.ioexecute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.ioexecute" title="Permalink to this definition">¶</a></dt>
 <dd><p>executes command arrived from IO</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -436,6 +434,16 @@ Parameters
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">isdonemoving</span><span class="p">()</span>
 <span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.device.Device.kill">
+<code class="sig-name descname">kill</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.kill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.kill" title="Permalink to this definition">¶</a></dt>
+<dd><p>orderly close of the serial port and shutdown of the device and deletion of the instance</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>

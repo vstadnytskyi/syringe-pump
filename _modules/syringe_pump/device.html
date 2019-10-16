@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>syringe_pump.device &mdash; Cavro Centris Syringe Pump 0.0.1.post15+g0f35ab5 documentation</title>
+  <title>syringe_pump.device &mdash; Cavro Centris Syringe Pump 0.0.1.post16+ge281e60 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.0.1.post15+g0f35ab5
+                0.0.1.post16+ge281e60
               </div>
             
           
@@ -251,6 +251,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">threading</span> <span class="k">import</span> <span class="n">RLock</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">RLock</span><span class="p">()</span>
+
+        <span class="kn">from</span> <span class="nn">circular_buffer_numpy.circular_buffer</span> <span class="k">import</span> <span class="n">CircularBuffer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buffers</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buffers</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CircularBuffer</span><span class="p">(</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="mi">3600</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+
         <span class="kn">from</span> <span class="nn">syringe_pump.driver</span> <span class="k">import</span> <span class="n">Driver</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span> <span class="o">=</span> <span class="n">pump_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">driver</span> <span class="o">=</span> <span class="n">Driver</span><span class="p">()</span>
@@ -291,7 +296,9 @@
 
 
 <div class="viewcode-block" id="Device.close"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;orderly close and shutdown</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        orderly close of the serial port and shutdown</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 
@@ -300,12 +307,30 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; device.abort()</span>
+<span class="sd">        &gt;&gt;&gt; device.close()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">abort</span><span class="p">()</span>
         <span class="c1">#self.cleanup()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Device.kill"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.kill">[docs]</a>    <span class="k">def</span> <span class="nf">kill</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        orderly close of the serial port and shutdown of the device and deletion of the instance</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; device.kill()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">del</span> <span class="bp">self</span></div>
+
 
 <div class="viewcode-block" id="Device.help"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.help">[docs]</a>    <span class="k">def</span> <span class="nf">help</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;returns help information in a string format.</span>
@@ -354,8 +379,8 @@
 <span class="sd">    	&gt;&gt;&gt; device.run_once()</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">ubcs_auxiliary</span> <span class="k">import</span> <span class="n">new_thread</span>
-        <span class="n">new_thread</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">,())</span></div>
+        <span class="kn">from</span> <span class="nn">ubcs_auxiliary.threading</span> <span class="k">import</span> <span class="n">new_thread</span>
+        <span class="n">new_thread</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Device.stop"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -393,16 +418,16 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">busy</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">scan_period</span> <span class="o">=</span> <span class="mf">10.0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="n">pv_name</span> <span class="o">=</span> <span class="s2">&quot;.DMOV&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">isdonemoving</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="n">pv_name</span> <span class="o">=</span> <span class="s2">&quot;.RBV&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scan_period</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="n">pv_name</span> <span class="o">=</span> <span class="s2">&quot;DMOV&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">isdonemoving</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="n">pv_name</span> <span class="o">=</span> <span class="s2">&quot;RBV&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">)</span></div>
 
 
 
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.RUNNING&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;RUNNING&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">)</span>
 
         <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">:</span>
             <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
@@ -411,7 +436,7 @@
                 <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.RUNNING&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;RUNNING&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">running</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_busy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">busy</span><span class="p">()</span>
@@ -422,20 +447,14 @@
             <span class="k">return</span> <span class="kc">None</span>
 
 
-
-    <span class="k">def</span> <span class="nf">startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">circular_buffer_numpy.circular_buffer</span> <span class="k">import</span> <span class="n">CircularBuffer</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">buffers</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">buffers</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CircularBuffer</span><span class="p">(</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="mi">3600</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="s1">&#39;float64&#39;</span><span class="p">)</span>
-
 <div class="viewcode-block" id="Device.monitor"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.monitor">[docs]</a>    <span class="k">def</span> <span class="nf">monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">PV_name</span><span class="p">,</span><span class="n">value</span><span class="p">,</span><span class="n">char_value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Process PV change requests&quot;&quot;&quot;</span>
         <span class="n">info</span><span class="p">(</span><span class="s2">&quot;monitor: </span><span class="si">%s</span><span class="s2"> = </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">PV_name</span><span class="p">,</span><span class="n">value</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">PV_name</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;.VAL&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">PV_name</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;VAL&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_cmd_position</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">PV_name</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;.VELO&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">PV_name</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;VELO&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_speed_on_the_fly</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">PV_name</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;.VALVE&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">PV_name</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;VALVE&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_valve</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Device.command_monitor"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.command_monitor">[docs]</a>    <span class="k">def</span> <span class="nf">command_monitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">PV_name</span><span class="p">,</span><span class="n">value</span><span class="p">,</span><span class="n">char_value</span><span class="p">):</span>
@@ -448,7 +467,7 @@
                     <span class="s1">&#39;prime&#39;</span><span class="p">:[</span><span class="s1">&#39;N&#39;</span><span class="p">],</span>
                     <span class="s1">&#39;flow&#39;</span><span class="p">:[</span><span class="s1">&#39;position&#39;</span><span class="p">,</span><span class="s1">&#39;speed&#39;</span><span class="p">]</span>
                     <span class="p">}</span>
-        <span class="k">if</span> <span class="n">PV_name</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="o">+</span><span class="s2">&quot;.CMD&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">PV_name</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="o">+</span><span class="s2">&quot;CMD&quot;</span><span class="p">:</span>
             <span class="n">cmd_in</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">cmd_in</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;abort&#39;</span><span class="p">:</span>
@@ -488,9 +507,10 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">io_put_queue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;iowrite got request </span><span class="si">{pv_name}</span><span class="s2">,</span><span class="si">{value}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">io_put_queue</span><span class="o">.</span><span class="n">put</span><span class="p">({</span><span class="n">pv_name</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;no IO is linked to the device. Couldn&#39;t process </span><span class="si">{pv_name}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+            <span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;no IO is linked to the device. Couldn&#39;t process </span><span class="si">{pv_name}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Device.ioread"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.ioread">[docs]</a>    <span class="k">def</span> <span class="nf">ioread</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pv_name</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -511,7 +531,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
-<div class="viewcode-block" id="Device.ioexecute"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.ioexecute">[docs]</a>    <span class="k">def</span> <span class="nf">ioexecute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pv_name</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Device.ioexecute"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.ioexecute">[docs]</a>    <span class="k">def</span> <span class="nf">ioexecute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pv_name</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        executes command arrived from IO</span>
 
@@ -530,7 +550,19 @@
 <span class="sd">        &gt;&gt;&gt; device.ioexecute(pv_name = &#39;.running&#39;,value = False)</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+        <span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;ioexecute received: </span><span class="si">{pv_name}</span><span class="s2">,</span><span class="si">{value}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pv_name</span> <span class="o">==</span> <span class="s1">&#39;VAL&#39;</span><span class="p">:</span>
+            <span class="n">debug</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="nb">float</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_cmd_position</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;the input value </span><span class="si">{pv_name}</span><span class="s1"> for PV </span><span class="si">{value}</span><span class="s1"> is not float&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pv_name</span> <span class="o">==</span> <span class="s1">&#39;VELO&#39;</span><span class="p">:</span>
+            <span class="n">debug</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="nb">float</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_speed_on_the_fly</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;the input value </span><span class="si">{pv_name}</span><span class="s1"> for PV </span><span class="si">{value}</span><span class="s1"> is not float&#39;</span><span class="p">)</span></div>
 
 
 <span class="c1">####################################################################################################</span>
@@ -542,7 +574,7 @@
             <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">home</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.cmd_HOME&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.VELOCITY&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmd_position</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.VELO&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmd_position</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.VAL&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_status</span><span class="p">(</span><span class="s1">&#39;homing complete&#39;</span><span class="p">)</span>
 
@@ -614,8 +646,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">_set_position</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cmd_position</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scan_period</span> <span class="o">=</span> <span class="mf">0.001</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.VAL&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmd_position</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scan_period</span> <span class="o">=</span> <span class="mf">0.001</span></div>
 
 <div class="viewcode-block" id="Device.get_speed"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.get_speed">[docs]</a>    <span class="k">def</span> <span class="nf">get_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -636,7 +667,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">reply</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">get_speed</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_driver_reply</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.VELO&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span></div>
 
 <div class="viewcode-block" id="Device.set_speed_on_the_fly"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.set_speed_on_the_fly">[docs]</a>    <span class="k">def</span> <span class="nf">set_speed_on_the_fly</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
@@ -656,11 +686,11 @@
 <span class="sd">    	&gt;&gt;&gt; device.set_speed_on_the_fly(25.0)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">_set_speed_on_the_fly</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;reply: </span><span class="si">{reply}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_driver_reply</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
-        <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;set_speed_on_the_fly: </span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">reply</span><span class="p">,</span><span class="n">temp</span><span class="p">))</span>
+        <span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;set_speed_on_the_fly: </span><span class="si">{reply}</span><span class="s1">, </span><span class="si">{temp}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.VELO&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="p">)</span></div>
-
+        <span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;set_speed_on_the_fly: </span><span class="si">{self.speed}</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Device.set_speed"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.set_speed">[docs]</a>    <span class="k">def</span> <span class="nf">set_speed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -680,8 +710,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_driver_reply</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.VELO&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">value</span></div>
 
     <span class="k">def</span> <span class="nf">set_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -790,13 +819,13 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">error_code</span> <span class="o">=</span> <span class="n">reply</span><span class="p">[</span><span class="s1">&#39;error_code&#39;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="n">reply</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">reply</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
-            <span class="k">if</span> <span class="kc">True</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.MOVN&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">moving</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.ERROR&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.ERROR_CODE&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_code</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.ERROR&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;Communication Error&#39;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.ERROR_CODE&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;!&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;MOVN&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">moving</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;ERROR&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;ERROR_CODE&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_code</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;ERROR&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;Communication Error&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;ERROR_CODE&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;!&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
 
             <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;warning in process_driver_reply: reply = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">reply</span><span class="p">))</span>
@@ -946,14 +975,12 @@
             <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">move_abs</span><span class="p">(</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span><span class="p">,</span> <span class="n">speed</span> <span class="o">=</span> <span class="n">speed</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">process_driver_reply</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span></div></div>
 
-<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">()</span>
-
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span> <span class="c1">#for testing</span>
     <span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">gettempdir</span>
     <span class="kn">import</span> <span class="nn">logging</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">gettempdir</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;/syringe_pump_DL.log&#39;</span><span class="p">,</span>
                         <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> </span><span class="si">%(levelname)s</span><span class="s2">: </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="bp">self</span> <span class="o">=</span> <span class="n">device</span>
+    <span class="n">pump1</span> <span class="o">=</span> <span class="n">Device</span><span class="p">()</span>
 </pre></div>
 
            </div>
