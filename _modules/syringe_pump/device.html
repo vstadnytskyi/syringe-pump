@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>syringe_pump.device &mdash; Cavro Centris Syringe Pump 0.0.1.post14+ga6b319c documentation</title>
+  <title>syringe_pump.device &mdash; Cavro Centris Syringe Pump 0.0.1.post15+g0f35ab5 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.0.1.post14+ga6b319c
+                0.0.1.post15+g0f35ab5
               </div>
             
           
@@ -421,46 +421,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="Device.iowrite"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.iowrite">[docs]</a>    <span class="k">def</span> <span class="nf">iowrite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pv_name</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    	put dictionary of key:value pairs to IO.</span>
 
-<span class="sd">    	Parameters</span>
-<span class="sd">    	----------</span>
-<span class="sd">    	pv_dict:  (dictionary)</span>
-<span class="sd">    		dictionary of PVs and new PV values</span>
-
-<span class="sd">    	Returns</span>
-<span class="sd">    	-------</span>
-
-<span class="sd">    	Examples</span>
-<span class="sd">    	--------</span>
-<span class="sd">    	&gt;&gt;&gt; device.ioput(pv_dict = {&#39;running&#39;:True})</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">io_put_queue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">io_put_queue</span><span class="o">.</span><span class="n">put</span><span class="p">({</span><span class="n">pv_name</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;no IO is linked to the device. Couldn&#39;t process </span><span class="si">{pv_name}</span><span class="s2">&quot;</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="Device.ioread"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.ioread">[docs]</a>    <span class="k">def</span> <span class="nf">ioread</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pv_name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    	put dictionary of key:value pairs to IO.</span>
-
-<span class="sd">    	Parameters</span>
-<span class="sd">    	----------</span>
-<span class="sd">    	pv_dict:  (dictionary)</span>
-<span class="sd">    		dictionary of PVs and new PV values</span>
-
-<span class="sd">    	Returns</span>
-<span class="sd">    	-------</span>
-
-<span class="sd">    	Examples</span>
-<span class="sd">    	--------</span>
-<span class="sd">    	&gt;&gt;&gt; device.ioput(pv_dict = {&#39;running&#39;:True})</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
     <span class="k">def</span> <span class="nf">startup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">circular_buffer_numpy.circular_buffer</span> <span class="k">import</span> <span class="n">CircularBuffer</span>
@@ -504,6 +465,72 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span><span class="p">,</span> <span class="n">speed</span> <span class="o">=</span> <span class="n">speed</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
                 <span class="n">error</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span></div>
+
+    <span class="c1"># input-output(io) controller wrappers</span>
+
+<div class="viewcode-block" id="Device.iowrite"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.iowrite">[docs]</a>    <span class="k">def</span> <span class="nf">iowrite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pv_name</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        put dictionary of key:value pairs to IO.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pv_name:  (string)</span>
+<span class="sd">            string name of the PV</span>
+<span class="sd">        value:  (string,list,integer,float,array)</span>
+<span class="sd">            the new value to be submitted to io for processing.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; device.ioput(pv_name = &#39;.running&#39;,value = True)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">io_put_queue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">io_put_queue</span><span class="o">.</span><span class="n">put</span><span class="p">({</span><span class="n">pv_name</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;no IO is linked to the device. Couldn&#39;t process </span><span class="si">{pv_name}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Device.ioread"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.ioread">[docs]</a>    <span class="k">def</span> <span class="nf">ioread</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pv_name</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        put dictionary of key:value pairs to IO.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pv_dict:  (dictionary)</span>
+<span class="sd">            dictionary of PVs and new PV values</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; device.ioput(pv_name = &#39;.running&#39;,value = False)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Device.ioexecute"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.ioexecute">[docs]</a>    <span class="k">def</span> <span class="nf">ioexecute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pv_name</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        executes command arrived from IO</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pv_name:  (string)</span>
+<span class="sd">            string name of the PV</span>
+<span class="sd">        value:  (string,list,integer,float,array)</span>
+<span class="sd">            the new value to be submitted to io for processing.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; device.ioexecute(pv_name = &#39;.running&#39;,value = False)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
 
 <span class="c1">####################################################################################################</span>
