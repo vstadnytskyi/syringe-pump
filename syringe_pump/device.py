@@ -94,6 +94,11 @@ class Device(object):
         """
         from threading import RLock
         self.lock = RLock()
+
+        from circular_buffer_numpy.circular_buffer import CircularBuffer
+        self.buffers = {}
+        self.buffers['position'] = CircularBuffer(shape = (1*3600*2,2), dtype = 'float64')
+
         from syringe_pump.driver import Driver
         self.pump_id = pump_id
         self.driver = Driver()
@@ -134,7 +139,9 @@ class Device(object):
 
 
     def close(self):
-        """orderly close and shutdown
+        """
+        orderly close of the serial port and shutdown
+
         Parameters
         ----------
 
@@ -143,12 +150,30 @@ class Device(object):
 
         Examples
         --------
-        >>> device.abort()
+        >>> device.close()
         """
         self.stop()
         self.abort()
         #self.cleanup()
         self.driver.close()
+
+    def kill(self):
+        """
+        orderly close of the serial port and shutdown of the device and deletion of the instance
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+
+        Examples
+        --------
+        >>> device.kill()
+        """
+        self.close()
+        del self
+
 
     def help(self):
         """returns help information in a string format.
@@ -197,8 +222,8 @@ class Device(object):
     	>>> device.run_once()
 
         """
-        from ubcs_auxiliary import new_thread
-        new_thread(self.run,())
+        from ubcs_auxiliary.threading import new_thread
+        new_thread(self.run)
 
     def stop(self):
         """
@@ -236,16 +261,16 @@ class Device(object):
         """
         self.position = self.get_position()
         if not self.busy:
-            self.scan_period = 10.0
-        self.iowrite(pv_name = ".DMOV",value = self.isdonemoving())
-        self.iowrite(pv_name = ".RBV",value = self.position)
+            self.scan_period = 1.0
+        self.iowrite(pv_name = "DMOV",value = self.isdonemoving())
+        self.iowrite(pv_name = "RBV",value = self.position)
 
 
 
     def run(self):
         """"""
         self.running = True
-        self.iowrite(".RUNNING",value = self.running)
+        self.iowrite("RUNNING",value = self.running)
 
         while self.running:
             t = time()
@@ -254,7 +279,7 @@ class Device(object):
                 sleep(0.1)
 
         self.running = False
-        self.iowrite(".RUNNING",value = self.running)
+        self.iowrite("RUNNING",value = self.running)
 
     def get_busy(self):
         reply = self.driver.busy()
@@ -265,20 +290,14 @@ class Device(object):
             return None
 
 
-
-    def startup(self):
-        from circular_buffer_numpy.circular_buffer import CircularBuffer
-        self.buffers = {}
-        self.buffers['position'] = CircularBuffer(shape = (1*3600*2,2), dtype = 'float64')
-
     def monitor(self,PV_name,value,char_value):
         """Process PV change requests"""
         info("monitor: %s = %r" % (PV_name,value))
-        if PV_name == self.prefix + ".VAL":
+        if PV_name == self.prefix + "VAL":
             self.set_cmd_position(value)
-        if PV_name == self.prefix + ".VELO":
+        if PV_name == self.prefix + "VELO":
             self.set_speed_on_the_fly(value)
-        if PV_name == self.prefix + ".VALVE":
+        if PV_name == self.prefix + "VALVE":
             self.set_valve(value)
 
     def command_monitor(self,PV_name,value,char_value):
@@ -291,7 +310,7 @@ class Device(object):
                     'prime':['N'],
                     'flow':['position','speed']
                     }
-        if PV_name == self.prefix+".CMD":
+        if PV_name == self.prefix+"CMD":
             cmd_in = loads(value)
             try:
                 if cmd_in.keys()[0] == 'abort':
@@ -331,9 +350,10 @@ class Device(object):
 
         """
         if self.io_put_queue is not None:
+            debug(f"iowrite got request {pv_name},{value}")
             self.io_put_queue.put({pv_name: value})
         else:
-            print(f"no IO is linked to the device. Couldn't process {pv_name}")
+            debug(f"no IO is linked to the device. Couldn't process {pv_name}")
 
     def ioread(self, pv_name = None, value = None):
         """
@@ -354,7 +374,7 @@ class Device(object):
         """
         raise NotImplementedError
 
-    def ioexecute(self, pv_name = None, value = None):
+    def ioexecute(self, pv_name = None, value = None, **kwargs):
         """
         executes command arrived from IO
 
@@ -373,7 +393,19 @@ class Device(object):
         >>> device.ioexecute(pv_name = '.running',value = False)
 
         """
-        raise NotImplementedError
+        debug(f"ioexecute received: {pv_name},{value}")
+        if pv_name == 'VAL':
+            debug(value,type(value))
+            if type(value) == float:
+                self.set_cmd_position(value)
+            else:
+                warning(f'the input value {pv_name} for PV {value} is not float')
+        if pv_name == 'VELO':
+            debug(value,type(value))
+            if type(value) == float:
+                self.set_speed_on_the_fly(value)
+            else:
+                warning(f'the input value {pv_name} for PV {value} is not float')
 
 
 ####################################################################################################
@@ -385,7 +417,7 @@ class Device(object):
             if value == 1:
                 self.driver.home()
             self.iowrite(".cmd_HOME",value = 0)
-            self.iowrite(".VELOCITY",value = self.cmd_position)
+            self.iowrite(".VELO",value = self.cmd_position)
             self.iowrite(".VAL",value = self.speed)
             self.set_status('homing complete')
 
@@ -458,7 +490,6 @@ class Device(object):
         reply = self.driver._set_position(value)
         self.cmd_position = value
         self.scan_period = 0.001
-        self.iowrite(".VAL", self.cmd_position)
 
     def get_speed(self):
         """
@@ -479,7 +510,6 @@ class Device(object):
         """
         reply  = self.driver.get_speed()
         self.speed = self.process_driver_reply(reply)
-        self.iowrite(".VELO", self.speed)
         return self.speed
 
     def set_speed_on_the_fly(self,value):
@@ -499,11 +529,11 @@ class Device(object):
     	>>> device.set_speed_on_the_fly(25.0)
         """
         reply = self.driver._set_speed_on_the_fly(value)
+        debug(f'reply: {reply}')
         temp = self.process_driver_reply(reply)
-        debug('set_speed_on_the_fly: {}, {}'.format(reply,temp))
+        debug(f'set_speed_on_the_fly: {reply}, {temp}')
         self.speed = value
-        self.iowrite(".VELO", self.speed)
-
+        debug(f'set_speed_on_the_fly: {self.speed}')
 
     def set_speed(self,value):
         """
@@ -524,7 +554,6 @@ class Device(object):
         reply = self.driver.set_speed(value)
         temp = self.process_driver_reply(reply)
         self.speed = value
-        self.iowrite(".VELO", self.speed)
 
     def set_status(self, value = ''):
         value = str(value)
@@ -633,13 +662,13 @@ class Device(object):
             self.error_code = reply['error_code']
             self.error = reply['error']
             value = reply['value']
-            if True:
-                self.iowrite(".MOVN",value = self.moving)
-                self.iowrite(".ERROR",value = self.error)
-                self.iowrite(".ERROR_CODE",value = self.error_code)
-            else:
-                self.iowrite(".ERROR",value = 'Communication Error')
-                self.iowrite(".ERROR_CODE",value = '!')
+            if False:
+                self.iowrite("MOVN",value = self.moving)
+                self.iowrite("ERROR",value = self.error)
+                self.iowrite("ERROR_CODE",value = self.error_code)
+            elif False:
+                self.iowrite("ERROR",value = 'Communication Error')
+                self.iowrite("ERROR_CODE",value = '!')
         else:
 
             logging.warning('warning in process_driver_reply: reply = {}'.format(reply))
@@ -789,11 +818,9 @@ class Device(object):
             reply = self.move_abs(position = position, speed = speed)
             self.process_driver_reply(reply)
 
-device = Device()
-
 if __name__ == "__main__": #for testing
     from tempfile import gettempdir
     import logging
     logging.basicConfig(filename=gettempdir()+'/syringe_pump_DL.log',
                         level=logging.DEBUG, format="%(asctime)s %(levelname)s: %(message)s")
-    self = device
+    pump1 = Device()

@@ -152,7 +152,7 @@ class Driver(object):
         import sys
         if sys.version_info[0] == 3:
             command = command.encode('Latin-1')
-            print('encoding',command)
+            debug('encoding',command)
         if port is None:
             port = self.port
         if port is not None:
