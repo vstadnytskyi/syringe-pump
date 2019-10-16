@@ -406,6 +406,13 @@ class Device(object):
                 self.set_speed_on_the_fly(value)
             else:
                 warning(f'the input value {pv_name} for PV {value} is not float')
+        if pv_name == 'VALVE':
+            debug(value,type(value))
+            value = value.lower()
+            if value == 'o' or value == 'i' or value == 'b':
+                self.set_valve(value)
+            else:
+                warning(f'the input value {pv_name} for PV {value} is not float')
 
 
 ####################################################################################################
@@ -637,7 +644,6 @@ class Device(object):
         """
         self.driver.set_valve(value)
         self.valve = value
-        self.iowrite(".VALVE", value)
 
 
     def process_driver_reply(self,reply):

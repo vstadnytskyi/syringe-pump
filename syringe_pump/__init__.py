@@ -5,3 +5,5 @@ del get_versions
 
 from . import driver
 from . import device
+from . import device_io
+from . import device_client

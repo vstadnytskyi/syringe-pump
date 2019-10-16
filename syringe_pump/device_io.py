@@ -19,6 +19,7 @@ class ServerIO(PVGroup):
     RBV = pvproperty(value=nan, units = 'uL', read_only = True)
     VAL = pvproperty(value=nan, units = 'uL')
     VELO = pvproperty(value=nan, units = 'uL/s')
+    VALVE = pvproperty(value='')
 
     # NOTE the decorator used here:
     @RBV.startup
@@ -52,7 +53,16 @@ class ServerIO(PVGroup):
         pump1.ioexecute(pv_name = 'VELO', value = float(value))
         return value
 
+    @VALVE.putter
+    async def VALVE(self, instance, value):
+        print('Received update for the {}, sending new value {}'.format('VALVE',value))
+        pump1.ioexecute(pv_name = 'VALVE', value = value)
+        return value
 from syringe_pump.device import Device
+#pump1 = Device()
+#pump1.init(1,0.1,100,'Y',250)
+#pump1.start()
+
 pump1 = Device()
 pump1.init(1,0.1,100,'Y',250)
 pump1.start()
