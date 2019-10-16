@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>syringe_pump.device &mdash; Cavro Centris Syringe Pump 0.0.1.post16+ge281e60 documentation</title>
+  <title>syringe_pump.device &mdash; Cavro Centris Syringe Pump 0.0.1.post19+g5f4522c documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.0.1.post16+ge281e60
+                0.0.1.post19+g5f4522c
               </div>
             
           
@@ -562,6 +562,13 @@
             <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="nb">float</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">set_speed_on_the_fly</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
+                <span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;the input value </span><span class="si">{pv_name}</span><span class="s1"> for PV </span><span class="si">{value}</span><span class="s1"> is not float&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pv_name</span> <span class="o">==</span> <span class="s1">&#39;VALVE&#39;</span><span class="p">:</span>
+            <span class="n">debug</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;o&#39;</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;i&#39;</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_valve</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
                 <span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;the input value </span><span class="si">{pv_name}</span><span class="s1"> for PV </span><span class="si">{value}</span><span class="s1"> is not float&#39;</span><span class="p">)</span></div>
 
 
@@ -793,8 +800,7 @@
 <span class="sd">    	&gt;&gt;&gt; device.get_valve(&#39;i&#39;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">set_valve</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">valve</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.VALVE&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valve</span> <span class="o">=</span> <span class="n">value</span></div>
 
 
 <div class="viewcode-block" id="Device.process_driver_reply"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.process_driver_reply">[docs]</a>    <span class="k">def</span> <span class="nf">process_driver_reply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">reply</span><span class="p">):</span>
