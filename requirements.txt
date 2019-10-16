@@ -2,3 +2,4 @@
 circular_buffer_numpy
 numpy
 ubcs_auxiliary
+caproto
