@@ -20,7 +20,7 @@ import sys
 #else:
 
 from time import sleep,time
-from logging import debug,info,warn,error
+from logging import debug,info,warning,error
 import sys
 from pdb import pm
 
@@ -73,13 +73,13 @@ class Driver(object):
             port.timeout = 2
             port.flushInput()
             port.flushOutput()
-            self.write(command = "/1?80\r", port = port)
+            self.write(command = b"/1?80\r", port = port)
             full_reply = self.read(port = port)
             if len(full_reply) != 0:
                 debug("port %r: full_reply %r" % (port_name,full_reply))
                 reply = full_reply[3:][:-3]
-                status = reply[0]
-                pump_id = reply[3]
+                status = reply[0:1]
+                pump_id = reply[3:4]
                 debug("self.ports %r: full_reply %r, status %r, pump_id %r" % (port_name,full_reply, status, pump_id))
             else:
                 pump_id = 0
@@ -88,7 +88,7 @@ class Driver(object):
             #    pump_id = 0
             #    debug("%s: %s" % (Exception,msg))
 
-            if self.pump_id == int(pump_id): # get pump id for new_pump
+            if str(self.pump_id).encode('Latin-1') == pump_id: # get pump id for new_pump
                 self.port = port
                 info("self.port %r: found pump %r" % (port_name,self.pump_id))
                 break
@@ -149,10 +149,11 @@ class Driver(object):
         --------
         >>> driver.write()
         """
-        import sys
-        if sys.version_info[0] == 3:
+        #command = bytes(command,encoding='Latin-1')
+        if type(command) is not bytes:
+            warning('Depreciation warning: expecting type bytes in write but received %r' % command)
             command = command.encode('Latin-1')
-            debug('encoding',command)
+        debug('encoding: {}'.format(command))
         if port is None:
             port = self.port
         if port is not None:
@@ -190,10 +191,8 @@ class Driver(object):
         else:
             reply = ''
         debug("read: {}".format(reply))
-        if version_info[0] == 3:
-            return reply.decode("Latin-1")
-        else:
-            return reply
+        return reply
+
 
     def query(self,command, port = None):
         """
@@ -241,8 +240,8 @@ class Driver(object):
         #parsing reply
         if reply is not None and reply is not '':
             #the positinonal reply \xff/0`0.000\x03\r\n is sandwiched between '\x03\r\n' and '\xff/0'
-            error_code = reply.split('\x03\r\n')[0].split('\xff/0')[1][0]
-            value = reply.split('\x03\r\n')[0].split('\xff/0')[1][1:]
+            error_code = reply.split(b'\x03\r\n')[0].split(b'\xff/0')[1][0]
+            value = reply.split(b'\x03\r\n')[0].split(b'\xff/0')[1][1:]
             dict = self.convert_error_code(error_code)
             result = {'value':value,'error_code': error_code, 'busy':dict['busy'],'error':dict['error']}
         else:
@@ -358,7 +357,7 @@ class Driver(object):
         >>> ser_port._get_speed()
          {'value': '25.000', 'error_code': '`', 'busy': False, 'error': 'No Error'}
         """
-        reply = self.query(command = '/1?37\r', port = self.port)
+        reply = self.query(command = b'/1?37\r', port = self.port)
         number = reply['value']
         debug('get_speed(): reply = {}, and number = {}'.format(reply,number))
         return reply
@@ -386,7 +385,7 @@ class Driver(object):
 
         """
         spd = round(speed,3)
-        reply = self.query(command = '/1V'+str(spd)+',1R\r')
+        reply = self.query(command = b'/1V'+bytes(str(spd))+b',1R\r')
         return reply
 
     def _set_speed_on_the_fly(self,speed):
@@ -505,6 +504,8 @@ class Driver(object):
 
         The initialize command cannot be sent if motor is busy.
 
+        Note: the initialization is done in safe way where the vavle is set to 'input' before homing operation.
+
         Parameters
         ----------
         orientation: string
@@ -541,7 +542,7 @@ class Driver(object):
         """Assigns pump id to each syringe pump according to dictionary; since
         pump ids are written to non-volatile memory, need only execute once."""
         if pid is not None:
-            reply = self.query(command ="/1s0ZA"+str(int(self.pump_id))+"R\r")
+            reply = self.query(command =b"/1s0ZA"+str(self.pump_id).encode('Latin-1')+b"R\r")
         else:
             reply = None
         return reply
@@ -683,12 +684,12 @@ class Driver(object):
         self._backlash = value
     backlash = property(get_backlash, set_backlash)
 
-    def convert_error_code(self,char = ''):
+    def convert_error_code(self,char = b''):
         """
         the ` is \x60 character or chr(96)
         """
         error_codes = {}
-        error_codes[chr(96)] = {'busy':False,'error':'No Error'}
+        error_codes[b'`'] = {'busy':False,'error':'No Error'}
         error_codes['@'] = {'busy':True,'error':'No Error'}
         error_codes['a'] = {'busy':False,'error':'Initialization Error'}
         error_codes['A'] = {'busy':True,'error':'Initialization Error'}
@@ -754,7 +755,7 @@ class Driver(object):
 
         return reply
 
-driver = Driver()
+
 
 if __name__ == "__main__":
     from tempfile import gettempdir
@@ -762,9 +763,11 @@ if __name__ == "__main__":
     import logging;
     logging.basicConfig(#filename=gettempdir()+'/syringe_pump_driver.log',
                                         level=logging.DEBUG, format="%(asctime)s %(levelname)s: %(message)s")
-
+    driver = Driver()
     self = driver # for debugging
     self.pump_id = 1
+
+
     #self.discover()
 
     #functions tested

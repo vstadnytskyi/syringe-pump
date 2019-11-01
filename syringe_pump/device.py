@@ -25,21 +25,20 @@ import struct
 from pdb import pm
 from time import gmtime, strftime, time
 from logging import debug,info,warning,error
-from ubcs_auxiliary.threading import new_thread
 from struct import pack, unpack
 from timeit import Timer, timeit
 
 
 class Device(object):
 
-    """circular buffers dictionary contains information about all circular buffers and their type (Server, Client or Queue)"""
-    circular_buffers = {}
-
     def __init__(self):
         #Thread.__init__(self)
         self.running = False
         #self.daemon = False # OK for main thread to exit even if instance is still running
         self.description = ''
+
+        #circular buffers dictionary contains information about all circular buffers and their type (Server, Client or Queue)
+        self.circular_buffers = {}
 
         self.command_queue = []
         self.position = 0.0
@@ -52,6 +51,7 @@ class Device(object):
         self.low_level_limit_warning = 10.0
         self.running = 0
         self.scan_period = 0.001
+        self.default_scan_period = 1.0
 
         self.io_put_queue = None
         self.io_get_queue = None
@@ -259,9 +259,10 @@ class Device(object):
     	>>> device.run_once()
 
         """
+        debug('run_once')
         self.position = self.get_position()
         if not self.busy:
-            self.scan_period = 1.0
+            self.scan_period = self.default_scan_period
         self.iowrite(pv_name = "DMOV",value = self.isdonemoving())
         self.iowrite(pv_name = "RBV",value = self.position)
 
@@ -393,26 +394,29 @@ class Device(object):
         >>> device.ioexecute(pv_name = '.running',value = False)
 
         """
-        debug(f"ioexecute received: {pv_name},{value}")
+        print(f"ioexecute received: {pv_name},{value}")
         if pv_name == 'VAL':
-            debug(value,type(value))
+            print(value,type(value))
             if type(value) == float:
-                self.set_cmd_position(value)
+                self.move_abs(value)
             else:
                 warning(f'the input value {pv_name} for PV {value} is not float')
         if pv_name == 'VELO':
-            debug(value,type(value))
+            print(value,type(value))
             if type(value) == float:
                 self.set_speed_on_the_fly(value)
             else:
                 warning(f'the input value {pv_name} for PV {value} is not float')
         if pv_name == 'VALVE':
-            debug(value,type(value))
+            print(f'{value},{type(value)}')
             value = value.lower()
             if value == 'o' or value == 'i' or value == 'b':
                 self.set_valve(value)
             else:
                 warning(f'the input value {pv_name} for PV {value} is not float')
+        if pv_name == 'CMD':
+            print(f'{value},{type(value)}')
+
 
 
 ####################################################################################################
@@ -424,8 +428,8 @@ class Device(object):
             if value == 1:
                 self.driver.home()
             self.iowrite(".cmd_HOME",value = 0)
-            self.iowrite(".VELO",value = self.cmd_position)
-            self.iowrite(".VAL",value = self.speed)
+            self.iowrite(".VELO",value = self.speed)
+            self.iowrite(".VAL",value = self.cmd_position)
             self.set_status('homing complete')
 
     def get_position(self):
@@ -663,6 +667,7 @@ class Device(object):
         >>> reply = {'value': '', 'error_code': '`', 'busy': False, 'error': 'No Error'}
         >>> device.process_driver_reply(reply)
         """
+        debug('process_driver_reply')
         if reply is not None:
             self.busy = reply['busy']
             self.error_code = reply['error_code']
@@ -824,9 +829,34 @@ class Device(object):
             reply = self.move_abs(position = position, speed = speed)
             self.process_driver_reply(reply)
 
+
+    def parse_cmd_string(self,string):
+        """
+        """
+        raise NotImplementedError
+
+    def execute_cmd(self,command):
+        """
+        executes command from CMD(command) PV.
+
+        Parameters
+        ----------
+        command: string
+
+        Returns
+        -------
+
+        Examples
+        --------
+        >>> device.execute_cmd(command = 'exec:flow(position = 25,speed = 0.1)')
+        """
+        raise NotImplementedError
+
 if __name__ == "__main__": #for testing
     from tempfile import gettempdir
     import logging
     logging.basicConfig(filename=gettempdir()+'/syringe_pump_DL.log',
                         level=logging.DEBUG, format="%(asctime)s %(levelname)s: %(message)s")
-    pump1 = Device()
+    pump = Device()
+    pump.init(2,0.1,100,'Z',250)
+    pump.start()
