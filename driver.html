@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Driver &mdash; Cavro Centris Syringe Pump 0.0.1.post19+g5f4522c documentation</title>
+  <title>Driver &mdash; Cavro Centris Syringe Pump 0.0.2 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.1.post19+g5f4522c
+                0.0.2
               </div>
             
           
@@ -250,7 +250,7 @@ accepts 4 different volumes: 50, 100, 250, 500 uL
 
 <dl class="method">
 <dt id="syringe_pump.driver.Driver.convert_error_code">
-<code class="sig-name descname">convert_error_code</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">char=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.convert_error_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.convert_error_code" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">convert_error_code</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">char=b''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.convert_error_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.convert_error_code" title="Permalink to this definition">¶</a></dt>
 <dd><p>the ` is ` character or chr(96)</p>
 </dd></dl>
 
@@ -349,6 +349,7 @@ Rotate valve CW to port 1; move the plunger to zero at speed 7 (default: 2.33 s 
 Y: input on right, output on left
 Rotate valve CCW to Input port 1; move the plunger to zero at speed 7 (default: 2.33 s per 30-mm stroke); rotate valve CCW to Output port 2.</p>
 <p>The initialize command cannot be sent if motor is busy.</p>
+<p>Note: the initialization is done in safe way where the vavle is set to ‘input’ before homing operation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">

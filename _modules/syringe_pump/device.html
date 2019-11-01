@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>syringe_pump.device &mdash; Cavro Centris Syringe Pump 0.0.1.post19+g5f4522c documentation</title>
+  <title>syringe_pump.device &mdash; Cavro Centris Syringe Pump 0.0.2 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.0.1.post19+g5f4522c
+                0.0.2
               </div>
             
           
@@ -182,21 +182,20 @@
 <span class="kn">from</span> <span class="nn">pdb</span> <span class="k">import</span> <span class="n">pm</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="k">import</span> <span class="n">gmtime</span><span class="p">,</span> <span class="n">strftime</span><span class="p">,</span> <span class="n">time</span>
 <span class="kn">from</span> <span class="nn">logging</span> <span class="k">import</span> <span class="n">debug</span><span class="p">,</span><span class="n">info</span><span class="p">,</span><span class="n">warning</span><span class="p">,</span><span class="n">error</span>
-<span class="kn">from</span> <span class="nn">ubcs_auxiliary.threading</span> <span class="k">import</span> <span class="n">new_thread</span>
 <span class="kn">from</span> <span class="nn">struct</span> <span class="k">import</span> <span class="n">pack</span><span class="p">,</span> <span class="n">unpack</span>
 <span class="kn">from</span> <span class="nn">timeit</span> <span class="k">import</span> <span class="n">Timer</span><span class="p">,</span> <span class="n">timeit</span>
 
 
 <div class="viewcode-block" id="Device"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device">[docs]</a><span class="k">class</span> <span class="nc">Device</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;circular buffers dictionary contains information about all circular buffers and their type (Server, Client or Queue)&quot;&quot;&quot;</span>
-    <span class="n">circular_buffers</span> <span class="o">=</span> <span class="p">{}</span>
-
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1">#Thread.__init__(self)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1">#self.daemon = False # OK for main thread to exit even if instance is still running</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="c1">#circular buffers dictionary contains information about all circular buffers and their type (Server, Client or Queue)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">circular_buffers</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">command_queue</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -209,6 +208,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">low_level_limit_warning</span> <span class="o">=</span> <span class="mf">10.0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scan_period</span> <span class="o">=</span> <span class="mf">0.001</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_scan_period</span> <span class="o">=</span> <span class="mf">1.0</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">io_put_queue</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">io_get_queue</span> <span class="o">=</span> <span class="kc">None</span>
@@ -416,9 +416,10 @@
 <span class="sd">    	&gt;&gt;&gt; device.run_once()</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;run_once&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">busy</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">scan_period</span> <span class="o">=</span> <span class="mf">1.0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scan_period</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_scan_period</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="n">pv_name</span> <span class="o">=</span> <span class="s2">&quot;DMOV&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">isdonemoving</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="n">pv_name</span> <span class="o">=</span> <span class="s2">&quot;RBV&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">)</span></div>
 
@@ -550,26 +551,29 @@
 <span class="sd">        &gt;&gt;&gt; device.ioexecute(pv_name = &#39;.running&#39;,value = False)</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;ioexecute received: </span><span class="si">{pv_name}</span><span class="s2">,</span><span class="si">{value}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;ioexecute received: </span><span class="si">{pv_name}</span><span class="s2">,</span><span class="si">{value}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">pv_name</span> <span class="o">==</span> <span class="s1">&#39;VAL&#39;</span><span class="p">:</span>
-            <span class="n">debug</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
             <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="nb">float</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">set_cmd_position</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">move_abs</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;the input value </span><span class="si">{pv_name}</span><span class="s1"> for PV </span><span class="si">{value}</span><span class="s1"> is not float&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">pv_name</span> <span class="o">==</span> <span class="s1">&#39;VELO&#39;</span><span class="p">:</span>
-            <span class="n">debug</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
             <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="nb">float</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">set_speed_on_the_fly</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;the input value </span><span class="si">{pv_name}</span><span class="s1"> for PV </span><span class="si">{value}</span><span class="s1"> is not float&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">pv_name</span> <span class="o">==</span> <span class="s1">&#39;VALVE&#39;</span><span class="p">:</span>
-            <span class="n">debug</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{value}</span><span class="s1">,{type(value)}&#39;</span><span class="p">)</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;o&#39;</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;i&#39;</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">set_valve</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;the input value </span><span class="si">{pv_name}</span><span class="s1"> for PV </span><span class="si">{value}</span><span class="s1"> is not float&#39;</span><span class="p">)</span></div>
+                <span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;the input value </span><span class="si">{pv_name}</span><span class="s1"> for PV </span><span class="si">{value}</span><span class="s1"> is not float&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pv_name</span> <span class="o">==</span> <span class="s1">&#39;CMD&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{value}</span><span class="s1">,{type(value)}&#39;</span><span class="p">)</span></div>
+
 
 
 <span class="c1">####################################################################################################</span>
@@ -581,8 +585,8 @@
             <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">home</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.cmd_HOME&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.VELO&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmd_position</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.VAL&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.VELO&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">iowrite</span><span class="p">(</span><span class="s2">&quot;.VAL&quot;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cmd_position</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_status</span><span class="p">(</span><span class="s1">&#39;homing complete&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Device.get_position"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.get_position">[docs]</a>    <span class="k">def</span> <span class="nf">get_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -820,6 +824,7 @@
 <span class="sd">        &gt;&gt;&gt; reply = {&#39;value&#39;: &#39;&#39;, &#39;error_code&#39;: &#39;`&#39;, &#39;busy&#39;: False, &#39;error&#39;: &#39;No Error&#39;}</span>
 <span class="sd">        &gt;&gt;&gt; device.process_driver_reply(reply)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;process_driver_reply&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">reply</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">busy</span> <span class="o">=</span> <span class="n">reply</span><span class="p">[</span><span class="s1">&#39;busy&#39;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">error_code</span> <span class="o">=</span> <span class="n">reply</span><span class="p">[</span><span class="s1">&#39;error_code&#39;</span><span class="p">]</span>
@@ -979,14 +984,39 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">set_valve</span><span class="p">(</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">speed</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flow_speed_high_limit</span><span class="p">:</span>
             <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">move_abs</span><span class="p">(</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span><span class="p">,</span> <span class="n">speed</span> <span class="o">=</span> <span class="n">speed</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">process_driver_reply</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">process_driver_reply</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Device.parse_cmd_string"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.parse_cmd_string">[docs]</a>    <span class="k">def</span> <span class="nf">parse_cmd_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">string</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Device.execute_cmd"><a class="viewcode-back" href="../../device.html#syringe_pump.device.Device.execute_cmd">[docs]</a>    <span class="k">def</span> <span class="nf">execute_cmd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">command</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        executes command from CMD(command) PV.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        command: string</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; device.execute_cmd(command = &#39;exec:flow(position = 25,speed = 0.1)&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span> <span class="c1">#for testing</span>
     <span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">gettempdir</span>
     <span class="kn">import</span> <span class="nn">logging</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">gettempdir</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;/syringe_pump_DL.log&#39;</span><span class="p">,</span>
                         <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> </span><span class="si">%(levelname)s</span><span class="s2">: </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">pump1</span> <span class="o">=</span> <span class="n">Device</span><span class="p">()</span>
+    <span class="n">pump</span> <span class="o">=</span> <span class="n">Device</span><span class="p">()</span>
+    <span class="n">pump</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span><span class="mi">250</span><span class="p">)</span>
+    <span class="n">pump</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </pre></div>
 
            </div>

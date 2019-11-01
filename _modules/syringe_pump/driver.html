@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>syringe_pump.driver &mdash; Cavro Centris Syringe Pump 0.0.1.post19+g5f4522c documentation</title>
+  <title>syringe_pump.driver &mdash; Cavro Centris Syringe Pump 0.0.2 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.0.1.post19+g5f4522c
+                0.0.2
               </div>
             
           
@@ -177,7 +177,7 @@
 <span class="c1">#else:</span>
 
 <span class="kn">from</span> <span class="nn">time</span> <span class="k">import</span> <span class="n">sleep</span><span class="p">,</span><span class="n">time</span>
-<span class="kn">from</span> <span class="nn">logging</span> <span class="k">import</span> <span class="n">debug</span><span class="p">,</span><span class="n">info</span><span class="p">,</span><span class="n">warn</span><span class="p">,</span><span class="n">error</span>
+<span class="kn">from</span> <span class="nn">logging</span> <span class="k">import</span> <span class="n">debug</span><span class="p">,</span><span class="n">info</span><span class="p">,</span><span class="n">warning</span><span class="p">,</span><span class="n">error</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">pdb</span> <span class="k">import</span> <span class="n">pm</span>
 
@@ -230,13 +230,13 @@
             <span class="n">port</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="mi">2</span>
             <span class="n">port</span><span class="o">.</span><span class="n">flushInput</span><span class="p">()</span>
             <span class="n">port</span><span class="o">.</span><span class="n">flushOutput</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;/1?80</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">port</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;/1?80</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">port</span><span class="p">)</span>
             <span class="n">full_reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">full_reply</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;port </span><span class="si">%r</span><span class="s2">: full_reply </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">port_name</span><span class="p">,</span><span class="n">full_reply</span><span class="p">))</span>
                 <span class="n">reply</span> <span class="o">=</span> <span class="n">full_reply</span><span class="p">[</span><span class="mi">3</span><span class="p">:][:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
-                <span class="n">status</span> <span class="o">=</span> <span class="n">reply</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="n">pump_id</span> <span class="o">=</span> <span class="n">reply</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="n">reply</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">pump_id</span> <span class="o">=</span> <span class="n">reply</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
                 <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;self.ports </span><span class="si">%r</span><span class="s2">: full_reply </span><span class="si">%r</span><span class="s2">, status </span><span class="si">%r</span><span class="s2">, pump_id </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">port_name</span><span class="p">,</span><span class="n">full_reply</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">pump_id</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">pump_id</span> <span class="o">=</span> <span class="mi">0</span>
@@ -245,7 +245,7 @@
             <span class="c1">#    pump_id = 0</span>
             <span class="c1">#    debug(&quot;%s: %s&quot; % (Exception,msg))</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="n">pump_id</span><span class="p">):</span> <span class="c1"># get pump id for new_pump</span>
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;Latin-1&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">pump_id</span><span class="p">:</span> <span class="c1"># get pump id for new_pump</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span>
                 <span class="n">info</span><span class="p">(</span><span class="s2">&quot;self.port </span><span class="si">%r</span><span class="s2">: found pump </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">port_name</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span><span class="p">))</span>
                 <span class="k">break</span>
@@ -306,10 +306,11 @@
 <span class="sd">        --------</span>
 <span class="sd">        &gt;&gt;&gt; driver.write()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">sys</span>
-        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="c1">#command = bytes(command,encoding=&#39;Latin-1&#39;)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">command</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">bytes</span><span class="p">:</span>
+            <span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Depreciation warning: expecting type bytes in write but received </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">command</span><span class="p">)</span>
             <span class="n">command</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;Latin-1&#39;</span><span class="p">)</span>
-            <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;encoding&#39;</span><span class="p">,</span><span class="n">command</span><span class="p">)</span>
+        <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;encoding: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">command</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">port</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span>
         <span class="k">if</span> <span class="n">port</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -347,10 +348,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">reply</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">reply</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">reply</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;Latin-1&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">reply</span></div>
+        <span class="k">return</span> <span class="n">reply</span></div>
+
 
 <div class="viewcode-block" id="Driver.query"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">command</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -398,8 +397,8 @@
         <span class="c1">#parsing reply</span>
         <span class="k">if</span> <span class="n">reply</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">reply</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
             <span class="c1">#the positinonal reply \xff/0`0.000\x03\r\n is sandwiched between &#39;\x03\r\n&#39; and &#39;\xff/0&#39;</span>
-            <span class="n">error_code</span> <span class="o">=</span> <span class="n">reply</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x03\r\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xff</span><span class="s1">/0&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="n">reply</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x03\r\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xff</span><span class="s1">/0&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">error_code</span> <span class="o">=</span> <span class="n">reply</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x03\r\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xff</span><span class="s1">/0&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">reply</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x03\r\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xff</span><span class="s1">/0&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
             <span class="nb">dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_error_code</span><span class="p">(</span><span class="n">error_code</span><span class="p">)</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="n">value</span><span class="p">,</span><span class="s1">&#39;error_code&#39;</span><span class="p">:</span> <span class="n">error_code</span><span class="p">,</span> <span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;busy&#39;</span><span class="p">],</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]}</span>
         <span class="k">else</span><span class="p">:</span>
@@ -515,7 +514,7 @@
 <span class="sd">        &gt;&gt;&gt; ser_port._get_speed()</span>
 <span class="sd">         {&#39;value&#39;: &#39;25.000&#39;, &#39;error_code&#39;: &#39;`&#39;, &#39;busy&#39;: False, &#39;error&#39;: &#39;No Error&#39;}</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;/1?37</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+        <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/1?37</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
         <span class="n">number</span> <span class="o">=</span> <span class="n">reply</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
         <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;get_speed(): reply = </span><span class="si">{}</span><span class="s1">, and number = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">reply</span><span class="p">,</span><span class="n">number</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">reply</span>
@@ -543,7 +542,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">spd</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-        <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;/1V&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">spd</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;,1R</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/1V&#39;</span><span class="o">+</span><span class="nb">bytes</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">spd</span><span class="p">))</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;,1R</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">reply</span>
 
     <span class="k">def</span> <span class="nf">_set_speed_on_the_fly</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">speed</span><span class="p">):</span>
@@ -662,6 +661,8 @@
 
 <span class="sd">        The initialize command cannot be sent if motor is busy.</span>
 
+<span class="sd">        Note: the initialization is done in safe way where the vavle is set to &#39;input&#39; before homing operation.</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        orientation: string</span>
@@ -698,7 +699,7 @@
         <span class="sd">&quot;&quot;&quot;Assigns pump id to each syringe pump according to dictionary; since</span>
 <span class="sd">        pump ids are written to non-volatile memory, need only execute once.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">pid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span><span class="s2">&quot;/1s0ZA&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span><span class="p">))</span><span class="o">+</span><span class="s2">&quot;R</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span><span class="sa">b</span><span class="s2">&quot;/1s0ZA&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;Latin-1&#39;</span><span class="p">)</span><span class="o">+</span><span class="sa">b</span><span class="s2">&quot;R</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">reply</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">reply</span></div>
@@ -840,12 +841,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_backlash</span> <span class="o">=</span> <span class="n">value</span></div>
     <span class="n">backlash</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_backlash</span><span class="p">,</span> <span class="n">set_backlash</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Driver.convert_error_code"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.convert_error_code">[docs]</a>    <span class="k">def</span> <span class="nf">convert_error_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">char</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.convert_error_code"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.convert_error_code">[docs]</a>    <span class="k">def</span> <span class="nf">convert_error_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">char</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        the ` is \x60 character or chr(96)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">error_codes</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">error_codes</span><span class="p">[</span><span class="nb">chr</span><span class="p">(</span><span class="mi">96</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;No Error&#39;</span><span class="p">}</span>
+        <span class="n">error_codes</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;`&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;No Error&#39;</span><span class="p">}</span>
         <span class="n">error_codes</span><span class="p">[</span><span class="s1">&#39;@&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;No Error&#39;</span><span class="p">}</span>
         <span class="n">error_codes</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Initialization Error&#39;</span><span class="p">}</span>
         <span class="n">error_codes</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Initialization Error&#39;</span><span class="p">}</span>
@@ -911,7 +912,7 @@
 
         <span class="k">return</span> <span class="n">reply</span></div></div>
 
-<span class="n">driver</span> <span class="o">=</span> <span class="n">Driver</span><span class="p">()</span>
+
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">gettempdir</span>
@@ -919,9 +920,11 @@
     <span class="kn">import</span> <span class="nn">logging</span><span class="p">;</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="c1">#filename=gettempdir()+&#39;/syringe_pump_driver.log&#39;,</span>
                                         <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> </span><span class="si">%(levelname)s</span><span class="s2">: </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
-
+    <span class="n">driver</span> <span class="o">=</span> <span class="n">Driver</span><span class="p">()</span>
     <span class="bp">self</span> <span class="o">=</span> <span class="n">driver</span> <span class="c1"># for debugging</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span> <span class="o">=</span> <span class="mi">1</span>
+
+
     <span class="c1">#self.discover()</span>
 
     <span class="c1">#functions tested</span>
