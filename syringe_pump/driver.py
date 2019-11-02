@@ -596,7 +596,7 @@ class Driver(object):
     def abort(self):
         """
         Terminates plunger moves [A,P,D] , initialization commands [Z], and delay [M]; does not affect valve moves.
-                
+
         Parameters
         ----------
 
@@ -625,7 +625,7 @@ class Driver(object):
         +--------+-------+---------------+----------------+------------+
         | pump4: |  25   |    Z          |  self.backlash |  0         |
         +--------+-------+---------------+----------------+------------+
-        
+
         Parameters
         ----------
 
@@ -666,8 +666,8 @@ class Driver(object):
 
     def busy(self):
         """
-        queries if pump os busy or not. Command '/1?29R\r'
-                
+        queries if pump os busy or not. Command "/1?29R\\r"
+
         Parameters
         ----------
 
@@ -676,9 +676,8 @@ class Driver(object):
 
         Examples
         --------
-        >>> driver.home()
+        >>> driver.busy()
         """
-        
         reply = self.query(command = '/1?29R\r', port = self.port)
         debug('busy(): reply = %r' %reply)
         return reply
@@ -691,8 +690,8 @@ class Driver(object):
     def set_valve(self,value):
         """
 
-        
-                
+
+
         Parameters
         ----------
         valve : char
@@ -701,7 +700,7 @@ class Driver(object):
         Returns
         -------
         reply : dictionary
-            a dictionary containing 4 key-value pairs 
+            a dictionary containing 4 key-value pairs
 
         Examples
         --------

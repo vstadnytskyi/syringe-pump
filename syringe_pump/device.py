@@ -604,6 +604,8 @@ class Device(object):
         self.driver.abort()
         if speed is None:
             speed = self.speed
+        else:
+            self.speed = speed 
         self.scan_period = 0.001
         self.cmd_position = position
         response = self.driver.move_abs(position = position, speed = speed)
