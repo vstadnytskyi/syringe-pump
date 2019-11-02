@@ -416,6 +416,7 @@ class Device(object):
                 warning(f'the input value {pv_name} for PV {value} is not float')
         if pv_name == 'CMD':
             print(f'{value},{type(value)}')
+            self.execute_cmd(command = value)
 
 
 
@@ -848,9 +849,15 @@ class Device(object):
 
         Examples
         --------
-        >>> device.execute_cmd(command = 'exec:flow(position = 25,speed = 0.1)')
+        >>> device.execute_cmd(command = 'flow(position = 25, speed = 0.1)')
         """
-        raise NotImplementedError
+        try:
+            in_cmd = command
+            cmd = 'self.'+in_cmd
+            eval(cmd)
+        except Exception as err:
+            error(err)
+
 
 if __name__ == "__main__": #for testing
     from tempfile import gettempdir
@@ -858,5 +865,5 @@ if __name__ == "__main__": #for testing
     logging.basicConfig(filename=gettempdir()+'/syringe_pump_DL.log',
                         level=logging.DEBUG, format="%(asctime)s %(levelname)s: %(message)s")
     pump = Device()
-    pump.init(2,0.1,100,'Z',250)
-    pump.start()
+    print("pump.init(2,0.1,100,'Z',250)")
+    print("pump.start()")

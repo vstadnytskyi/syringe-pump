@@ -34,7 +34,6 @@ class Driver(object):
         self.pump_id = None
         self.port = None
         self._backlash = nan
-        self._position = nan
 
 
 #  ############################################################################
@@ -240,7 +239,7 @@ class Driver(object):
         #parsing reply
         if reply is not None and reply is not '':
             #the positinonal reply \xff/0`0.000\x03\r\n is sandwiched between '\x03\r\n' and '\xff/0'
-            error_code = reply.split(b'\x03\r\n')[0].split(b'\xff/0')[1][0]
+            error_code = reply.split(b'\x03\r\n')[0].split(b'\xff/0')[1][0:1]
             value = reply.split(b'\x03\r\n')[0].split(b'\xff/0')[1][1:]
             dict = self.convert_error_code(error_code)
             result = {'value':value,'error_code': error_code, 'busy':dict['busy'],'error':dict['error']}
@@ -597,8 +596,18 @@ class Driver(object):
     def abort(self):
         """
         Terminates plunger moves [A,P,D] , initialization commands [Z], and delay [M]; does not affect valve moves.
+                
+        Parameters
+        ----------
+
+        Returns
+        -------
+
+        Examples
+        --------
+        >>> driver.abort()
         """
-        reply = self.query(command  = '/1TR\r', port = self.port)
+        reply = self.query(command  = b'/1TR\r', port = self.port)
         return reply
 
     def home(self):
@@ -616,6 +625,7 @@ class Driver(object):
         +--------+-------+---------------+----------------+------------+
         | pump4: |  25   |    Z          |  self.backlash |  0         |
         +--------+-------+---------------+----------------+------------+
+        
         Parameters
         ----------
 
@@ -656,8 +666,19 @@ class Driver(object):
 
     def busy(self):
         """
-        queries
+        queries if pump os busy or not. Command '/1?29R\r'
+                
+        Parameters
+        ----------
+
+        Returns
+        -------
+
+        Examples
+        --------
+        >>> driver.home()
         """
+        
         reply = self.query(command = '/1?29R\r', port = self.port)
         debug('busy(): reply = %r' %reply)
         return reply
@@ -668,6 +689,27 @@ class Driver(object):
         return reply
 
     def set_valve(self,value):
+        """
+
+        
+                
+        Parameters
+        ----------
+        valve : char
+            one character command for the valve position 'b','o','i'
+
+        Returns
+        -------
+        reply : dictionary
+            a dictionary containing 4 key-value pairs 
+
+        Examples
+        --------
+        >>> self.set_valve(b'i')
+        {'value': b'', 'error_code': 64, 'busy': False, 'error': None}
+        """
+        if isinstance(value,str):
+            value = bytes(value,'Latin-1')
         value = value.upper()
         reply = self.query(command = "".join(["/1",str(value),"R\r"]))
         debug('set_valve(value = %r): reply = %r' %(value,reply))
@@ -690,13 +732,13 @@ class Driver(object):
         """
         error_codes = {}
         error_codes[b'`'] = {'busy':False,'error':'No Error'}
-        error_codes['@'] = {'busy':True,'error':'No Error'}
-        error_codes['a'] = {'busy':False,'error':'Initialization Error'}
-        error_codes['A'] = {'busy':True,'error':'Initialization Error'}
-        error_codes['b'] = {'busy':False,'error':'Invalid Command'}
-        error_codes['B'] = {'busy':True,'error':'Invalid Command'}
-        error_codes['c'] = {'busy':False,'error':'Invalid Operand'}
-        error_codes['C'] = {'busy':True,'error':'Invalid Operand'}
+        error_codes[b'@'] = {'busy':True,'error':'No Error'}
+        error_codes[b'a'] = {'busy':False,'error':'Initialization Error'}
+        error_codes[b'A'] = {'busy':True,'error':'Initialization Error'}
+        error_codes[b'b'] = {'busy':False,'error':'Invalid Command'}
+        error_codes[b'B'] = {'busy':True,'error':'Invalid Command'}
+        error_codes[b'c'] = {'busy':False,'error':'Invalid Operand'}
+        error_codes[b'C'] = {'busy':True,'error':'Invalid Operand'}
         # need to be added FIXIT
         # 7	    g 	G 	Device Not Initialized
         # 8	    h 	H 	Invalid Valve Configuration
@@ -706,8 +748,8 @@ class Driver(object):
         # 12	l 	L 	Extended Error Present
         # 13	m 	M 	Nvmem Access Failure
         # 14	n 	N 	Command Buffer Empty or Not Ready
-        error_codes['o'] = {'busy':False,'error':'Command Buffer Overflow'}
-        error_codes['O'] = {'busy':True,'error':'Command Buffer Overflow'}
+        error_codes[b'o'] = {'busy':False,'error':'Command Buffer Overflow'}
+        error_codes[b'O'] = {'busy':True,'error':'Command Buffer Overflow'}
 
 
         if char in list(error_codes.keys()):

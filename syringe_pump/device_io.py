@@ -27,11 +27,11 @@ class Server(PVGroup):
                         lower_ctrl_limit=0.001)
     VALVE = pvproperty(value='', dtype=str, max_length=2)
     CMD = pvproperty(value='', max_length=1000, dtype=str)
-    ACK = pvproperty(value='', max_length=1000, dtype=str)
+    ACK = pvproperty(value='', max_length=1000, dtype=str, read_only = True)
     #MOVN",value = self.moving)
     #ERROR
     #ERROR_CODE
-    STATUS = pvproperty(value='unknown', max_length=10, dtype=str)
+    STATUS = pvproperty(value='unknown', max_length=10, dtype=str, read_only = True)
 
     device = None
 
@@ -80,6 +80,12 @@ class Server(PVGroup):
         await self.device_ioexecute(pv_name = 'VALVE', value = value)
         return value
 
+    @CMD.putter
+    async def CMD(self, instance, value):
+        print('Received update for the {}, sending new value {}'.format('CMD',value))
+        await self.device_ioexecute(pv_name = 'CMD', value = value)
+        return value
+
     async def device_ioexecute(self, pv_name, value):
         """
         """
@@ -122,7 +128,7 @@ class Device_IO(object):
                             level=logging.DEBUG, format="%(asctime)s %(levelname)s: %(message)s")
         debug('test write debug')
         ioc_options, run_options = ioc_arg_parser(
-            default_prefix='NIH:SYRINGE.',
+            default_prefix=f'NIH:SYRINGE{pump_id}.',
             desc='Run an IOC that does blocking tasks on a worker thread.')
 
         ioc = Server(**ioc_options)
@@ -150,9 +156,11 @@ if __name__ == '__main__':
 
     from tempfile import gettempdir
     import logging
-    print(gettempdir()+'/syringe_pump_device_io.log')
-    logging.basicConfig(filename=gettempdir()+f'/syringe_pump_device_io_{str(pump_id)}.log',
-                        level=logging.DEBUG, format="%(asctime)s %(levelname)s: %(message)s")
+    logfile = gettempdir()+f'/syringe_pump_device_io_{str(pump_id)}.log'
+    logging.basicConfig(level=logging.DEBUG,
+        format="%(asctime)s %(levelname)s %(module)s.%(funcName)s: %(message)s",
+        filename=logfile,
+    )
     debug('test write debug')
     ioc_options, run_options = ioc_arg_parser(
         default_prefix=f'NIH:SYRINGE{str(pump_id)}.',
