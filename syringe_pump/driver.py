@@ -292,7 +292,7 @@ class Driver(object):
 
     def _get_position(self):
         """
-        queries position as an atomic command: ""/1?18R\r"
+        queries position as an atomic command: ""/1?18R\\r"
 
         Parameters
         ----------
@@ -305,9 +305,9 @@ class Driver(object):
         Examples
         --------
         >>> driver._get_position()
-            {'value': '0.000', 'error_code': '`', 'busy': False, 'error': 'No Error'}
+            {'value': b'0.000', 'error_code': b'`', 'busy': False, 'error': 'No Error'}
         """
-        reply = self.query(command = '/1?18\r')
+        reply = self.query(command = b'/1?18\r')
         debug('get_position(): reply = {!r}'.format(reply))
         return reply
 
@@ -384,7 +384,7 @@ class Driver(object):
 
         """
         spd = round(speed,3)
-        reply = self.query(command = b'/1V'+bytes(str(spd))+b',1R\r')
+        reply = self.query(command = b'/1V'+bytes(str(spd), 'Latin-1')+b',1R\r')
         return reply
 
     def _set_speed_on_the_fly(self,speed):
@@ -404,7 +404,8 @@ class Driver(object):
         >>> driver._set_speed_on_the_fly(speed = 25)
         """
         spd = round(speed,3)
-        reply = self.query(command = '/1V'+str(spd)+',1F\r')
+        bytes_spd = bytes(str(spd),'Latin-1')
+        reply = self.query(command = b'/1V'+bytes_spd+b',1F\r')
         return reply
     _speed = property(_get_speed,_set_speed)
 
@@ -488,7 +489,8 @@ class Driver(object):
         volumes[500] = 'U95'
 
         if volume in volumes.keys():
-            reply = self.query("/1"+volumes[volume]+"R\r")
+
+            reply = self.query(b"/1"+bytes(volumes[volume],'Latin-1')+b"R\r")
         else:
             reply = {'busy': None, 'error': "volume of {} uL is not supported. Choose from {}".format(volume,volumes.keys()), 'error_code': '!', 'value': ''}
         return reply
@@ -521,15 +523,15 @@ class Driver(object):
         {'value': '', 'error_code': '@', 'busy': True, 'error': 'No Error'}
 
         """
-        command = ''
+        command = b''
         if orientation == 'Y':
-            command = 'Y7,0,0'
+            command = b'Y7,0,0'
         elif orientation == 'Z':
-            command = 'Z7,0,0'
+            command = b'Z7,0,0'
         else:
             reply = ''
         if command != '':
-            reply = self.query(command ="/1"+command+"R\r")
+            reply = self.query(command =b"/1"+command+b"R\r")
         else:
             reply = {'busy': False, 'error': 'Invalid Command, unknown orientation "{}"'.format(orientation), 'error_code': '!', 'value': ''}
         self._orientation = orientation
@@ -643,15 +645,15 @@ class Driver(object):
         # command += 'R' #execute loaded command symbol
         # command += "\r" #cariage return signalling the end of transmission
         if self.pump_id == 1:
-            commdn = ''
-            command += '/1' # start
-            command += 'Y7,0,0' # initialization command for left pumps and Z for right pumps
-            command += 'I' # move the valve to position 'i'
-            command += 'V25.0,1' # set velocity to 25. V0.100,1
-            command += 'K' + str(self.backlash) # set backlash K<n>
-            command += 'A0.0,1' #move plunger to absolute position of 0.0 uL
-            command += 'R' #Execute loaded Command or Program String
-            command += '\r' #
+            commdn = b''
+            command += b'/1' # start
+            command += b'Y7,0,0' # initialization command for left pumps and Z for right pumps
+            command += b'I' # move the valve to position 'i'
+            command += b'V25.0,1' # set velocity to 25. V0.100,1
+            command += b'K' + bytes(str(self.backlash),'Latin-1') # set backlash K<n>
+            command += b'A0.0,1' #move plunger to absolute position of 0.0 uL
+            command += b'R' #Execute loaded Command or Program String
+            command += b'\r' #
             reply = self.query(command, port = self.port)
         elif self.pump_id == 2:
             reply = self.query("".join(["/1Z7,0,0IV25,1K",str(self.backlash),"A0,1R\r"]), port = self.port)
@@ -678,12 +680,12 @@ class Driver(object):
         --------
         >>> driver.busy()
         """
-        reply = self.query(command = '/1?29R\r', port = self.port)
+        reply = self.query(command = b'/1?29R\r', port = self.port)
         debug('busy(): reply = %r' %reply)
         return reply
 
     def get_valve(self):
-        reply = self.query(command = '/1?20R\r', port = self.port)
+        reply = self.query(command = b'/1?20R\r', port = self.port)
         debug('get_valve(): reply = %r' %reply)
         return reply
 
@@ -710,7 +712,7 @@ class Driver(object):
         if isinstance(value,str):
             value = bytes(value,'Latin-1')
         value = value.upper()
-        reply = self.query(command = "".join(["/1",str(value),"R\r"]))
+        reply = self.query(command = b"".join([b"/1",bytes(str(value),'Latin-1'),b"R\r"]))
         debug('set_valve(value = %r): reply = %r' %(value,reply))
         return reply
     valve = property(get_valve,set_valve)
@@ -720,7 +722,7 @@ class Driver(object):
     def set_backlash(self,value):
         """
         """
-        reply = self.query(command = '/1K'+str(int(value)) + 'R\r', port = self.port)
+        reply = self.query(command = b'/1K'+bytes(str(int(value)),'Latin-1') + b'R\r', port = self.port)
         debug('set_backlash(): reply = %r' %reply)
         self._backlash = value
     backlash = property(get_backlash, set_backlash)
@@ -758,7 +760,7 @@ class Driver(object):
 
     def reset(self):
         """Performs a soft reset on pumps"""
-        reply = self.query("/1!R\r", port = self.port)
+        reply = self.query(b"/1!R\r", port = self.port)
         debug('reset(): reply = %r' %reply)
         return reply
 
@@ -773,12 +775,12 @@ class Driver(object):
         Two arguments need to be passed: position and speed.
         """
         position = round(position,3)
-        command = ''
-        command += '/1' # start
-        command += 'V'+str(speed)+',1' # at speed 'speed' in uL(,1)
-        command += 'A'+str(position)+',1' # to position 'position' in uL (,1) A100.0,1
-        command += 'R' #execute loaded command symbol
-        command += '\r' #cariage return signalling the end of transmission
+        command = b''
+        command += b'/1' # start
+        command += b'V'+bytes(str(speed),'Latin-1')+b',1' # at speed 'speed' in uL(,1)
+        command += b'A'+bytes(str(position),'Latin-1')+b',1' # to position 'position' in uL (,1) A100.0,1
+        command += b'R' #execute loaded command symbol
+        command += b'\r' #cariage return signalling the end of transmission
         reply = self.query(command = command)
         return reply
 
