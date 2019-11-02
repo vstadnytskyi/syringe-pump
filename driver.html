@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Driver &mdash; Cavro Centris Syringe Pump 0.0.5 documentation</title>
+  <title>Driver &mdash; Cavro Centris Syringe Pump 0.0.6.post1+g52632ce documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.5
+                0.0.6.post1+g52632ce
               </div>
             
           
@@ -173,6 +173,10 @@
 <dt id="syringe_pump.driver.Driver.abort">
 <code class="sig-name descname">abort</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.abort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.abort" title="Permalink to this definition">¶</a></dt>
 <dd><p>Terminates plunger moves [A,P,D] , initialization commands [Z], and delay [M]; does not affect valve moves.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">abort</span><span class="p">()</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -235,7 +239,11 @@ accepts 4 different volumes: 50, 100, 250, 500 uL
 <dl class="method">
 <dt id="syringe_pump.driver.Driver.busy">
 <code class="sig-name descname">busy</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.busy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.busy" title="Permalink to this definition">¶</a></dt>
-<dd><p>queries</p>
+<dd><p>queries if pump os busy or not. Command “/1?29Rr”</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">busy</span><span class="p">()</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -298,9 +306,7 @@ The homing parameters are hardcoded:
 | pump3: |  25   |    Y          |  self.backlash |  0         |
 +——–+——-+—————+—————-+————+
 | pump4: |  25   |    Z          |  self.backlash |  0         |
-+——–+——-+—————+—————-+————+
-Parameters
-———-</p>
++——–+——-+—————+—————-+————+</p>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">home</span><span class="p">()</span>
 </pre></div>
@@ -472,6 +478,30 @@ Example: ‘/1V25.0,1Fr’ set speed to 25.0 uL per s</p>
 </dl>
 <p class="rubric">Examples</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">speed</span> <span class="o">=</span> <span class="mi">25</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="syringe_pump.driver.Driver.set_valve">
+<code class="sig-name descname">set_valve</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.set_valve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.set_valve" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>valve</strong><span class="classifier">char</span></dt><dd><p>one character command for the valve position ‘b’,’o’,’i’</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>reply</strong><span class="classifier">dictionary</span></dt><dd><p>a dictionary containing 4 key-value pairs</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="bp">self</span><span class="o">.</span><span class="n">set_valve</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;i&#39;</span><span class="p">)</span>
+<span class="go">{&#39;value&#39;: b&#39;&#39;, &#39;error_code&#39;: 64, &#39;busy&#39;: False, &#39;error&#39;: None}</span>
 </pre></div>
 </div>
 </dd></dl>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>syringe_pump.device &mdash; Cavro Centris Syringe Pump 0.0.5 documentation</title>
+  <title>syringe_pump.device &mdash; Cavro Centris Syringe Pump 0.0.6.post1+g52632ce documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.0.5
+                0.0.6.post1+g52632ce
               </div>
             
           
@@ -572,7 +572,8 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;the input value </span><span class="si">{pv_name}</span><span class="s1"> for PV </span><span class="si">{value}</span><span class="s1"> is not float&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">pv_name</span> <span class="o">==</span> <span class="s1">&#39;CMD&#39;</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{value}</span><span class="s1">,{type(value)}&#39;</span><span class="p">)</span></div>
+            <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{value}</span><span class="s1">,{type(value)}&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">execute_cmd</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="n">value</span><span class="p">)</span></div>
 
 
 
@@ -760,6 +761,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">abort</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">speed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">speed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">speed</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">speed</span> 
         <span class="bp">self</span><span class="o">.</span><span class="n">scan_period</span> <span class="o">=</span> <span class="mf">0.001</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cmd_position</span> <span class="o">=</span> <span class="n">position</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">move_abs</span><span class="p">(</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span><span class="p">,</span> <span class="n">speed</span> <span class="o">=</span> <span class="n">speed</span><span class="p">)</span>
@@ -1005,9 +1008,15 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; device.execute_cmd(command = &#39;exec:flow(position = 25,speed = 0.1)&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; device.execute_cmd(command = &#39;flow(position = 25, speed = 0.1)&#39;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">in_cmd</span> <span class="o">=</span> <span class="n">command</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;self.&#39;</span><span class="o">+</span><span class="n">in_cmd</span>
+            <span class="nb">eval</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="n">error</span><span class="p">(</span><span class="n">err</span><span class="p">)</span></div></div>
+
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span> <span class="c1">#for testing</span>
     <span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">gettempdir</span>
@@ -1015,8 +1024,8 @@
     <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">gettempdir</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;/syringe_pump_DL.log&#39;</span><span class="p">,</span>
                         <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> </span><span class="si">%(levelname)s</span><span class="s2">: </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">pump</span> <span class="o">=</span> <span class="n">Device</span><span class="p">()</span>
-    <span class="n">pump</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span><span class="mi">250</span><span class="p">)</span>
-    <span class="n">pump</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pump.init(2,0.1,100,&#39;Z&#39;,250)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pump.start()&quot;</span><span class="p">)</span>
 </pre></div>
 
            </div>

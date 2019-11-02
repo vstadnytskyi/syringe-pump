@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>syringe_pump.driver &mdash; Cavro Centris Syringe Pump 0.0.5 documentation</title>
+  <title>syringe_pump.driver &mdash; Cavro Centris Syringe Pump 0.0.6.post1+g52632ce documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.0.5
+                0.0.6.post1+g52632ce
               </div>
             
           
@@ -191,7 +191,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_backlash</span> <span class="o">=</span> <span class="n">nan</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_position</span> <span class="o">=</span> <span class="n">nan</span>
 
 
 <span class="c1">#  ############################################################################</span>
@@ -397,7 +396,7 @@
         <span class="c1">#parsing reply</span>
         <span class="k">if</span> <span class="n">reply</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">reply</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
             <span class="c1">#the positinonal reply \xff/0`0.000\x03\r\n is sandwiched between &#39;\x03\r\n&#39; and &#39;\xff/0&#39;</span>
-            <span class="n">error_code</span> <span class="o">=</span> <span class="n">reply</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x03\r\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xff</span><span class="s1">/0&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">error_code</span> <span class="o">=</span> <span class="n">reply</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x03\r\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xff</span><span class="s1">/0&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">reply</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x03\r\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xff</span><span class="s1">/0&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
             <span class="nb">dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_error_code</span><span class="p">(</span><span class="n">error_code</span><span class="p">)</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="n">value</span><span class="p">,</span><span class="s1">&#39;error_code&#39;</span><span class="p">:</span> <span class="n">error_code</span><span class="p">,</span> <span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;busy&#39;</span><span class="p">],</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]}</span>
@@ -754,8 +753,18 @@
 <div class="viewcode-block" id="Driver.abort"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.abort">[docs]</a>    <span class="k">def</span> <span class="nf">abort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Terminates plunger moves [A,P,D] , initialization commands [Z], and delay [M]; does not affect valve moves.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; driver.abort()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span>  <span class="o">=</span> <span class="s1">&#39;/1TR</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+        <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span>  <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/1TR</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">reply</span></div>
 
 <div class="viewcode-block" id="Driver.home"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.home">[docs]</a>    <span class="k">def</span> <span class="nf">home</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -773,6 +782,7 @@
 <span class="sd">        +--------+-------+---------------+----------------+------------+</span>
 <span class="sd">        | pump4: |  25   |    Z          |  self.backlash |  0         |</span>
 <span class="sd">        +--------+-------+---------------+----------------+------------+</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 
@@ -813,7 +823,17 @@
 
 <div class="viewcode-block" id="Driver.busy"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.busy">[docs]</a>    <span class="k">def</span> <span class="nf">busy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        queries</span>
+<span class="sd">        queries if pump os busy or not. Command &quot;/1?29R\\r&quot;</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; driver.busy()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;/1?29R</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
         <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;busy(): reply = </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">reply</span><span class="p">)</span>
@@ -824,11 +844,32 @@
         <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;get_valve(): reply = </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span><span class="n">reply</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">reply</span>
 
-    <span class="k">def</span> <span class="nf">set_valve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.set_valve"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.set_valve">[docs]</a>    <span class="k">def</span> <span class="nf">set_valve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        valve : char</span>
+<span class="sd">            one character command for the valve position &#39;b&#39;,&#39;o&#39;,&#39;i&#39;</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        reply : dictionary</span>
+<span class="sd">            a dictionary containing 4 key-value pairs</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; self.set_valve(b&#39;i&#39;)</span>
+<span class="sd">        {&#39;value&#39;: b&#39;&#39;, &#39;error_code&#39;: 64, &#39;busy&#39;: False, &#39;error&#39;: None}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="nb">str</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="s1">&#39;Latin-1&#39;</span><span class="p">)</span>
         <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;/1&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span><span class="s2">&quot;R</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">]))</span>
         <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;set_valve(value = </span><span class="si">%r</span><span class="s1">): reply = </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="n">reply</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">reply</span>
+        <span class="k">return</span> <span class="n">reply</span></div>
     <span class="n">valve</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_valve</span><span class="p">,</span><span class="n">set_valve</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_backlash</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -847,13 +888,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">error_codes</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">error_codes</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;`&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;No Error&#39;</span><span class="p">}</span>
-        <span class="n">error_codes</span><span class="p">[</span><span class="s1">&#39;@&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;No Error&#39;</span><span class="p">}</span>
-        <span class="n">error_codes</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Initialization Error&#39;</span><span class="p">}</span>
-        <span class="n">error_codes</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Initialization Error&#39;</span><span class="p">}</span>
-        <span class="n">error_codes</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Invalid Command&#39;</span><span class="p">}</span>
-        <span class="n">error_codes</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Invalid Command&#39;</span><span class="p">}</span>
-        <span class="n">error_codes</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Invalid Operand&#39;</span><span class="p">}</span>
-        <span class="n">error_codes</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Invalid Operand&#39;</span><span class="p">}</span>
+        <span class="n">error_codes</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;@&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;No Error&#39;</span><span class="p">}</span>
+        <span class="n">error_codes</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Initialization Error&#39;</span><span class="p">}</span>
+        <span class="n">error_codes</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;A&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Initialization Error&#39;</span><span class="p">}</span>
+        <span class="n">error_codes</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Invalid Command&#39;</span><span class="p">}</span>
+        <span class="n">error_codes</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Invalid Command&#39;</span><span class="p">}</span>
+        <span class="n">error_codes</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;c&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Invalid Operand&#39;</span><span class="p">}</span>
+        <span class="n">error_codes</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Invalid Operand&#39;</span><span class="p">}</span>
         <span class="c1"># need to be added FIXIT</span>
         <span class="c1"># 7	    g 	G 	Device Not Initialized</span>
         <span class="c1"># 8	    h 	H 	Invalid Valve Configuration</span>
@@ -863,8 +904,8 @@
         <span class="c1"># 12	l 	L 	Extended Error Present</span>
         <span class="c1"># 13	m 	M 	Nvmem Access Failure</span>
         <span class="c1"># 14	n 	N 	Command Buffer Empty or Not Ready</span>
-        <span class="n">error_codes</span><span class="p">[</span><span class="s1">&#39;o&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Command Buffer Overflow&#39;</span><span class="p">}</span>
-        <span class="n">error_codes</span><span class="p">[</span><span class="s1">&#39;O&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Command Buffer Overflow&#39;</span><span class="p">}</span>
+        <span class="n">error_codes</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;o&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Command Buffer Overflow&#39;</span><span class="p">}</span>
+        <span class="n">error_codes</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;O&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Command Buffer Overflow&#39;</span><span class="p">}</span>
 
 
         <span class="k">if</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">error_codes</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
