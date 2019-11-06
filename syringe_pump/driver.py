@@ -40,7 +40,7 @@ class Driver(object):
 #  RS-232 Communication Commands
 #  ############################################################################
 
-    def discover(self):
+    def discover(self, pump_id = None):
         """Finds the serial ports for the specified pump controller id number. uses self.available_ports class property to get all potential serial ports. Then submits the identification command. If the query return corrrect string and the id matches self.pump_id, the tested port will be assigned to self.port of the syringe pump driver class.
 
         Parameters
@@ -48,14 +48,17 @@ class Driver(object):
 
         Returns
         -------
+        port :: Serial
 
         Examples
         --------
-        >>> driver.discoer()
+        >>> driver.port = driver.discover()
         """
         from serial import Serial
         from threading import RLock as Lock
         from sys import version_info
+        if pump_id  is None:
+            pump_id = self.pump_id
         self.lock = Lock()
         available_ports = self.available_ports
         for port_name in self.available_ports:
@@ -87,14 +90,14 @@ class Driver(object):
             #    pump_id = 0
             #    debug("%s: %s" % (Exception,msg))
 
-            if str(self.pump_id).encode('Latin-1') == pump_id: # get pump id for new_pump
-                self.port = port
-                info("self.port %r: found pump %r" % (port_name,self.pump_id))
+            if str(pump_id).encode('Latin-1') == pump_id: # get pump id for new_pump
+                info("self.port %r: found pump %r" % (port_name,pump_id))
                 break
             else:
                 port.close()
                 port = None
                 debug("closing the serial connection")
+    return port
 
 
     @property
@@ -692,8 +695,6 @@ class Driver(object):
     def set_valve(self,value):
         """
 
-
-
         Parameters
         ----------
         valve : char
@@ -712,7 +713,7 @@ class Driver(object):
         if isinstance(value,str):
             value = bytes(value,'Latin-1')
         value = value.upper()
-        reply = self.query(command = b"".join([b"/1",bytes(str(value),'Latin-1'),b"R\r"]))
+        reply = self.query(command = b"".join([b"/1",value,b"R\r"]))
         debug('set_valve(value = %r): reply = %r' %(value,reply))
         return reply
     valve = property(get_valve,set_valve)

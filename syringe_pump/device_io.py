@@ -123,9 +123,11 @@ class Device_IO(object):
 
         from tempfile import gettempdir
         import logging
-        print(gettempdir()+'/syringe_pump_device_io.log')
-        logging.basicConfig(filename=gettempdir()+'/syringe_pump_device_io_.log',
-                            level=logging.DEBUG, format="%(asctime)s %(levelname)s: %(message)s")
+        filename=gettempdir()+f'/syringe_pump_device_io_{pump_id}.log'
+        print(filename)
+        logging.basicConfig(filename=filename,
+                            level=logging.DEBUG,
+                            format="%(asctime)s %(levelname)s %(module)s.%(funcName)s: %(message)s")
         debug('test write debug')
         ioc_options, run_options = ioc_arg_parser(
             default_prefix=f'NIH:SYRINGE{pump_id}.',
