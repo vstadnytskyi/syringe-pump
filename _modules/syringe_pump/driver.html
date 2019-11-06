@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>syringe_pump.driver &mdash; Cavro Centris Syringe Pump 0.0.7 documentation</title>
+  <title>syringe_pump.driver &mdash; Cavro Centris Syringe Pump 0.0.11 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.0.7
+                0.0.11
               </div>
             
           
@@ -182,6 +182,7 @@
 <span class="kn">from</span> <span class="nn">pdb</span> <span class="k">import</span> <span class="n">pm</span>
 
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">nan</span><span class="p">,</span> <span class="n">inf</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="k">import</span> <span class="n">RLock</span> <span class="k">as</span> <span class="n">Lock</span>
 
 <div class="viewcode-block" id="Driver"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver">[docs]</a><span class="k">class</span> <span class="nc">Driver</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
@@ -191,13 +192,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_backlash</span> <span class="o">=</span> <span class="n">nan</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span>
 
 
 <span class="c1">#  ############################################################################</span>
 <span class="c1">#  RS-232 Communication Commands</span>
 <span class="c1">#  ############################################################################</span>
 
-<div class="viewcode-block" id="Driver.discover"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.discover">[docs]</a>    <span class="k">def</span> <span class="nf">discover</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Driver.discover"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.discover">[docs]</a>    <span class="k">def</span> <span class="nf">discover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pump_id</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Finds the serial ports for the specified pump controller id number. uses self.available_ports class property to get all potential serial ports. Then submits the identification command. If the query return corrrect string and the id matches self.pump_id, the tested port will be assigned to self.port of the syringe pump driver class.</span>
 
 <span class="sd">        Parameters</span>
@@ -205,20 +207,25 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
+<span class="sd">        port :: Serial</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; driver.discoer()</span>
+<span class="sd">        &gt;&gt;&gt; driver.port = driver.discover()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">serial</span> <span class="k">import</span> <span class="n">Serial</span>
-        <span class="kn">from</span> <span class="nn">threading</span> <span class="k">import</span> <span class="n">RLock</span> <span class="k">as</span> <span class="n">Lock</span>
+        
         <span class="kn">from</span> <span class="nn">sys</span> <span class="k">import</span> <span class="n">version_info</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">pump_id</span>  <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">pump_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span>
+        
         <span class="n">available_ports</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_ports</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">for</span> <span class="n">port_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_ports</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Trying self.port </span><span class="si">%s</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="n">port_name</span><span class="p">)</span>
                 <span class="n">port</span> <span class="o">=</span> <span class="n">Serial</span><span class="p">(</span><span class="n">port_name</span><span class="p">,</span> <span class="n">timeout</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="n">port</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="k">except</span><span class="p">:</span>
                 <span class="n">available_ports</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">available_ports</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">port_name</span><span class="p">))</span>
         <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;available ports </span><span class="si">{}</span><span class="s2">...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">available_ports</span><span class="p">))</span>
@@ -235,23 +242,20 @@
                 <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;port </span><span class="si">%r</span><span class="s2">: full_reply </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">port_name</span><span class="p">,</span><span class="n">full_reply</span><span class="p">))</span>
                 <span class="n">reply</span> <span class="o">=</span> <span class="n">full_reply</span><span class="p">[</span><span class="mi">3</span><span class="p">:][:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
                 <span class="n">status</span> <span class="o">=</span> <span class="n">reply</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
-                <span class="n">pump_id</span> <span class="o">=</span> <span class="n">reply</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+                <span class="n">received_pump_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">reply</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;Latin-1&#39;</span><span class="p">))</span>
                 <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;self.ports </span><span class="si">%r</span><span class="s2">: full_reply </span><span class="si">%r</span><span class="s2">, status </span><span class="si">%r</span><span class="s2">, pump_id </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">port_name</span><span class="p">,</span><span class="n">full_reply</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">pump_id</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">pump_id</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">received_pump_id</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;port </span><span class="si">%r</span><span class="s2">: full_reply </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">port_name</span><span class="p">,</span><span class="n">full_reply</span><span class="p">))</span>
-            <span class="c1">#except Exception as msg:</span>
-            <span class="c1">#    pump_id = 0</span>
-            <span class="c1">#    debug(&quot;%s: %s&quot; % (Exception,msg))</span>
 
-            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;Latin-1&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">pump_id</span><span class="p">:</span> <span class="c1"># get pump id for new_pump</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span>
-                <span class="n">info</span><span class="p">(</span><span class="s2">&quot;self.port </span><span class="si">%r</span><span class="s2">: found pump </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">port_name</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">received_pump_id</span> <span class="o">==</span> <span class="n">pump_id</span><span class="p">:</span> <span class="c1"># get pump id for new_pump</span>
+                <span class="n">info</span><span class="p">(</span><span class="s2">&quot;self.port </span><span class="si">%r</span><span class="s2">: found pump </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">port_name</span><span class="p">,</span><span class="n">pump_id</span><span class="p">))</span>
                 <span class="k">break</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">port</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
                 <span class="n">port</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;closing the serial connection&quot;</span><span class="p">)</span></div>
+                <span class="n">debug</span><span class="p">(</span><span class="s2">&quot;closing the serial connection&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">port</span></div>
 
 
     <span class="nd">@property</span>
@@ -316,6 +320,7 @@
             <span class="n">port</span><span class="o">.</span><span class="n">flushInput</span><span class="p">()</span>
             <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;write(): pid </span><span class="si">%r</span><span class="s1"> and command = </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span><span class="p">,</span><span class="n">command</span><span class="p">))</span>
             <span class="n">port</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_command</span> <span class="o">=</span> <span class="n">command</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">error</span><span class="p">(</span><span class="s1">&#39;Port is not specified&#39;</span><span class="p">)</span></div>
 
@@ -381,7 +386,6 @@
         <span class="k">if</span> <span class="n">port</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
             <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">last_command</span> <span class="o">=</span> <span class="n">command</span>
                 <span class="n">port</span><span class="o">.</span><span class="n">flushInput</span><span class="p">()</span>
                 <span class="n">port</span><span class="o">.</span><span class="n">flushOutput</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="n">command</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">port</span><span class="p">)</span>
@@ -403,6 +407,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="kc">None</span><span class="p">,</span><span class="s1">&#39;error_code&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">None</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;no device found&#39;</span><span class="p">}</span>
         <span class="k">return</span> <span class="n">result</span></div>
+    
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">waiting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -741,7 +746,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span> <span class="o">=</span> <span class="n">pump_id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">discover</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">discover</span><span class="p">()</span>
         <span class="c1">#Initializes pump and sets it to correct orientation</span>
         <span class="k">if</span> <span class="n">volume</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">assign_volume</span><span class="p">(</span><span class="n">volume</span> <span class="o">=</span> <span class="n">volume</span><span class="p">)</span>
@@ -802,7 +807,7 @@
         <span class="c1"># command += &#39;R&#39; #execute loaded command symbol</span>
         <span class="c1"># command += &quot;\r&quot; #cariage return signalling the end of transmission</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">commdn</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
             <span class="n">command</span> <span class="o">+=</span> <span class="sa">b</span><span class="s1">&#39;/1&#39;</span> <span class="c1"># start</span>
             <span class="n">command</span> <span class="o">+=</span> <span class="sa">b</span><span class="s1">&#39;Y7,0,0&#39;</span> <span class="c1"># initialization command for left pumps and Z for right pumps</span>
             <span class="n">command</span> <span class="o">+=</span> <span class="sa">b</span><span class="s1">&#39;I&#39;</span> <span class="c1"># move the valve to position &#39;i&#39;</span>
@@ -849,8 +854,6 @@
 <div class="viewcode-block" id="Driver.set_valve"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver.set_valve">[docs]</a>    <span class="k">def</span> <span class="nf">set_valve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
-
-
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        valve : char</span>
@@ -869,7 +872,7 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="nb">str</span><span class="p">):</span>
             <span class="n">value</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="s1">&#39;Latin-1&#39;</span><span class="p">)</span>
         <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-        <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">b</span><span class="s2">&quot;/1&quot;</span><span class="p">,</span><span class="nb">bytes</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span><span class="s1">&#39;Latin-1&#39;</span><span class="p">),</span><span class="sa">b</span><span class="s2">&quot;R</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">]))</span>
+        <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">b</span><span class="s2">&quot;/1&quot;</span><span class="p">,</span><span class="n">value</span><span class="p">,</span><span class="sa">b</span><span class="s2">&quot;R</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">]))</span>
         <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;set_valve(value = </span><span class="si">%r</span><span class="s1">): reply = </span><span class="si">%r</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="n">reply</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">reply</span></div>
     <span class="n">valve</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_valve</span><span class="p">,</span><span class="n">set_valve</span><span class="p">)</span>
@@ -963,9 +966,11 @@
     <span class="kn">import</span> <span class="nn">logging</span><span class="p">;</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="c1">#filename=gettempdir()+&#39;/syringe_pump_driver.log&#39;,</span>
                                         <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> </span><span class="si">%(levelname)s</span><span class="s2">: </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">driver</span> <span class="o">=</span> <span class="n">Driver</span><span class="p">()</span>
-    <span class="bp">self</span> <span class="o">=</span> <span class="n">driver</span> <span class="c1"># for debugging</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--- For Debugging ---&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;self = driver = Driver()&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;self.port = self.discover(1)&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;self.init(3,25,100,&quot;Y&quot;,250)&#39;</span><span class="p">)</span>
+
 
 
     <span class="c1">#self.discover()</span>

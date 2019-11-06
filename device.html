@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Device Level (DL) &mdash; Cavro Centris Syringe Pump 0.0.7 documentation</title>
+  <title>Device Level (DL) &mdash; Cavro Centris Syringe Pump 0.0.11 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.7
+                0.0.11
               </div>
             
           
@@ -161,8 +161,12 @@
   <div class="section" id="device-level-dl">
 <h1>Device Level (DL)<a class="headerlink" href="#device-level-dl" title="Permalink to this headline">¶</a></h1>
 <p>Start by importing Cavro Centris Syringe Pump device level code.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">syringe_pump.device</span> <span class="kn">import</span> <span class="n">Device</span>
-<span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">syringe_pump.device</span> <span class="kn">import</span> <span class="n">Device</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span> <span class="o">=</span> <span class="n">Device</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="mi">250</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span><span class="o">.</span><span class="n">position</span>
+<span class="go">0.0</span>
 </pre></div>
 </div>
 <dl class="class">
@@ -195,6 +199,16 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="syringe_pump.device.Device.create_low_pressure">
+<code class="sig-name descname">create_low_pressure</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">N=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.create_low_pressure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.create_low_pressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>performs safe compound “create_low_pressure” command which creates low pressure in syringe pump #2.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">create_low_pressure</span><span class="p">(</span><span class="n">N</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
 <dt id="syringe_pump.device.Device.empty">
 <code class="sig-name descname">empty</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.empty" title="Permalink to this definition">¶</a></dt>
 <dd><p>performs safe compound “empty” command which empties the syringe with fluid back into the reservour. The final state of the valve is ‘out’.</p>
@@ -216,7 +230,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">execute_cmd</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;flow(position = 25, speed = 0.1)&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">execute_cmd</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;exec:flow(position = 25,speed = 0.1)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
