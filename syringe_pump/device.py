@@ -10,7 +10,6 @@ Last modified: May 28 2019
 __version__ = '0.0.0'
 
 from syringe_pump.driver import Driver
-from driver import Driver
 
 import traceback
 from pdb import pm
@@ -425,8 +424,7 @@ class Device(object):
     def home(self):
         with self.lock:
             self.set_status('homing...')
-            if value == 1:
-                self.driver.home()
+            self.driver.home()
             self.iowrite(".cmd_HOME",value = 0)
             self.iowrite(".VELO",value = self.speed)
             self.iowrite(".VAL",value = self.cmd_position)
@@ -667,11 +665,13 @@ class Device(object):
         >>> reply = {'value': '', 'error_code': '`', 'busy': False, 'error': 'No Error'}
         >>> device.process_driver_reply(reply)
         """
+        from time import time
         debug('process_driver_reply')
         if reply is not None:
             self.busy = reply['busy']
             self.error_code = reply['error_code']
             self.error = reply['error']
+            self.last_reply_process = time()
             value = reply['value']
             if False:
                 self.iowrite("MOVN",value = self.moving)
@@ -828,6 +828,45 @@ class Device(object):
         if speed <= self.flow_speed_high_limit:
             reply = self.move_abs(position = position, speed = speed)
             self.process_driver_reply(reply)
+        else:
+            warning('the flow command received speed {} large than flow_speed_high_limit {}'.format(speed,self.flow_speed_high_limit))
+
+    def create_low_pressure(self,N = 1):
+        """
+        performs safe compound "create_low_pressure" command which creates low pressure in syringe pump #2.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+
+        Examples
+        --------
+        >>> device.create_low_pressure(N = 1)
+        """
+        from time import sleep
+        self.abort()
+        for i in range(N):
+            self.set_valve('o')
+            sleep(0,3)
+            while self.busy:
+                sleep(0.1)
+
+            self.move_abs(0,65)
+            sleep(1)
+            while self.busy:
+                sleep(0.1)
+
+            self.set_valve('i')
+            sleep(0,3)
+            while self.busy:
+                sleep(0.1)
+
+            self.move_abs(250,65)
+            sleep(1)
+            while self.busy:
+                sleep(0.1)
 
 
     def parse_cmd_string(self,string):
