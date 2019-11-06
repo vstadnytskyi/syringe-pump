@@ -25,6 +25,7 @@ import sys
 from pdb import pm
 
 from numpy import nan, inf
+from threading import RLock as Lock
 
 class Driver(object):
 
@@ -34,6 +35,7 @@ class Driver(object):
         self.pump_id = None
         self.port = None
         self._backlash = nan
+        self.lock = Lock()
 
 
 #  ############################################################################
@@ -55,16 +57,18 @@ class Driver(object):
         >>> driver.port = driver.discover()
         """
         from serial import Serial
-        from threading import RLock as Lock
+        
         from sys import version_info
         if pump_id  is None:
             pump_id = self.pump_id
-        self.lock = Lock()
+        
         available_ports = self.available_ports
+        port = None
         for port_name in self.available_ports:
             try:
                 debug("Trying self.port %s..." % port_name)
                 port = Serial(port_name, timeout = 2)
+                port.close()
             except:
                 available_ports.pop(available_ports.index(port_name))
         debug("available ports {}...".format(available_ports))
@@ -81,23 +85,20 @@ class Driver(object):
                 debug("port %r: full_reply %r" % (port_name,full_reply))
                 reply = full_reply[3:][:-3]
                 status = reply[0:1]
-                pump_id = reply[3:4]
+                received_pump_id = int(reply[3:4].decode('Latin-1'))
                 debug("self.ports %r: full_reply %r, status %r, pump_id %r" % (port_name,full_reply, status, pump_id))
             else:
-                pump_id = 0
+                received_pump_id = 0
                 debug("port %r: full_reply %r" % (port_name,full_reply))
-            #except Exception as msg:
-            #    pump_id = 0
-            #    debug("%s: %s" % (Exception,msg))
 
-            if str(pump_id).encode('Latin-1') == pump_id: # get pump id for new_pump
+            if received_pump_id == pump_id: # get pump id for new_pump
                 info("self.port %r: found pump %r" % (port_name,pump_id))
                 break
             else:
                 port.close()
                 port = None
                 debug("closing the serial connection")
-    return port
+        return port
 
 
     @property
@@ -162,6 +163,7 @@ class Driver(object):
             port.flushInput()
             debug('write(): pid %r and command = %r' %(self.pump_id,command))
             port.write(command)
+            self.last_command = command
         else:
             error('Port is not specified')
 
@@ -227,7 +229,6 @@ class Driver(object):
         if port is not None:
             t1 = time()
             with self.lock:
-                self.last_command = command
                 port.flushInput()
                 port.flushOutput()
                 self.write(command = command, port = port)
@@ -249,6 +250,7 @@ class Driver(object):
         else:
             result = {'value':None,'error_code': None, 'busy':None,'error':'no device found'}
         return result
+    
     @property
     def waiting(self):
         """
@@ -587,7 +589,7 @@ class Driver(object):
 
         """
         self.pump_id = pump_id
-        self.discover()
+        self.port = self.discover()
         #Initializes pump and sets it to correct orientation
         if volume is not None:
             self.assign_volume(volume = volume)
@@ -648,7 +650,7 @@ class Driver(object):
         # command += 'R' #execute loaded command symbol
         # command += "\r" #cariage return signalling the end of transmission
         if self.pump_id == 1:
-            commdn = b''
+            command = b''
             command += b'/1' # start
             command += b'Y7,0,0' # initialization command for left pumps and Z for right pumps
             command += b'I' # move the valve to position 'i'
@@ -807,9 +809,11 @@ if __name__ == "__main__":
     import logging;
     logging.basicConfig(#filename=gettempdir()+'/syringe_pump_driver.log',
                                         level=logging.DEBUG, format="%(asctime)s %(levelname)s: %(message)s")
-    driver = Driver()
-    self = driver # for debugging
-    self.pump_id = 1
+    print('--- For Debugging ---')
+    print('self = driver = Driver()')
+    print('self.port = self.discover(1)')
+    print('self.init(3,25,100,"Y",250)')
+
 
 
     #self.discover()

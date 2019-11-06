@@ -10,7 +10,7 @@ Last modified: May 28 2019
 __version__ = '0.0.0'
 
 from syringe_pump.driver import Driver
-
+from driver import Driver
 
 import traceback
 from pdb import pm
@@ -416,7 +416,6 @@ class Device(object):
                 warning(f'the input value {pv_name} for PV {value} is not float')
         if pv_name == 'CMD':
             print(f'{value},{type(value)}')
-            self.execute_cmd(command = value)
 
 
 
@@ -604,8 +603,6 @@ class Device(object):
         self.driver.abort()
         if speed is None:
             speed = self.speed
-        else:
-            self.speed = speed 
         self.scan_period = 0.001
         self.cmd_position = position
         response = self.driver.move_abs(position = position, speed = speed)
@@ -851,15 +848,9 @@ class Device(object):
 
         Examples
         --------
-        >>> device.execute_cmd(command = 'flow(position = 25, speed = 0.1)')
+        >>> device.execute_cmd(command = 'exec:flow(position = 25,speed = 0.1)')
         """
-        try:
-            in_cmd = command
-            cmd = 'self.'+in_cmd
-            eval(cmd)
-        except Exception as err:
-            error(err)
-
+        raise NotImplementedError
 
 if __name__ == "__main__": #for testing
     from tempfile import gettempdir
