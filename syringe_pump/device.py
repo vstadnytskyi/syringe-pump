@@ -14,6 +14,8 @@ from syringe_pump.driver import Driver
 import traceback
 from pdb import pm
 
+
+
 from numpy import nan, mean, std, nanstd, asfarray, asarray, hstack, array, concatenate, delete, round, vstack, hstack, zeros, transpose, split, unique, nonzero, take, savetxt, min, max
 
 from time import time, sleep, clock
@@ -846,8 +848,18 @@ class Device(object):
         from time import sleep
         self.abort()
         for i in range(N):
+            self.set_valve('i')
+            sleep(0.3)
+            while self.busy:
+                sleep(0.1)
+
+            self.move_abs(250,65)
+            sleep(1)
+            while self.busy:
+                sleep(0.1)
+
             self.set_valve('o')
-            sleep(0,3)
+            sleep(0.3)
             while self.busy:
                 sleep(0.1)
 
@@ -856,15 +868,7 @@ class Device(object):
             while self.busy:
                 sleep(0.1)
 
-            self.set_valve('i')
-            sleep(0,3)
-            while self.busy:
-                sleep(0.1)
 
-            self.move_abs(250,65)
-            sleep(1)
-            while self.busy:
-                sleep(0.1)
 
 
     def parse_cmd_string(self,string):
