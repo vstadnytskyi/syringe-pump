@@ -14,8 +14,6 @@ from syringe_pump.driver import Driver
 import traceback
 from pdb import pm
 
-
-
 from numpy import nan, mean, std, nanstd, asfarray, asarray, hstack, array, concatenate, delete, round, vstack, hstack, zeros, transpose, split, unique, nonzero, take, savetxt, min, max
 
 from time import time, sleep, clock
