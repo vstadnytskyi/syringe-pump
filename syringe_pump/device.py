@@ -783,19 +783,21 @@ class Device(object):
         self.set_speed(start_speed)
         self.set_valve('o')
 
-    def fill(self):
+    def fill(self, volume = None):
         """
         performs safe compound "fill" command which refills the syringe with fluid from the reservour. The final state of the valve is 'out'.
 
         Parameters
         ----------
+        volume :: float
+            volume in uL to fill up to.
 
         Returns
         -------
 
         Examples
         --------
-        >>> device.fill()
+        >>> device.fill(volume = 100.0)
         """
         start_speed = self.speed
         self.set_speed(100.0)
@@ -803,7 +805,9 @@ class Device(object):
         self.wait()
         self.set_cmd_position(0.0)
         self.wait()
-        self.set_cmd_position(250.0)
+        if volume is None:
+            volume = 250.0
+        self.set_cmd_position(volume)
         self.wait()
         self.set_speed(start_speed)
         self.set_valve('o')

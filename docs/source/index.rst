@@ -13,5 +13,6 @@ Cavro Centris Syringe Pump Documentation
    usage
    driver
    device
+   device_io
    release-history
    min_versions

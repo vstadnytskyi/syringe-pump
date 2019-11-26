@@ -743,10 +743,12 @@ class Driver(object):
         error_codes[b'B'] = {'busy':True,'error':'Invalid Command'}
         error_codes[b'c'] = {'busy':False,'error':'Invalid Operand'}
         error_codes[b'C'] = {'busy':True,'error':'Invalid Operand'}
+        error_codes[b'i'] = {'busy':False,'error':'Plunger Overload'}
+        error_codes[b'I'] = {'busy':True,'error':'Plunger Overload'}
         # need to be added FIXIT
         # 7	    g 	G 	Device Not Initialized
         # 8	    h 	H 	Invalid Valve Configuration
-        # 9	    i 	I 	Plunger Overload
+        # 9	    i 	I 	
         # 10	j 	J 	Valve Overload
         # 11	k 	K 	Plunger Move Not Allowed
         # 12	l 	L 	Extended Error Present
