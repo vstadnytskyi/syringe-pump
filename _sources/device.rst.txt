@@ -12,6 +12,8 @@ Start by importing Cavro Centris Syringe Pump device level code.
   >>> p1.start()
   >>> p1.position
   0.0
+  >>> p1.prime(N=2)
+  >>> p1.fill()
 
 .. autoclass:: syringe_pump.device.Device
   :members:

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>syringe_pump.driver &mdash; Cavro Centris Syringe Pump 0.0.13 documentation</title>
+  <title>syringe_pump.driver &mdash; Cavro Centris Syringe Pump 0.0.13.post1+g82653f5 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.0.13
+                0.0.13.post1+g82653f5
               </div>
             
           
@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../driver.html">Driver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../device.html">Device Level (DL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../device_io.html">Device Level Input-Output</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
 </ul>
@@ -176,17 +177,17 @@
 <span class="c1">#    str.encode(my_str)</span>
 <span class="c1">#else:</span>
 
-<span class="kn">from</span> <span class="nn">time</span> <span class="k">import</span> <span class="n">sleep</span><span class="p">,</span><span class="n">time</span>
-<span class="kn">from</span> <span class="nn">logging</span> <span class="k">import</span> <span class="n">debug</span><span class="p">,</span><span class="n">info</span><span class="p">,</span><span class="n">warning</span><span class="p">,</span><span class="n">error</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span><span class="p">,</span><span class="n">time</span>
+<span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">debug</span><span class="p">,</span><span class="n">info</span><span class="p">,</span><span class="n">warning</span><span class="p">,</span><span class="n">error</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">pdb</span> <span class="k">import</span> <span class="n">pm</span>
+<span class="kn">from</span> <span class="nn">pdb</span> <span class="kn">import</span> <span class="n">pm</span>
 
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">nan</span><span class="p">,</span> <span class="n">inf</span>
-<span class="kn">from</span> <span class="nn">threading</span> <span class="k">import</span> <span class="n">RLock</span> <span class="k">as</span> <span class="n">Lock</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">nan</span><span class="p">,</span> <span class="n">inf</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">RLock</span> <span class="k">as</span> <span class="n">Lock</span>
 
 <div class="viewcode-block" id="Driver"><a class="viewcode-back" href="../../driver.html#syringe_pump.driver.Driver">[docs]</a><span class="k">class</span> <span class="nc">Driver</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_orientation</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">serial_communication_dt</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="c1">#minimum distance between two.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span> <span class="o">=</span> <span class="kc">None</span>
@@ -213,9 +214,9 @@
 <span class="sd">        --------</span>
 <span class="sd">        &gt;&gt;&gt; driver.port = driver.discover()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">serial</span> <span class="k">import</span> <span class="n">Serial</span>
+        <span class="kn">from</span> <span class="nn">serial</span> <span class="kn">import</span> <span class="n">Serial</span>
         
-        <span class="kn">from</span> <span class="nn">sys</span> <span class="k">import</span> <span class="n">version_info</span>
+        <span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">version_info</span>
         <span class="k">if</span> <span class="n">pump_id</span>  <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">pump_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span>
         
@@ -278,8 +279,8 @@
 <span class="sd">         &#39;/dev/cu.usbserial2&#39;,</span>
 <span class="sd">         &#39;/dev/cu.usbserial3&#39;]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">platform</span> <span class="k">import</span> <span class="n">system</span>
-        <span class="kn">from</span> <span class="nn">serial.tools.list_ports</span> <span class="k">import</span> <span class="n">comports</span>
+        <span class="kn">from</span> <span class="nn">platform</span> <span class="kn">import</span> <span class="n">system</span>
+        <span class="kn">from</span> <span class="nn">serial.tools.list_ports</span> <span class="kn">import</span> <span class="n">comports</span>
         <span class="k">if</span> <span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Darwin&#39;</span><span class="p">:</span>
             <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;cu.usbserial&#39;</span>
         <span class="k">elif</span> <span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
@@ -343,7 +344,7 @@
 <span class="sd">        &gt;&gt;&gt; driver.read()</span>
 <span class="sd">        &quot;ÿ/0`0\\x03\\r\\n&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">sys</span> <span class="k">import</span> <span class="n">version_info</span>
+        <span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">version_info</span>
         <span class="k">if</span> <span class="n">port</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span>
         <span class="k">if</span> <span class="n">port</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -377,8 +378,8 @@
 <span class="sd">        &gt;&gt;&gt; driver.query(command = &#39;/1?29R\\r&#39;)</span>
 <span class="sd">        &quot;ÿ/0`0\\x03\\r\\n&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">time</span> <span class="k">import</span> <span class="n">time</span>
-        <span class="kn">from</span> <span class="nn">sys</span> <span class="k">import</span> <span class="n">version_info</span>
+        <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+        <span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">version_info</span>
         <span class="n">timeout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serial_communication_dt</span>
         <span class="n">debug</span><span class="p">(</span><span class="s1">&#39;query(): pid </span><span class="si">{!r}</span><span class="s1"> and command = </span><span class="si">{!r}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pump_id</span><span class="p">,</span><span class="n">command</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">port</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -900,10 +901,12 @@
         <span class="n">error_codes</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Invalid Command&#39;</span><span class="p">}</span>
         <span class="n">error_codes</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;c&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Invalid Operand&#39;</span><span class="p">}</span>
         <span class="n">error_codes</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Invalid Operand&#39;</span><span class="p">}</span>
+        <span class="n">error_codes</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;i&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Plunger Overload&#39;</span><span class="p">}</span>
+        <span class="n">error_codes</span><span class="p">[</span><span class="sa">b</span><span class="s1">&#39;I&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busy&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span><span class="s1">&#39;error&#39;</span><span class="p">:</span><span class="s1">&#39;Plunger Overload&#39;</span><span class="p">}</span>
         <span class="c1"># need to be added FIXIT</span>
         <span class="c1"># 7	    g 	G 	Device Not Initialized</span>
         <span class="c1"># 8	    h 	H 	Invalid Valve Configuration</span>
-        <span class="c1"># 9	    i 	I 	Plunger Overload</span>
+        <span class="c1"># 9	    i 	I 	</span>
         <span class="c1"># 10	j 	J 	Valve Overload</span>
         <span class="c1"># 11	k 	K 	Plunger Move Not Allowed</span>
         <span class="c1"># 12	l 	L 	Extended Error Present</span>
@@ -961,7 +964,7 @@
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">gettempdir</span>
+    <span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">gettempdir</span>
 
     <span class="kn">import</span> <span class="nn">logging</span><span class="p">;</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="c1">#filename=gettempdir()+&#39;/syringe_pump_driver.log&#39;,</span>

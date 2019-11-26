@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Device Level (DL) &mdash; Cavro Centris Syringe Pump 0.0.13 documentation</title>
+  <title>Device Level (DL) &mdash; Cavro Centris Syringe Pump 0.0.13.post1+g82653f5 documentation</title>
   
 
   
@@ -38,7 +38,7 @@
   <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Release History" href="release-history.html" />
+    <link rel="next" title="Device Level Input-Output" href="device_io.html" />
     <link rel="prev" title="Driver" href="driver.html" /> 
 </head>
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.13
+                0.0.13.post1+g82653f5
               </div>
             
           
@@ -92,6 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="driver.html">Driver</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Device Level (DL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="device_io.html">Device Level Input-Output</a></li>
 <li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
 <li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
 </ul>
@@ -167,6 +168,8 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span><span class="o">.</span><span class="n">position</span>
 <span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span><span class="o">.</span><span class="n">prime</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span><span class="o">.</span><span class="n">fill</span><span class="p">()</span>
 </pre></div>
 </div>
 <dl class="class">
@@ -237,10 +240,18 @@
 
 <dl class="method">
 <dt id="syringe_pump.device.Device.fill">
-<code class="sig-name descname">fill</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.fill" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fill</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">volume=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.fill" title="Permalink to this definition">¶</a></dt>
 <dd><p>performs safe compound “fill” command which refills the syringe with fluid from the reservour. The final state of the valve is ‘out’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>volume :: float</strong></dt><dd><p>volume in uL to fill up to.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">fill</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">volume</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -674,7 +685,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="release-history.html" class="btn btn-neutral float-right" title="Release History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="device_io.html" class="btn btn-neutral float-right" title="Device Level Input-Output" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="driver.html" class="btn btn-neutral float-left" title="Driver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
