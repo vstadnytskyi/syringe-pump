@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Device Level (DL) &mdash; Cavro Centris Syringe Pump 0.0.13.post1+g82653f5 documentation</title>
+  <title>Device Level (DL) &mdash; Cavro Centris Syringe Pump 0.0.13.post2+g5c9bef5 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.13.post1+g82653f5
+                0.0.13.post2+g5c9bef5
               </div>
             
           
@@ -180,7 +180,7 @@
 <code class="sig-name descname">abort</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.abort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.abort" title="Permalink to this definition">¶</a></dt>
 <dd><p>orderly abort of the current operation</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">abort</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">abort</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -190,7 +190,7 @@
 <code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.close" title="Permalink to this definition">¶</a></dt>
 <dd><p>orderly close of the serial port and shutdown</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -206,7 +206,7 @@
 <code class="sig-name descname">create_low_pressure</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">N=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.create_low_pressure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.create_low_pressure" title="Permalink to this definition">¶</a></dt>
 <dd><p>performs safe compound “create_low_pressure” command which creates low pressure in syringe pump #2.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">create_low_pressure</span><span class="p">(</span><span class="n">N</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">create_low_pressure</span><span class="p">(</span><span class="n">N</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -216,7 +216,7 @@
 <code class="sig-name descname">empty</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.empty" title="Permalink to this definition">¶</a></dt>
 <dd><p>performs safe compound “empty” command which empties the syringe with fluid back into the reservour. The final state of the valve is ‘out’.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -233,7 +233,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">execute_cmd</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;exec:flow(position = 25,speed = 0.1)&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">execute_cmd</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;exec:flow(position = 25,speed = 0.1)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -251,7 +251,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">volume</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">volume</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -267,7 +267,7 @@
 <code class="sig-name descname">flow</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">position=0</em>, <em class="sig-param">speed=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.flow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.flow" title="Permalink to this definition">¶</a></dt>
 <dd><p>performs safe compound “flow” command which initits flow towards posotion with the given speed. Makes sure to set the valve orientation to ‘o’ output.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">position</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span> <span class="n">speed</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">position</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span> <span class="n">speed</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -291,7 +291,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">get_cmd_position</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">get_cmd_position</span><span class="p">()</span>
 <span class="go">0.0</span>
 </pre></div>
 </div>
@@ -310,7 +310,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span>
 <span class="go">0.0</span>
 </pre></div>
 </div>
@@ -329,7 +329,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">get_speed</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">get_speed</span><span class="p">()</span>
 <span class="go">25.0</span>
 </pre></div>
 </div>
@@ -348,7 +348,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">get_valve</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">get_valve</span><span class="p">()</span>
 <span class="go">&#39;i&#39;</span>
 </pre></div>
 </div>
@@ -365,7 +365,7 @@
 <code class="sig-name descname">help</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.help"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.help" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns help information in a string format.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -397,7 +397,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">pump_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">speed</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span> <span class="n">backlash</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span><span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">volume</span> <span class="o">=</span> <span class="mi">250</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">pump_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">speed</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span> <span class="n">backlash</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span><span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">volume</span> <span class="o">=</span> <span class="mi">250</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -417,7 +417,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">ioexecute</span><span class="p">(</span><span class="n">pv_name</span> <span class="o">=</span> <span class="s1">&#39;.running&#39;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">ioexecute</span><span class="p">(</span><span class="n">pv_name</span> <span class="o">=</span> <span class="s1">&#39;.running&#39;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -435,7 +435,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">ioput</span><span class="p">(</span><span class="n">pv_name</span> <span class="o">=</span> <span class="s1">&#39;.running&#39;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">ioput</span><span class="p">(</span><span class="n">pv_name</span> <span class="o">=</span> <span class="s1">&#39;.running&#39;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -455,7 +455,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">ioput</span><span class="p">(</span><span class="n">pv_name</span> <span class="o">=</span> <span class="s1">&#39;.running&#39;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">ioput</span><span class="p">(</span><span class="n">pv_name</span> <span class="o">=</span> <span class="s1">&#39;.running&#39;</span><span class="p">,</span><span class="n">value</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -473,7 +473,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">isdonemoving</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">isdonemoving</span><span class="p">()</span>
 <span class="go">True</span>
 </pre></div>
 </div>
@@ -484,7 +484,7 @@
 <code class="sig-name descname">kill</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.kill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.kill" title="Permalink to this definition">¶</a></dt>
 <dd><p>orderly close of the serial port and shutdown of the device and deletion of the instance</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -519,7 +519,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -537,7 +537,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reply</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;error_code&#39;</span><span class="p">:</span> <span class="s1">&#39;`&#39;</span><span class="p">,</span> <span class="s1">&#39;busy&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;No Error&#39;</span><span class="p">}</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reply</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;error_code&#39;</span><span class="p">:</span> <span class="s1">&#39;`&#39;</span><span class="p">,</span> <span class="s1">&#39;busy&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;No Error&#39;</span><span class="p">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">process_driver_reply</span><span class="p">(</span><span class="n">reply</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -548,7 +548,7 @@
 <code class="sig-name descname">run_once</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.run_once"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.run_once" title="Permalink to this definition">¶</a></dt>
 <dd><p>run once</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -566,7 +566,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">set_cmd_position</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="mf">25.0</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">set_cmd_position</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="mf">25.0</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -584,7 +584,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="mf">25.0</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="mf">25.0</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -602,7 +602,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">set_speed_on_the_fly</span><span class="p">(</span><span class="mf">25.0</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">set_speed_on_the_fly</span><span class="p">(</span><span class="mf">25.0</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -620,7 +620,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">get_valve</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">get_valve</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -630,7 +630,7 @@
 <code class="sig-name descname">snapshot</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.snapshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.snapshot" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns snapshot of current PVs and their values in a dictionary format</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -640,7 +640,7 @@
 <code class="sig-name descname">start</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>starts run() in a separate thread</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -650,7 +650,7 @@
 <code class="sig-name descname">stop</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device.Device.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>stop run() in the separate thread</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -668,7 +668,7 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.34</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">dt</span> <span class="o">=</span> <span class="mf">0.34</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>

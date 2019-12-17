@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Driver &mdash; Cavro Centris Syringe Pump 0.0.13.post1+g82653f5 documentation</title>
+  <title>Driver &mdash; Cavro Centris Syringe Pump 0.0.13.post2+g5c9bef5 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.0.13.post1+g82653f5
+                0.0.13.post2+g5c9bef5
               </div>
             
           
@@ -177,7 +177,7 @@
 <code class="sig-name descname">abort</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.abort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.abort" title="Permalink to this definition">¶</a></dt>
 <dd><p>Terminates plunger moves [A,P,D] , initialization commands [Z], and delay [M]; does not affect valve moves.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">abort</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">abort</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -213,7 +213,7 @@ accepts 4 different volumes: 50, 100, 250, 500 uL
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">assign_volume</span><span class="p">(</span><span class="n">volume</span> <span class="o">=</span> <span class="mi">250</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">assign_volume</span><span class="p">(</span><span class="n">volume</span> <span class="o">=</span> <span class="mi">250</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -230,7 +230,7 @@ accepts 4 different volumes: 50, 100, 250, 500 uL
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">available_ports</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">available_ports</span><span class="p">()</span>
 <span class="go">[&#39;/dev/cu.usbserial&#39;,</span>
 <span class="go"> &#39;/dev/cu.usbserial1&#39;,</span>
 <span class="go"> &#39;/dev/cu.usbserial2&#39;,</span>
@@ -244,7 +244,7 @@ accepts 4 different volumes: 50, 100, 250, 500 uL
 <code class="sig-name descname">busy</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.busy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.busy" title="Permalink to this definition">¶</a></dt>
 <dd><p>queries if pump os busy or not. Command “/1?29Rr”</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">busy</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">busy</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -254,7 +254,7 @@ accepts 4 different volumes: 50, 100, 250, 500 uL
 <code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/driver.html#Driver.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.driver.Driver.close" title="Permalink to this definition">¶</a></dt>
 <dd><p>closes serial port</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ser_port</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ser_port</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -277,7 +277,7 @@ accepts 4 different volumes: 50, 100, 250, 500 uL
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">discover</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">discover</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -295,7 +295,7 @@ accepts 4 different volumes: 50, 100, 250, 500 uL
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">get_speed</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">get_speed</span><span class="p">()</span>
 <span class="go">25</span>
 </pre></div>
 </div>
@@ -318,7 +318,7 @@ The homing parameters are hardcoded:
 | pump4: |  25   |    Z          |  self.backlash |  0         |
 +——–+——-+—————+—————-+————+</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">home</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">home</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -351,7 +351,7 @@ The homing parameters are hardcoded:
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">pump_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">speed</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span> <span class="n">backlash</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span><span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">volume</span> <span class="o">=</span> <span class="mi">250</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">pump_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">speed</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span> <span class="n">backlash</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span><span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">volume</span> <span class="o">=</span> <span class="mi">250</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -381,7 +381,7 @@ Rotate valve CCW to Input port 1; move the plunger to zero at speed 7 (default: 
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">orientation</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span><span class="p">)</span>
 <span class="go">{&#39;value&#39;: &#39;&#39;, &#39;error_code&#39;: &#39;@&#39;, &#39;busy&#39;: True, &#39;error&#39;: &#39;No Error&#39;}</span>
 </pre></div>
 </div>
@@ -425,7 +425,7 @@ Two arguments need to be passed: position and speed.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;/1?29R</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;/1?29R</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="go">&quot;ÿ/0`0\x03\r\n&quot;</span>
 </pre></div>
 </div>
@@ -450,7 +450,7 @@ Two arguments need to be passed: position and speed.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="go">&quot;ÿ/0`0\x03\r\n&quot;</span>
 </pre></div>
 </div>
@@ -487,7 +487,7 @@ Example: ‘/1V25.0,1Fr’ set speed to 25.0 uL per s</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">speed</span> <span class="o">=</span> <span class="mi">25</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">speed</span> <span class="o">=</span> <span class="mi">25</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -510,7 +510,7 @@ Example: ‘/1V25.0,1Fr’ set speed to 25.0 uL per s</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="bp">self</span><span class="o">.</span><span class="n">set_valve</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;i&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="bp">self</span><span class="o">.</span><span class="n">set_valve</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;i&#39;</span><span class="p">)</span>
 <span class="go">{&#39;value&#39;: b&#39;&#39;, &#39;error_code&#39;: 64, &#39;busy&#39;: False, &#39;error&#39;: None}</span>
 </pre></div>
 </div>
@@ -529,7 +529,7 @@ Example: ‘/1V25.0,1Fr’ set speed to 25.0 uL per s</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">get_speed</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">get_speed</span><span class="p">()</span>
 <span class="go">25</span>
 </pre></div>
 </div>
@@ -547,7 +547,7 @@ Example: ‘/1V25.0,1Fr’ set speed to 25.0 uL per s</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ser_port</span><span class="o">.</span><span class="n">waiting</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ser_port</span><span class="o">.</span><span class="n">waiting</span><span class="p">()</span>
 <span class="go">(0,0)</span>
 </pre></div>
 </div>
@@ -568,7 +568,7 @@ Example: ‘/1V25.0,1Fr’ set speed to 25.0 uL per s</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
