@@ -107,7 +107,8 @@ class Device(object):
             self.driver.init(pump_id, speed = speed, backlash = backlash, orientation = orientation, volume = volume)
             self.speed = speed
             self.cmd_position = 0.0
-            self.valve = 'o'
+            self.set_valve(b'o')
+            self.set_speed(speed)
 
 
 
@@ -903,5 +904,5 @@ if __name__ == "__main__": #for testing
     logging.basicConfig(filename=gettempdir()+'/syringe_pump_DL.log',
                         level=logging.DEBUG, format="%(asctime)s %(levelname)s: %(message)s")
     pump = Device()
-    print("pump.init(2,0.1,100,'Z',250)")
+    print("pump.init(1,0.1,100,'Y',250)")
     print("pump.start()")

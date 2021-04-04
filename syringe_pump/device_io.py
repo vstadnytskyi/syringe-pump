@@ -107,7 +107,7 @@ class Server(PVGroup):
             pass
 
 class Device_IO(object):
-    def __init__(self, pump_id):
+    def __init__(self, pump_id, prefix = ''):
         """
 
         """
@@ -130,7 +130,7 @@ class Device_IO(object):
                             format="%(asctime)s %(levelname)s %(module)s.%(funcName)s: %(message)s")
         debug('test write debug')
         ioc_options, run_options = ioc_arg_parser(
-            default_prefix=f'NIH:SYRINGE{pump_id}.',
+            default_prefix=prefix+ 'SYRINGE'+str(pump_id) + '.',
             desc='Run an IOC that does blocking tasks on a worker thread.')
 
         ioc = Server(**ioc_options)
@@ -140,7 +140,7 @@ class Device_IO(object):
 def run_ioc(pump_id = 2):
     from syringe_pump import device_io
     import multiprocessing
-    p = multiprocessing.Process(target=device_io.Device_IO,args=(pump_id,))
+    p = multiprocessing.Process(target=device_io.Device_IO,args=(pump_id,'TEST:'))
     p.start()
     return p
 
@@ -165,7 +165,7 @@ if __name__ == '__main__':
     )
     debug('test write debug')
     ioc_options, run_options = ioc_arg_parser(
-        default_prefix=f'NIH:SYRINGE{str(pump_id)}.',
+        default_prefix=f'TEST:SYRINGE{str(pump_id)}.',
         desc='Run an IOC that does blocking tasks on a worker thread.')
 
     ioc = Server(**ioc_options)

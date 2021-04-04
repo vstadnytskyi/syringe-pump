@@ -57,11 +57,11 @@ class Driver(object):
         >>> driver.port = driver.discover()
         """
         from serial import Serial
-        
+
         from sys import version_info
         if pump_id  is None:
             pump_id = self.pump_id
-        
+
         available_ports = self.available_ports
         port = None
         for port_name in self.available_ports:
@@ -79,8 +79,7 @@ class Driver(object):
             port.timeout = 2
             port.flushInput()
             port.flushOutput()
-            self.write(command = b"/1?80\r", port = port)
-            full_reply = self.read(port = port)
+            full_reply = self.query(command = b"/1?80\r", port = port)
             if len(full_reply) != 0:
                 debug("port %r: full_reply %r" % (port_name,full_reply))
                 reply = full_reply[3:][:-3]
@@ -128,7 +127,7 @@ class Driver(object):
         elif system() == 'Windows':
             prefix = 'COM'
         elif system() == 'Linux':
-            prefix = '/dev/ttyUSB'
+            prefix = '/dev/tty'
         else:
             prefix = ''
         return [port.device for port in comports() if prefix in port.device]
@@ -250,7 +249,7 @@ class Driver(object):
         else:
             result = {'value':None,'error_code': None, 'busy':None,'error':'no device found'}
         return result
-    
+
     @property
     def waiting(self):
         """
@@ -748,7 +747,7 @@ class Driver(object):
         # need to be added FIXIT
         # 7	    g 	G 	Device Not Initialized
         # 8	    h 	H 	Invalid Valve Configuration
-        # 9	    i 	I 	
+        # 9	    i 	I
         # 10	j 	J 	Valve Overload
         # 11	k 	K 	Plunger Move Not Allowed
         # 12	l 	L 	Extended Error Present
@@ -793,7 +792,7 @@ class Driver(object):
     def move_rel(self,position,speed):
         """Move plunger of pump[pid] to relative position."""
         self.abort()
-        current = self.position
+        current = self._get_position()
 
         if position < 0:
             position = abs(position)
@@ -813,6 +812,8 @@ if __name__ == "__main__":
                                         level=logging.DEBUG, format="%(asctime)s %(levelname)s: %(message)s")
     print('--- For Debugging ---')
     print('self = driver = Driver()')
+    print('driver.discover()')
+    print("driver.init(pump_id=1, speed=25, backlash=100, orientation='Y', volume=250)")
     print('self.port = self.discover(1)')
     print('self.init(3,25,100,"Y",250)')
 
