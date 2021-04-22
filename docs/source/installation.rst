@@ -4,4 +4,4 @@ Installation
 
 At the command line::
 
-    $ pip install syringe-pump
+    $ pip3 install syringe-pump
