@@ -1,41 +1,45 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Device Level Input-Output &mdash; Cavro Centris Syringe Pump 0.0.13.post2+g5c9bef5 documentation</title>
+  <title>Device Level Input-Output &mdash; Cavro Centris Syringe Pump 0.0.13.post9+g5e53597 documentation</title>
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-        <script type="text/javascript" src="_static/copybutton.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Release History" href="release-history.html" />
@@ -63,7 +67,7 @@
             
             
               <div class="version">
-                0.0.13.post2+g5c9bef5
+                0.0.13.post9+g5e53597
               </div>
             
           
@@ -80,6 +84,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -89,6 +94,7 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#quickstart-guide">Quickstart Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="driver.html">Driver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="device.html">Device Level (DL)</a></li>
@@ -100,6 +106,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -134,18 +141,20 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Device Level Input-Output</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/device_io.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -170,27 +179,27 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">process_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">run_ioc</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
 </pre></div>
 </div>
-<dl class="class">
+<dl class="py class">
 <dt id="syringe_pump.device_io.Server">
-<em class="property">class </em><code class="sig-prename descclassname">syringe_pump.device_io.</code><code class="sig-name descname">Server</code><span class="sig-paren">(</span><em class="sig-param">prefix</em>, <em class="sig-param">*</em>, <em class="sig-param">macros=None</em>, <em class="sig-param">parent=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device_io.html#Server"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device_io.Server" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="class">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">syringe_pump.device_io.</span></code><code class="sig-name descname"><span class="pre">Server</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">macros</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device_io.html#Server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device_io.Server" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py class">
 <dt id="syringe_pump.device_io.Server.Device_IO">
-<em class="property">class </em><code class="sig-name descname">Device_IO</code><span class="sig-paren">(</span><em class="sig-param">pump_id</em><span class="sig-paren">)</span><a class="headerlink" href="#syringe_pump.device_io.Server.Device_IO" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">Device_IO</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pump_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#syringe_pump.device_io.Server.Device_IO" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="syringe_pump.device_io.Server.device_ioexecute">
-<em class="property">async </em><code class="sig-name descname">device_ioexecute</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">pv_name</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device_io.html#Server.device_ioexecute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device_io.Server.device_ioexecute" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">device_ioexecute</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pv_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device_io.html#Server.device_ioexecute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device_io.Server.device_ioexecute" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="syringe_pump.device_io.Server.device_ioread">
-<em class="property">async </em><code class="sig-name descname">device_ioread</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">pv_name</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device_io.html#Server.device_ioread"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device_io.Server.device_ioread" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">device_ioread</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pv_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device_io.html#Server.device_ioread"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device_io.Server.device_ioread" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="syringe_pump.device_io.Server.update_pvs">
-<code class="sig-name descname">update_pvs</code><span class="sig-paren">(</span><em class="sig-param">self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device_io.html#Server.update_pvs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#syringe_pump.device_io.Server.update_pvs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update_pvs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device_io.html#Server.update_pvs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device_io.Server.update_pvs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Force update of all PVs. Works only if self.device is assigned. If None, nothing will happen.</p>
 </dd></dl>
 
@@ -203,29 +212,29 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="release-history.html" class="btn btn-neutral float-right" title="Release History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="device.html" class="btn btn-neutral float-left" title="Device Level (DL)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="release-history.html" class="btn btn-neutral float-right" title="Release History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="device.html" class="btn btn-neutral float-left" title="Device Level (DL)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Valentyn Stadnytskyi
+        &#169; Copyright 2017, Valentyn Stadnytskyi.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -233,7 +242,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
