@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Installation &mdash; Cavro Centris Syringe Pump 0.0.13.post9+g5e53597 documentation</title>
+  <title>Installation &mdash; Cavro Centris Syringe Pump 0.0.13.post10+g590589e documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
 
@@ -31,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -67,7 +70,7 @@
             
             
               <div class="version">
-                0.0.13.post9+g5e53597
+                0.0.13.post10+g590589e
               </div>
             
           
@@ -179,7 +182,26 @@
 <h1>Quickstart Guide<a class="headerlink" href="#quickstart-guide" title="Permalink to this headline">¶</a></h1>
 <p>After you have received your Cavro Centris syringe pump, follow instruction on how to set it up. After it is all set-up, secured and configured to work according to the manufacturer, connect it to the computer. Depending on the configuration of your syringe pump you might need RS-232 to USB adapter.</p>
 <p>After the syringe pump is configured ensure it is visible by your operational system.</p>
-<p>In <em>Windows</em>, got to “Device Manager” and find a new RS-232 (serial com) device connected.</p>
+<p>Windows</p>
+<p>Got to “Device Manager” and find a new RS-232 (serial com) device connected.</p>
+<a class="reference internal image-reference" href="_images/quickstart-device-manager.png"><img alt="Device manager on Windows" src="_images/quickstart-device-manager.png" style="width: 400px;" /></a>
+<p>In the example above, you can see six rs232 (Serial Com devices) connected. Four are syringe pumps.</p>
+<p>start command-line and start python (or ipython)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">syringe_pump</span>
+</pre></div>
+</div>
+<p>You can check the version of your syringe pump library</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">syringe_pump</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+<p>You can check the version of your syringe pump library</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">syringe_pump.driver</span> <span class="kn">import</span> <span class="n">Driver</span>
+<span class="n">driver</span> <span class="o">=</span> <span class="n">Driver</span><span class="p">()</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">available_ports</span><span class="p">()</span> <span class="c1"># will show all com ports available</span>
+<span class="p">[</span><span class="s1">&#39;COM7&#39;</span><span class="p">,</span><span class="s1">&#39;COM1&#39;</span><span class="p">,</span><span class="s1">&#39;COM6&#39;</span><span class="p">,</span><span class="s1">&#39;COM3&#39;</span><span class="p">,</span><span class="s1">&#39;COM4&#39;</span><span class="p">,</span><span class="s1">&#39;COM5&#39;</span><span class="p">]</span> <span class="c1">#shows all available ports</span>
+</pre></div>
+</div>
+<p>Let us assume that we know that ports 3,4,5 and 6 are syringe pumps.</p>
 </div>
 
 

@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Device Level (DL) &mdash; Cavro Centris Syringe Pump 0.0.13.post9+g5e53597 documentation</title>
+  <title>Device Level (DL) &mdash; Cavro Centris Syringe Pump 0.0.13.post10+g590589e documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
 
@@ -31,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -67,7 +70,7 @@
             
             
               <div class="version">
-                0.0.13.post9+g5e53597
+                0.0.13.post10+g590589e
               </div>
             
           
@@ -182,11 +185,11 @@
 </pre></div>
 </div>
 <dl class="py class">
-<dt id="syringe_pump.device.Device">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">syringe_pump.device.</span></code><code class="sig-name descname"><span class="pre">Device</span></code><a class="reference internal" href="_modules/syringe_pump/device.html#Device"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">syringe_pump.device.</span></span><span class="sig-name descname"><span class="pre">Device</span></span><a class="reference internal" href="_modules/syringe_pump/device.html#Device"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py method">
-<dt id="syringe_pump.device.Device.abort">
-<code class="sig-name descname"><span class="pre">abort</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.abort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.abort" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.abort">
+<span class="sig-name descname"><span class="pre">abort</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.abort"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.abort" title="Permalink to this definition">¶</a></dt>
 <dd><p>orderly abort of the current operation</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">abort</span><span class="p">()</span>
@@ -195,8 +198,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.close">
-<code class="sig-name descname"><span class="pre">close</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.close" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.close" title="Permalink to this definition">¶</a></dt>
 <dd><p>orderly close of the serial port and shutdown</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -205,14 +208,14 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.command_monitor">
-<code class="sig-name descname"><span class="pre">command_monitor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PV_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">char_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.command_monitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.command_monitor" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.command_monitor">
+<span class="sig-name descname"><span class="pre">command_monitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PV_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">char_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.command_monitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.command_monitor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process PV change requests</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.create_low_pressure">
-<code class="sig-name descname"><span class="pre">create_low_pressure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.create_low_pressure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.create_low_pressure" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.create_low_pressure">
+<span class="sig-name descname"><span class="pre">create_low_pressure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.create_low_pressure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.create_low_pressure" title="Permalink to this definition">¶</a></dt>
 <dd><p>performs safe compound “create_low_pressure” command which creates low pressure in syringe pump #2.</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">create_low_pressure</span><span class="p">(</span><span class="n">N</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
@@ -221,8 +224,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.empty">
-<code class="sig-name descname"><span class="pre">empty</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.empty" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.empty">
+<span class="sig-name descname"><span class="pre">empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.empty" title="Permalink to this definition">¶</a></dt>
 <dd><p>performs safe compound “empty” command which empties the syringe with fluid back into the reservour. The final state of the valve is ‘out’.</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span>
@@ -231,8 +234,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.execute_cmd">
-<code class="sig-name descname"><span class="pre">execute_cmd</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.execute_cmd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.execute_cmd" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.execute_cmd">
+<span class="sig-name descname"><span class="pre">execute_cmd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.execute_cmd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.execute_cmd" title="Permalink to this definition">¶</a></dt>
 <dd><p>executes command from CMD(command) PV.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -248,8 +251,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.fill">
-<code class="sig-name descname"><span class="pre">fill</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">volume</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.fill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.fill" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.fill">
+<span class="sig-name descname"><span class="pre">fill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">volume</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.fill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.fill" title="Permalink to this definition">¶</a></dt>
 <dd><p>performs safe compound “fill” command which refills the syringe with fluid from the reservour. The final state of the valve is ‘out’.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -266,14 +269,14 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.first_time_setup">
-<code class="sig-name descname"><span class="pre">first_time_setup</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.first_time_setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.first_time_setup" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.first_time_setup">
+<span class="sig-name descname"><span class="pre">first_time_setup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.first_time_setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.first_time_setup" title="Permalink to this definition">¶</a></dt>
 <dd><p>default factory setting or first time setup</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.flow">
-<code class="sig-name descname"><span class="pre">flow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.flow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.flow" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.flow">
+<span class="sig-name descname"><span class="pre">flow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.flow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.flow" title="Permalink to this definition">¶</a></dt>
 <dd><p>performs safe compound “flow” command which initits flow towards posotion with the given speed. Makes sure to set the valve orientation to ‘o’ output.</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">position</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span> <span class="n">speed</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">)</span>
@@ -282,14 +285,14 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.get_alarm">
-<code class="sig-name descname"><span class="pre">get_alarm</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_alarm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.get_alarm" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.get_alarm">
+<span class="sig-name descname"><span class="pre">get_alarm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_alarm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.get_alarm" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns integer if alarm conditions are met</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.get_cmd_position">
-<code class="sig-name descname"><span class="pre">get_cmd_position</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_cmd_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.get_cmd_position" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.get_cmd_position">
+<span class="sig-name descname"><span class="pre">get_cmd_position</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_cmd_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.get_cmd_position" title="Permalink to this definition">¶</a></dt>
 <dd><p>get commanded position of the pump</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -307,8 +310,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.get_position">
-<code class="sig-name descname"><span class="pre">get_position</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.get_position" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.get_position">
+<span class="sig-name descname"><span class="pre">get_position</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.get_position" title="Permalink to this definition">¶</a></dt>
 <dd><p>request position of the pump via driver</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -326,8 +329,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.get_speed">
-<code class="sig-name descname"><span class="pre">get_speed</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_speed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.get_speed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.get_speed">
+<span class="sig-name descname"><span class="pre">get_speed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_speed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.get_speed" title="Permalink to this definition">¶</a></dt>
 <dd><p>read speed from the pump</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -345,8 +348,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.get_valve">
-<code class="sig-name descname"><span class="pre">get_valve</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_valve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.get_valve" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.get_valve">
+<span class="sig-name descname"><span class="pre">get_valve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_valve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.get_valve" title="Permalink to this definition">¶</a></dt>
 <dd><p>reads valve orientation from the pump</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -364,14 +367,14 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.get_warning">
-<code class="sig-name descname"><span class="pre">get_warning</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_warning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.get_warning" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.get_warning">
+<span class="sig-name descname"><span class="pre">get_warning</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.get_warning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.get_warning" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns integer if alarm conditions are met</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.help">
-<code class="sig-name descname"><span class="pre">help</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.help" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.help">
+<span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.help" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns help information in a string format.</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
@@ -380,8 +383,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.init">
-<code class="sig-name descname"><span class="pre">init</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pump_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backlash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volume</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.init" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.init">
+<span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pump_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backlash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orientation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volume</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.init" title="Permalink to this definition">¶</a></dt>
 <dd><p>initialize the device level code</p>
 <ul class="simple">
 <li><p>initializes the driver</p></li>
@@ -412,8 +415,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.ioexecute">
-<code class="sig-name descname"><span class="pre">ioexecute</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pv_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.ioexecute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.ioexecute" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.ioexecute">
+<span class="sig-name descname"><span class="pre">ioexecute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pv_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.ioexecute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.ioexecute" title="Permalink to this definition">¶</a></dt>
 <dd><p>executes command arrived from IO</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -432,8 +435,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.ioread">
-<code class="sig-name descname"><span class="pre">ioread</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pv_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.ioread"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.ioread" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.ioread">
+<span class="sig-name descname"><span class="pre">ioread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pv_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.ioread"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.ioread" title="Permalink to this definition">¶</a></dt>
 <dd><p>put dictionary of key:value pairs to IO.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -450,8 +453,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.iowrite">
-<code class="sig-name descname"><span class="pre">iowrite</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pv_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.iowrite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.iowrite" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.iowrite">
+<span class="sig-name descname"><span class="pre">iowrite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pv_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.iowrite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.iowrite" title="Permalink to this definition">¶</a></dt>
 <dd><p>put dictionary of key:value pairs to IO.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -470,8 +473,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.isdonemoving">
-<code class="sig-name descname"><span class="pre">isdonemoving</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.isdonemoving"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.isdonemoving" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.isdonemoving">
+<span class="sig-name descname"><span class="pre">isdonemoving</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.isdonemoving"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.isdonemoving" title="Permalink to this definition">¶</a></dt>
 <dd><p>return flag if motion is complete. It will compare the cmd_position and actual position</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -489,8 +492,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.kill">
-<code class="sig-name descname"><span class="pre">kill</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.kill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.kill" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.kill">
+<span class="sig-name descname"><span class="pre">kill</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.kill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.kill" title="Permalink to this definition">¶</a></dt>
 <dd><p>orderly close of the serial port and shutdown of the device and deletion of the instance</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
@@ -499,25 +502,25 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.monitor">
-<code class="sig-name descname"><span class="pre">monitor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PV_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">char_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.monitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.monitor" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.monitor">
+<span class="sig-name descname"><span class="pre">monitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PV_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">char_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.monitor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.monitor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process PV change requests</p>
 </dd></dl>
 
-<dl class="py method">
-<dt id="syringe_pump.device.Device.moving">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">moving</span></code><a class="headerlink" href="#syringe_pump.device.Device.moving" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="syringe_pump.device.Device.moving">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">moving</span></span><a class="headerlink" href="#syringe_pump.device.Device.moving" title="Permalink to this definition">¶</a></dt>
 <dd><p>an alias for busy</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.parse_cmd_string">
-<code class="sig-name descname"><span class="pre">parse_cmd_string</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.parse_cmd_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.parse_cmd_string" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.parse_cmd_string">
+<span class="sig-name descname"><span class="pre">parse_cmd_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.parse_cmd_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.parse_cmd_string" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.prime">
-<code class="sig-name descname"><span class="pre">prime</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.prime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.prime" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.prime">
+<span class="sig-name descname"><span class="pre">prime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.prime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.prime" title="Permalink to this definition">¶</a></dt>
 <dd><p>performs safe compound “prime” command which empties and fills the  syringe N times The final state of the valve is ‘out’. The final state of the syringe is full.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -534,8 +537,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.process_driver_reply">
-<code class="sig-name descname"><span class="pre">process_driver_reply</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reply</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.process_driver_reply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.process_driver_reply" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.process_driver_reply">
+<span class="sig-name descname"><span class="pre">process_driver_reply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reply</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.process_driver_reply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.process_driver_reply" title="Permalink to this definition">¶</a></dt>
 <dd><p>waits for the syringe to finish the previous task. The while loop checks every dt for the status of the syringe pump.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -553,8 +556,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.run_once">
-<code class="sig-name descname"><span class="pre">run_once</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.run_once"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.run_once" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.run_once">
+<span class="sig-name descname"><span class="pre">run_once</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.run_once"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.run_once" title="Permalink to this definition">¶</a></dt>
 <dd><p>run once</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
@@ -563,8 +566,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.set_cmd_position">
-<code class="sig-name descname"><span class="pre">set_cmd_position</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.set_cmd_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.set_cmd_position" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.set_cmd_position">
+<span class="sig-name descname"><span class="pre">set_cmd_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.set_cmd_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.set_cmd_position" title="Permalink to this definition">¶</a></dt>
 <dd><p>set commanded position of the pump</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -581,8 +584,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.set_speed">
-<code class="sig-name descname"><span class="pre">set_speed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.set_speed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.set_speed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.set_speed">
+<span class="sig-name descname"><span class="pre">set_speed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.set_speed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.set_speed" title="Permalink to this definition">¶</a></dt>
 <dd><p>sets speed of the pump. no limits on the input value</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -599,8 +602,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.set_speed_on_the_fly">
-<code class="sig-name descname"><span class="pre">set_speed_on_the_fly</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.set_speed_on_the_fly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.set_speed_on_the_fly" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.set_speed_on_the_fly">
+<span class="sig-name descname"><span class="pre">set_speed_on_the_fly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.set_speed_on_the_fly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.set_speed_on_the_fly" title="Permalink to this definition">¶</a></dt>
 <dd><p>sets speed on the fly. speed values above 68.8 will be ignored.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -617,8 +620,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.set_valve">
-<code class="sig-name descname"><span class="pre">set_valve</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.set_valve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.set_valve" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.set_valve">
+<span class="sig-name descname"><span class="pre">set_valve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.set_valve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.set_valve" title="Permalink to this definition">¶</a></dt>
 <dd><p>writes valve orientation into the pump</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -635,8 +638,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.snapshot">
-<code class="sig-name descname"><span class="pre">snapshot</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.snapshot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.snapshot" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.snapshot">
+<span class="sig-name descname"><span class="pre">snapshot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.snapshot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.snapshot" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns snapshot of current PVs and their values in a dictionary format</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
@@ -645,8 +648,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.start">
-<code class="sig-name descname"><span class="pre">start</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.start" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>starts run() in a separate thread</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
@@ -655,8 +658,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.stop">
-<code class="sig-name descname"><span class="pre">stop</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.stop" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>stop run() in the separate thread</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">device</span><span class="o">.</span><span class="n">run_once</span><span class="p">()</span>
@@ -665,8 +668,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device.Device.wait">
-<code class="sig-name descname"><span class="pre">wait</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.34</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.wait"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.wait" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device.Device.wait">
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.34</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device.html#Device.wait"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device.Device.wait" title="Permalink to this definition">¶</a></dt>
 <dd><p>waits for the syringe to finish the previous task. The while loop checks every dt for the status of the syringe pump.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

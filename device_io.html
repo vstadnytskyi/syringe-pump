@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Device Level Input-Output &mdash; Cavro Centris Syringe Pump 0.0.13.post9+g5e53597 documentation</title>
+  <title>Device Level Input-Output &mdash; Cavro Centris Syringe Pump 0.0.13.post10+g590589e documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
   <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
 
@@ -31,6 +33,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
@@ -67,7 +70,7 @@
             
             
               <div class="version">
-                0.0.13.post9+g5e53597
+                0.0.13.post10+g590589e
               </div>
             
           
@@ -180,26 +183,26 @@
 </pre></div>
 </div>
 <dl class="py class">
-<dt id="syringe_pump.device_io.Server">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">syringe_pump.device_io.</span></code><code class="sig-name descname"><span class="pre">Server</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">macros</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device_io.html#Server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device_io.Server" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device_io.Server">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">syringe_pump.device_io.</span></span><span class="sig-name descname"><span class="pre">Server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">macros</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device_io.html#Server"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device_io.Server" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py class">
-<dt id="syringe_pump.device_io.Server.Device_IO">
-<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">Device_IO</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pump_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#syringe_pump.device_io.Server.Device_IO" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device_io.Server.Device_IO">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Device_IO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pump_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#syringe_pump.device_io.Server.Device_IO" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device_io.Server.device_ioexecute">
-<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">device_ioexecute</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pv_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device_io.html#Server.device_ioexecute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device_io.Server.device_ioexecute" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device_io.Server.device_ioexecute">
+<em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">device_ioexecute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pv_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device_io.html#Server.device_ioexecute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device_io.Server.device_ioexecute" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device_io.Server.device_ioread">
-<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">device_ioread</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pv_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device_io.html#Server.device_ioread"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device_io.Server.device_ioread" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device_io.Server.device_ioread">
+<em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">device_ioread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pv_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device_io.html#Server.device_ioread"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device_io.Server.device_ioread" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="syringe_pump.device_io.Server.update_pvs">
-<code class="sig-name descname"><span class="pre">update_pvs</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device_io.html#Server.update_pvs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device_io.Server.update_pvs" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="syringe_pump.device_io.Server.update_pvs">
+<span class="sig-name descname"><span class="pre">update_pvs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/syringe_pump/device_io.html#Server.update_pvs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#syringe_pump.device_io.Server.update_pvs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Force update of all PVs. Works only if self.device is assigned. If None, nothing will happen.</p>
 </dd></dl>
 
