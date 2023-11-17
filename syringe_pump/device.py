@@ -18,7 +18,7 @@ from pdb import pm
 
 from numpy import nan, mean, std, nanstd, asfarray, asarray, hstack, array, concatenate, delete, round, vstack, hstack, zeros, transpose, split, unique, nonzero, take, savetxt, min, max
 
-from time import time, sleep, clock
+from time import time, sleep
 import sys
 import struct
 from pdb import pm
