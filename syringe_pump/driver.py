@@ -240,7 +240,7 @@ class Driver(object):
         else:
             reply = None
         #parsing reply
-        if reply is not None and reply is not '':
+        if reply is not None and reply is not b'':
             #the positinonal reply \xff/0`0.000\x03\r\n is sandwiched between '\x03\r\n' and '\xff/0'
             error_code = reply.split(b'\x03\r\n')[0].split(b'\xff/0')[1][0:1]
             value = reply.split(b'\x03\r\n')[0].split(b'\xff/0')[1][1:]
