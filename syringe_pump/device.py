@@ -828,7 +828,7 @@ class Device(object):
         >>> device.flow(position = 25, speed = 0.1)
         """
         self.abort()
-        if self.valve is not 'o':
+        if self.valve != 'o':
             self.set_valve('o')
         if speed <= self.flow_speed_high_limit:
             reply = self.move_abs(position = position, speed = speed)
